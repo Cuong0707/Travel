@@ -200,10 +200,10 @@ class App extends Component {
                             </a>
                         </div >
                     </div > */}
-                    <div className="bg-white fixed-top">
+                    <div className="fixed-top bg-white" style={{ backgroundColor: "var(--green-50)" }}>
                         <nav className="navbar navbar-expand-lg">
-                            <div className="container">
-                                <a href="" className="navbar-brand col-5">
+                            <div className="container-fluid">
+                                <a href="" className="navbar-brand">
                                     <h2 className="text-success"><span className="text-dark">SAIGON</span>TRIP</h2>
                                 </a>
 
@@ -212,9 +212,9 @@ class App extends Component {
                                 </button>
                                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                                     <ul className="navbar-nav">
-                                        <li className="nav-item dropdown ms-3">
+                                        <li className="nav-item dropdown ms-2">
                                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Destinations
+                                                <i class="bi bi-globe-europe-africa"></i> Destinations
                                             </a>
                                             <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                                 <li><a className="dropdown-item" href="#">Ha Noi</a></li>
@@ -222,9 +222,9 @@ class App extends Component {
                                                 <li><a className="dropdown-item" href="#">Bac Ninh</a></li>
                                             </ul>
                                         </li>
-                                        <li className="nav-item dropdown ms-3">
+                                        <li className="nav-item dropdown ms-2">
                                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Services
+                                                <i class="bi bi-cursor-fill"></i> Services <span class="badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>Hot</span>
                                             </a>
                                             <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                                 <li><a className="dropdown-item" href="#">Hotel</a></li>
@@ -232,15 +232,19 @@ class App extends Component {
                                                 <li><a className="dropdown-item" href="#">Transport</a></li>
                                             </ul>
                                         </li>
-                                        <li className="nav-item ms-3">
-                                            <a className="nav-link" href="#">Blog</a>
+                                        <li className="nav-item ms-2">
+                                            <a className="nav-link" href="#"><i class="bi bi-backpack2-fill"></i> Blog</a>
                                         </li>
-                                        <li className="nav-item ms-3">
-                                            <a className="nav-link" href="#">Contact</a>
+                                        <form class="d-flex ms-2">
+                                            <input class="form-control me-2 col-ms-12" type="search" placeholder="Search" aria-label="Search" style={{ width: "335px" }} />
+                                            <button class="btn btn-success" type="submit"><i class="bi bi-search"></i></button>
+                                        </form>
+                                        <li className="nav-item ms-2">
+                                            <a className="nav-link" href="#"><i class="bi bi-telephone-fill"></i> Contact</a>
                                         </li>
-                                        <li className="nav-item dropdown ms-3">
+                                        <li className="nav-item dropdown ms-2">
                                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Login
+                                                <i class="bi bi-person-fill"></i> Login
                                             </a>
                                             <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                                 <li><a className="dropdown-item" href="#">Login & Register</a></li>
@@ -270,7 +274,19 @@ class App extends Component {
                                                 </div>
                                             </div>
                                         </li>
-                                        <button className="button-partner btn btn-success d-table ms-5" type="button" data-bs-toggle="modal" data-bs-target="#ModalForm"><i class="bi bi-people-fill"></i>Become our partner</button>
+                                        {/* <button className="button-partner btn btn-success d-table ms-5" type="button" data-bs-toggle="modal" data-bs-target="#ModalForm"><i class="bi bi-people-fill"></i>Become our partner</button> */}
+                                        <li className="nav-item ms-2">
+                                            <a className="nav-link" href="#"><i className="bi bi-people-fill"></i> Become our partner</a>
+                                        </li>
+                                        <li className="nav-item dropdown ms-2">
+                                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-translate"></i> Languages
+                                            </a>
+                                            <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                <li><a className="dropdown-item" href="#">English</a></li>
+                                                <li><a className="dropdown-item" href="#">Vietnamese</a></li>
+                                            </ul>
+                                        </li>
                                     </ul>
                                 </div>
                             </div >
@@ -279,7 +295,7 @@ class App extends Component {
                 </nav >
 
                 <header>
-                    <div className="container-fluid">
+                    <div className="container-fluid row">
                         {/* <div className="header-image">
                             <img className="active" src="images/beach.jpg" alt="carousel" />
                             <img src="images/hero-bg-2.webp" alt="carousel" />
@@ -306,10 +322,10 @@ class App extends Component {
                                     <img src="images/beach.jpg" className="d-block w-100" alt="..." />
                                 </div>
                                 <div className="carousel-item">
-                                    <img src="images/hero-bg-1.webp" className="d-block w-100 h-25" alt="..." />
+                                    <img src="images/hero-bg-1.webp" className="d-block w-100" alt="..." />
                                 </div>
                                 <div className="carousel-item">
-                                    <img src="images/hero-bg-2.webp" className="d-block w-100 h-25" alt="..." />
+                                    <img src="https://images.pexels.com/photos/14021006/pexels-photo-14021006.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" className="d-block w-100" alt="..." />
                                 </div>
                             </div>
                         </div>
