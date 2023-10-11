@@ -203,11 +203,11 @@ class App extends Component {
                     <div className="bg-white fixed-top">
                         <nav className="navbar navbar-expand-lg">
                             <div className="container">
-                                <a href="" className="navbar-brand col-sm-5">
-                                    <h1 className="text-success"><span className="text-dark">SAIGON</span>TRIP</h1>
+                                <a href="" className="navbar-brand col-5">
+                                    <h2 className="text-success"><span className="text-dark">SAIGON</span>TRIP</h2>
                                 </a>
 
-                                <button className="navbar-toggler col-5" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="navbar-toggler-icon"></span>
                                 </button>
                                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
@@ -244,12 +244,12 @@ class App extends Component {
                                             </a>
                                             <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                                 <li><a className="dropdown-item" href="#">Login & Register</a></li>
+                                                <li><a className="dropdown-item" href="#">My Account</a></li>
                                                 <li><a className="dropdown-item" href="#">Change Password</a></li>
                                                 <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalForm" href="#">Forgot Password</a></li>
                                             </ul>
                                             <div className="modal fade" id="ModalForm" tabindex="-1" aria-hidden="true">
-
-                                                <div className="modal-dialog modal-dialog-centered ">
+                                                <div className="modal-dialog modal-dialog-centered">
                                                     <div className="modal-content">
                                                         <form action="">
                                                             <div className="modal-header">
@@ -264,16 +264,13 @@ class App extends Component {
                                                             </div>
                                                             <div className="modal-footer pt-4">
                                                                 <button type="button" className="btn btn-success mx-auto w-100">Reset Password</button>
-
                                                             </div>
-
                                                         </form>
                                                     </div>
                                                 </div>
                                             </div>
                                         </li>
-                                        <button className="button-partner btn btn-success d-table ms-5" type="button" data-bs-toggle="modal" data-bs-target="#ModalForm">Become our parter</button>
-
+                                        <button className="button-partner btn btn-success d-table ms-5" type="button" data-bs-toggle="modal" data-bs-target="#ModalForm"><i class="bi bi-people-fill"></i>Become our partner</button>
                                     </ul>
                                 </div>
                             </div >
@@ -282,9 +279,9 @@ class App extends Component {
                 </nav >
 
                 <header>
-                    <div className="container">
-                        <div className="header-image">
-                            <img className="active" src="images/hero-bg-1.webp" alt="carousel" />
+                    <div className="container-fluid">
+                        {/* <div className="header-image">
+                            <img className="active" src="images/beach.jpg" alt="carousel" />
                             <img src="images/hero-bg-2.webp" alt="carousel" />
                             <img src="images/hero-bg-3.webp" alt="carousel" />
                         </div>
@@ -301,72 +298,93 @@ class App extends Component {
                             <a href="#" className="active"></a>
                             <a href="#"></a>
                             <a href="#"></a>
-                        </div>
-                    </div>
-                </header>
-                <section>
-                    <div className="container-fluid row">
-                        <aside className="col-5">
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">Filter</h5>
-                                    <label htmlFor="Location">Location<span className="text-danger">*</span></label>
-                                    <select id="Location" name="Location" className="form-control mt-2">
-                                        <option value="hcm">Ho Chi Minh</option>
-                                        <option value="hanoi">Ha Noi</option>
-                                        <option value="hcm">Hai Phong</option>
-                                        <option value="danang">Da Nang</option>
-                                    </select>
+                        </div> */}
 
+                        <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
+                            <div className="carousel-inner" style={{ width: "1485px", height: "700px" }}>
+                                <div className="carousel-item active">
+                                    <img src="images/beach.jpg" className="d-block w-100" alt="..." />
+                                </div>
+                                <div className="carousel-item">
+                                    <img src="images/hero-bg-1.webp" className="d-block w-100 h-25" alt="..." />
+                                </div>
+                                <div className="carousel-item">
+                                    <img src="images/hero-bg-2.webp" className="d-block w-100 h-25" alt="..." />
                                 </div>
                             </div>
-                        </aside>
-                        <article className="bg-primary col-7">
-                            <div className="map">
-                                <ComposableMap
-                                    projection="geoMercator"
-                                    projectionConfig={{
-                                        scale: 2100,
-                                        center: [105, 15] // coordinate of VietNam [long, lat]
-                                    }}
-                                    style={{
-                                        width: "100%",
-                                        height: "auto"
-                                    }}
-                                >
-                                    <ZoomableGroup center={[104, 17]}>
-                                        {vietnam.map((geoUrl) => (
-                                            <Geographies key={geoUrl} geography={geoUrl}>
-                                                {({ geographies }) =>
-                                                    geographies.map((geo) => (
-                                                        <Geography
-                                                            key={geo.rsmKey}
-                                                            geography={geo}
-                                                            style={{
-                                                                default: {
-                                                                    fill: '#808080',
-                                                                    stroke: '#212529',
-                                                                    strokeWidth: 0.75,
-                                                                    outline: 'none',
-                                                                },
-                                                                hover: {
-                                                                    fill: '#e6dfd9',
-                                                                    stroke: '#212529',
-                                                                    strokeWidth: 0.75,
-                                                                    outline: 'none',
-                                                                },
-                                                            }}
-                                                        />
-                                                    ))
-                                                }
-                                            </Geographies>
-                                        ))}
-                                    </ZoomableGroup>
-                                </ComposableMap>
-                            </div>
-                        </article>
+                        </div>
+                        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span className="visually-hidden">Previous</span>
+                        </button>
+                        <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span className="visually-hidden">Next</span>
+                        </button>
                     </div>
-                </section>
+
+                </header>
+                <div className="container-fluid row">
+                    <aside className="col-5">
+                        <div className="card">
+                            <div className="card-body">
+                                <h5 className="card-title">Filter</h5>
+                                <label htmlFor="Location">Location<span className="text-danger">*</span></label>
+                                <select id="Location" name="Location" className="form-control mt-2">
+                                    <option value="hcm">Ho Chi Minh</option>
+                                    <option value="hanoi">Ha Noi</option>
+                                    <option value="hcm">Hai Phong</option>
+                                    <option value="danang">Da Nang</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </aside>
+                    <article className="bg-info col-7">
+                        <div className="map">
+                            <ComposableMap
+                                projection="geoMercator"
+                                projectionConfig={{
+                                    scale: 2100,
+                                    center: [105, 15] // coordinate of VietNam [long, lat]
+                                }}
+                                style={{
+                                    width: "100%",
+                                    height: "auto"
+                                }}
+                            >
+                                <ZoomableGroup center={[104, 17]}>
+                                    {vietnam.map((geoUrl) => (
+                                        <Geographies key={geoUrl} geography={geoUrl}>
+                                            {({ geographies }) =>
+                                                geographies.map((geo) => (
+                                                    <Geography
+                                                        key={geo.rsmKey}
+                                                        geography={geo}
+                                                        style={{
+                                                            default: {
+                                                                fill: '#808080',
+                                                                stroke: '#212529',
+                                                                strokeWidth: 0.75,
+                                                                outline: 'none',
+                                                            },
+                                                            hover: {
+                                                                fill: '#e6dfd9',
+                                                                stroke: '#212529',
+                                                                strokeWidth: 0.75,
+                                                                outline: 'none',
+                                                            },
+                                                        }}
+                                                    />
+                                                ))
+                                            }
+                                        </Geographies>
+                                    ))}
+                                </ZoomableGroup>
+                            </ComposableMap>
+                        </div>
+                    </article>
+                </div>
                 <section className="destination">
                     <div className="container">
                         <h2 className="destination-title">Top Destinations</h2>
@@ -383,27 +401,6 @@ class App extends Component {
                                             <i className="ri-heart-3-line"></i>
                                         </a>
                                         <span className="destinations-list-top-tag">Popular</span>
-                                    </div>
-                                    <div className="destination-list-content">
-                                        <div className="destination-list-content-location">
-                                            <i className="ri-global-line"></i>
-                                            Marrakech, Morocco
-                                        </div>
-                                        <a className="destination-list-content-title" href="#">Explore the Magic of Marrakech</a>
-                                        <div className="destination-list-content-rating">
-                                            <i className="ri-star-fill"></i>
-                                            <i className="ri-star-fill"></i>
-                                            <i className="ri-star-fill"></i>
-                                            <i className="ri-star-half-fill"></i>
-                                        </div>
-                                        <div className="destination-list-content-price">
-                                            from <span>$123</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="destination-list-top">
-                                        <img src="images/hero-bg-1.webp" />
                                     </div>
                                     <div className="destination-list-content">
                                         <div className="destination-list-content-location">
