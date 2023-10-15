@@ -200,7 +200,7 @@ class App extends Component {
                             </a>
                         </div >
                     </div > */}
-                    <div className="fixed-top bg-white" style={{ backgroundColor: "var(--green-50)" }}>
+                    <div className="fixed-top shadow rounded" style={{ backgroundColor: "var(--green-50)" }}>
                         <nav className="navbar navbar-expand-lg">
                             <div className="container-fluid">
                                 <a href="" className="navbar-brand">
@@ -211,10 +211,10 @@ class App extends Component {
                                     <span className="navbar-toggler-icon"></span>
                                 </button>
                                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                                    <ul className="navbar-nav">
+                                    <ul className="navbar-nav ">
                                         <li className="nav-item dropdown ms-2">
                                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-globe-europe-africa"></i> Destinations
+                                                <i class="bi bi-globe-europe-africa"></i> Điểm Đến
                                             </a>
                                             <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                                 <li><a className="dropdown-item" href="#">Ha Noi</a></li>
@@ -224,33 +224,42 @@ class App extends Component {
                                         </li>
                                         <li className="nav-item dropdown ms-2">
                                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-cursor-fill"></i> Services <span class="badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>Hot</span>
+                                                <i class="bi bi-cursor-fill"></i> Dịch Vụ <span class="badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>Hot</span>
                                             </a>
                                             <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                <li><a className="dropdown-item" href="#">Hotel</a></li>
-                                                <li><a className="dropdown-item" href="#">Restaurant</a></li>
-                                                <li><a className="dropdown-item" href="#">Transport</a></li>
+                                                <li><a className="dropdown-item" href="#">Khách Sạn</a></li>
+                                                <li><a className="dropdown-item" href="#">Nhà Hàng</a></li>
+                                                <li><a className="dropdown-item" href="#">Phương Tiện Di Chuyển</a></li>
                                             </ul>
                                         </li>
                                         <li className="nav-item ms-2">
                                             <a className="nav-link" href="#"><i class="bi bi-backpack2-fill"></i> Blog</a>
                                         </li>
                                         <form class="d-flex ms-2">
-                                            <input class="form-control me-2 col-ms-12" type="search" placeholder="Search" aria-label="Search" style={{ width: "335px" }} />
+                                            {/* <input class="form-control me-2 col-ms-12" type="search" placeholder="Search" aria-label="Search" style={{ width: "350px" }} /> */}
+
+                                            <input className="form-control me-2 col-ms-12" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." style={{ width: "350px" }} />
+                                            <datalist id="datalistOptions">
+                                                <option value="San Francisco" />
+                                                <option value="New York" />
+                                                <option value="Seattle" />
+                                                <option value="Los Angeles" />
+                                                <option value="Chicago" />
+                                            </datalist>
                                             <button class="btn btn-success" type="submit"><i class="bi bi-search"></i></button>
                                         </form>
                                         <li className="nav-item ms-2">
-                                            <a className="nav-link" href="#"><i class="bi bi-telephone-fill"></i> Contact</a>
+                                            <a className="nav-link" href="#"><i class="bi bi-telephone-fill"></i> Liên Hệ</a>
                                         </li>
                                         <li className="nav-item dropdown ms-2">
                                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-person-fill"></i> Login
+                                                <i class="bi bi-person-fill"></i> Đăng Nhập
                                             </a>
                                             <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                <li><a className="dropdown-item" href="#">Login & Register</a></li>
-                                                <li><a className="dropdown-item" href="#">My Account</a></li>
-                                                <li><a className="dropdown-item" href="#">Change Password</a></li>
-                                                <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalForm" href="#">Forgot Password</a></li>
+                                                <li><a className="dropdown-item" href="#">Đăng Nhập & Đăng Ký</a></li>
+                                                <li><a className="dropdown-item" href="#">Thông Tin Cá Nhân</a></li>
+                                                <li><a className="dropdown-item" href="#">Đổi Mật Khẩu</a></li>
+                                                <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalForm" href="#">Quên Mật Khẩu</a></li>
                                             </ul>
                                             <div className="modal fade" id="ModalForm" tabindex="-1" aria-hidden="true">
                                                 <div className="modal-dialog modal-dialog-centered">
@@ -276,15 +285,17 @@ class App extends Component {
                                         </li>
                                         {/* <button className="button-partner btn btn-success d-table ms-5" type="button" data-bs-toggle="modal" data-bs-target="#ModalForm"><i class="bi bi-people-fill"></i>Become our partner</button> */}
                                         <li className="nav-item ms-2">
-                                            <a className="nav-link" href="#"><i className="bi bi-people-fill"></i> Become our partner</a>
+                                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-cursor-fill"></i> Trở Thành Đối Tác <span class="badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>Hot</span>
+                                            </a>
                                         </li>
                                         <li className="nav-item dropdown ms-2">
                                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-translate"></i> Languages
+                                                <i class="bi bi-translate"></i>
                                             </a>
                                             <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                <li><a className="dropdown-item" href="#">Việt Nam</a></li>
                                                 <li><a className="dropdown-item" href="#">English</a></li>
-                                                <li><a className="dropdown-item" href="#">Vietnamese</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -295,7 +306,7 @@ class App extends Component {
                 </nav >
 
                 <header>
-                    <div className="container-fluid row">
+                    <div className="container-fluid">
                         {/* <div className="header-image">
                             <img className="active" src="images/beach.jpg" alt="carousel" />
                             <img src="images/hero-bg-2.webp" alt="carousel" />
@@ -317,15 +328,15 @@ class App extends Component {
                         </div> */}
 
                         <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
-                            <div className="carousel-inner" style={{ width: "1485px", height: "700px" }}>
+                            <div className="carousel-inner" style={{ height: "650px" }}>
                                 <div className="carousel-item active">
-                                    <img src="images/beach.jpg" className="d-block w-100" alt="..." />
+                                    <img src="images/beach.jpg" className="d-block w-100" alt="..." style={{ height: "650px" }} />
                                 </div>
                                 <div className="carousel-item">
-                                    <img src="images/hero-bg-1.webp" className="d-block w-100" alt="..." />
+                                    <img src="images/hero-bg-1.webp" className="d-block w-100" alt="..." style={{ height: "650px" }} />
                                 </div>
                                 <div className="carousel-item">
-                                    <img src="https://images.pexels.com/photos/14021006/pexels-photo-14021006.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" className="d-block w-100" alt="..." />
+                                    <img src="https://images.pexels.com/photos/14021006/pexels-photo-14021006.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" className="d-block w-100" alt="..." style={{ height: "650px" }} />
                                 </div>
                             </div>
                         </div>
@@ -356,7 +367,7 @@ class App extends Component {
                             </div>
                         </div>
                     </aside>
-                    <article className="bg-info col-7">
+                    <article className="col-7">
                         <div className="map">
                             <ComposableMap
                                 projection="geoMercator"
@@ -369,7 +380,7 @@ class App extends Component {
                                     height: "auto"
                                 }}
                             >
-                                <ZoomableGroup center={[104, 17]}>
+                                <ZoomableGroup center={[104, 16]}>
                                     {vietnam.map((geoUrl) => (
                                         <Geographies key={geoUrl} geography={geoUrl}>
                                             {({ geographies }) =>
@@ -564,40 +575,66 @@ class App extends Component {
                                 <a href="#"><i className="ri-linkedin-fill"></i></a>
                             </div>
                         </div>
-                        <div className="footer-links">
-                            <div>
-                                <div className="footer-links-title">Company</div>
+                        <div className="footer-links row mt-4">
+                            <div className="col-6">
+                                <b style={{ fontSize: "20px" }}>Công ty cổ phần du lịch Việt Nam SaiGonTrip</b>
+                                <p className="mt-2">Tổng đài chăm sóc: 1900 2083</p>
+                                <p>Email: hotro@saigontrip.vn</p>
+                                <p>Văn phòng chính: Cong vien phan mem Quang Trung</p>
+                                <div className="mb-3 row">
+                                    <label for="exampleInputEmail1" className="form-label">Đăng ký nhận thông báo mới nhất từ chúng tôi:</label>
+                                    <form className="d-flex">
+                                        <input className="form-control me-2 col-ms-12" type="Email" placeholder="Email" aria-label="Email" style={{ width: "280px" }} />
+                                        <button className="btn btn-success" type="submit">Gửi</button>
+                                    </form>
+                                </div>
+                                <div>
+                                    <a href=""><img src="../images/logo-bocongthuong.png" style={{ height: "50px" }}></img></a>
+                                    <a href=""><img src="../images/logo-dkbocongthuong.png" style={{ height: "40px", marginLeft: "20px" }}></img></a>
+                                </div>
+                            </div>
+                            <div className="col-2">
+                                <div className="footer-links-title">Chính sách & Quy định</div>
                                 <ul className="footer-links-list">
-                                    <li><a href="#">About</a></li>
-                                    <li><a href="#">Terms & Condition</a></li>
-                                    <li><a href="#">Privacy & Policy</a></li>
+                                    <li><a href="#">Điều khoản & điều kiện</a></li>
+                                    <li><a href="#">Quy định thanh toán</a></li>
+                                    <li><a href="#">Quy chế hoạt động</a></li>
+                                    <li><a href="#">Chương trình khách hàng thân thiết</a></li>
+                                    <li><a href="#">Chương trình đánh giá trải nghiệm khách sạn</a></li>
                                 </ul>
                             </div>
-                            <div>
-                                <div className="footer-links-title">Details</div>
+                            <div className="col-2">
+                                <div className="footer-links-title">Khách hàng và đối tác</div>
                                 <ul className="footer-links-list">
-                                    <li><a href="#">Services</a></li>
-                                    <li><a href="#">Contact |Info</a></li>
-                                    <li><a href="#">Tour Details</a></li>
+                                    <li><a href="#">Dịch Vụ</a></li>
+                                    <li><a href="#">Liên Hệ</a></li>
+                                    <li><a href="#">Chi Tiết Dịch Vụ</a></li>
+                                    <li><a href="#">Đăng Nhập</a></li>
+                                    <li><a href="#">Tuyển Dụng</a></li>
                                 </ul>
                             </div>
-                            <div>
-                                <div className="footer-links-title">Price Details</div>
+                            <div className="col-2">
+                                <div className="footer-links-title">Khác</div>
                                 <ul className="footer-links-list">
-                                    <li><a href="#">Refund Info</a></li>
-                                    <li><a href="#">Travels</a></li>
-                                    <li><a href="#">Privacy & Policy</a></li>
+                                    <li><a href="#">SaiGonTrip Blog</a></li>
+                                    <li><a href="#">Địa Điểm Nổi Tiếng</a></li>
+                                    <li><a href="#">Xu Hướng</a></li>
                                 </ul>
                             </div>
                         </div>
-                        <div className="footer-bottom">
-                            <p>Copyright © Tour. All Rights Reserved.</p>
+                        <div className="footer-bottom text-center row">
+                            <p>SaiGonTrip là thành viên của FPT Services - Một trong những tập đoàn đứng đầu Đông Nam Á về du lịch trực tuyến và các dịch vụ liên quan</p>
+                            <div className="footer-line-img">
+                                <img src="../images/logo-fpt.png" className="col-4 " style={{ height: "100px", width: "100px" }}></img>
+                                <img src="../images/logo-footer1.png" className="col-4 " style={{ height: "100px", width: "100px" }}></img>
+                                <img src="../images/logo-footer2.png" className="col-4 " style={{ height: "120px", width: "120px" }}></img>
+                                <img src="../images/logo-footer3.png" className="col-4" style={{ height: "100px", width: "100px" }}></img>
+                            </div>
+                            <p>Copyright © 2023 - CÔNG TY CỔ PHẦN DU LỊCH SaiGonTrip - Đăng ký kinh doanh số 113 - do Sở Kế hoạch và Đầu tư thành phố Hồ Chí Minh cấp lần đầu ngày 29 tháng 11 năm 2023</p>
                         </div>
                     </div>
                 </footer>
-
             </div >
-
         );
     }
 }
