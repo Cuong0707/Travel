@@ -286,7 +286,7 @@ class App extends Component {
                                         {/* <button className="button-partner btn btn-success d-table ms-5" type="button" data-bs-toggle="modal" data-bs-target="#ModalForm"><i class="bi bi-people-fill"></i>Become our partner</button> */}
                                         <li className="nav-item ms-2">
                                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-cursor-fill"></i> Trở Thành Đối Tác <span class="badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>Hot</span>
+                                                <i class="bi bi-people-fill"></i> Trở Thành Đối Tác <span class="badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>Hot</span>
                                             </a>
                                         </li>
                                         <li className="nav-item dropdown ms-2">
@@ -414,7 +414,128 @@ class App extends Component {
                 </div>
                 <section className="destination">
                     <div className="container">
-                        <h2 className="destination-title">Top Destinations</h2>
+                        <h2 className="destination-title">Địa Điểm Nổi Bật</h2>
+                        <div className="destination-wrapper">
+                            <a href="#" className="slider-arrow prev" data-slide="prev" data-target="#destination-list"><i
+                                className="ri-arrow-left-s-line"></i></a>
+                            <a href="#" className="slider-arrow next" data-slide="next" data-target="#destination-list"><i
+                                className="ri-arrow-right-s-line"></i></a>
+                            <div className="destination-list" id="destination-list">
+                                <div>
+                                    <div className="destination-list-top">
+                                        <img src="images/hero-bg-1.webp" />
+                                        <a className="destinations-list-top-favourite">
+                                            <i className="ri-heart-3-line"></i>
+                                        </a>
+                                        <span className="destinations-list-top-tag">Popular</span>
+                                    </div>
+                                    <div className="destination-list-content">
+                                        <div className="destination-list-content-location">
+                                            <i className="ri-global-line"></i>
+                                            Marrakech, Morocco
+                                        </div>
+                                        <a className="destination-list-content-title" href="#">Explore the Magic of Marrakech</a>
+                                        <div className="destination-list-content-rating">
+                                            <i className="ri-star-fill"></i>
+                                            <i className="ri-star-fill"></i>
+                                            <i className="ri-star-fill"></i>
+                                            <i className="ri-star-half-fill"></i>
+                                        </div>
+                                        <div className="destination-list-content-price">
+                                            from <span>$123</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="destination-list-top">
+                                        <img src="images/hero-bg-1.webp" />
+                                    </div>
+                                    <div className="destination-list-content">
+                                        <div className="destination-list-content-location">
+                                            <i className="ri-global-line"></i>
+                                            Marrakech, Morocco
+                                        </div>
+                                        <a className="destination-list-content-title" href="#">Explore the Magic of Marrakech</a>
+                                        <div className="destination-list-content-rating">
+                                            <i className="ri-star-fill"></i>
+                                            <i className="ri-star-fill"></i>
+                                            <i className="ri-star-fill"></i>
+                                            <i className="ri-star-half-fill"></i>
+                                        </div>
+                                        <div className="destination-list-content-price">
+                                            from <span>$123</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="destination-list-top">
+                                        <img src="images/hero-bg-1.webp" />
+                                    </div>
+                                    <div className="destination-list-content">
+                                        <div className="destination-list-content-location">
+                                            <i className="ri-global-line"></i>
+                                            Marrakech, Morocco
+                                        </div>
+                                        <a className="destination-list-content-title" href="#">Explore the Magic of Marrakech</a>
+                                        <div className="destination-list-content-rating">
+                                            <i className="ri-star-fill"></i>
+                                            <i className="ri-star-fill"></i>
+                                            <i className="ri-star-fill"></i>
+                                            <i className="ri-star-half-fill"></i>
+                                        </div>
+                                        <div className="destination-list-content-price">
+                                            from <span>$123</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="destination-list-top">
+                                        <img src="images/hero-bg-1.webp" />
+                                    </div>
+                                    <div className="destination-list-content">
+                                        <div className="destination-list-content-location">
+                                            <i className="ri-global-line"></i>
+                                            Marrakech, Morocco
+                                        </div>
+                                        <a className="destination-list-content-title" href="#">Explore the Magic of Marrakech</a>
+                                        <div className="destination-list-content-rating">
+                                            <i className="ri-star-fill"></i>
+                                            <i className="ri-star-fill"></i>
+                                            <i className="ri-star-fill"></i>
+                                            <i className="ri-star-half-fill"></i>
+                                        </div>
+                                        <div className="destination-list-content-price">
+                                            from <span>$123</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div className="destination-list-top">
+                                        <img src="images/hero-bg-1.webp" />
+                                    </div>
+                                    <div className="destination-list-content">
+                                        <div className="destination-list-content-location">
+                                            <i className="ri-global-line"></i>
+                                            Marrakech, Morocco
+                                        </div>
+                                        <a className="destination-list-content-title" href="#">Explore the Magic of Marrakech</a>
+                                        <div className="destination-list-content-rating">
+                                            <i className="ri-star-fill"></i>
+                                            <i className="ri-star-fill"></i>
+                                            <i className="ri-star-fill"></i>
+                                            <i className="ri-star-half-fill"></i>
+                                        </div>
+                                        <div className="destination-list-content-price">
+                                            from <span>$123</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="container">
+                        <h2 className="destination-title">Các Blog</h2>
                         <div className="destination-wrapper">
                             <a href="#" className="slider-arrow prev" data-slide="prev" data-target="#destination-list"><i
                                 className="ri-arrow-left-s-line"></i></a>
@@ -536,29 +657,32 @@ class App extends Component {
                 </section>
                 <section className="testimonial">
                     <div className="container">
-                        <h2 className="section-title">Join the Adventure, Read Our Reviews</h2>
+                        <h2 className="section-title">Đội Ngũ Chính Của Chúng Tôi</h2>
                         <div className="testimonial-wrapper">
                             <div className="testimonial-list">
                                 <div>
-                                    <img src="images/user-2.webp" className="testimonial-user-image" />
-                                    <p className="testimonial-content">"I had an amazing time on my tour with tour. The guide was
-                                        fantastic and showed us all the best sights. I highly recommend tour.”</p>
-                                    <div className="testimonial-user-name">Micheal</div>
-                                    <div className="testimonial-user-job">Teacher</div>
+                                    <img src="images/user-Hieu.jpg" className="testimonial-user-image" />
+                                    <p className="testimonial-content">"Cảm ơn bạn đến với SaiGonTrip! Chúng tôi cung cấp thông tin và hỗ trợ cho những người yêu du lịch. Tại đây, bạn có thể tìm hiểu về
+                                        các điểm đến du lịch, lựa chọn khách sạn và hoạt động thú vị. Hy vọng trang web sẽ giúp bạn
+                                        có những trải nghiệm tuyệt vời!”</p>
+                                    <div className="testimonial-user-name">Nguyễn Trọng Hiếu</div>
+                                    <div className="testimonial-user-job">Dev</div>
                                 </div>
                                 <div>
-                                    <img src="images/user-2.webp" className="testimonial-user-image" />
-                                    <p className="testimonial-content">"I had an amazing time on my tour with tour. The guide was
-                                        fantastic and showed us all the best sights. I highly recommend tour.”</p>
-                                    <div className="testimonial-user-name">Micheal</div>
-                                    <div className="testimonial-user-job">Teacher</div>
+                                    <img src="images/user-Cuong.jpg" className="testimonial-user-image" />
+                                    <p className="testimonial-content">"Chào mừng bạn đến với trang web du lịch! Chúng tôi là nguồn thông tin đáng tin cậy và đa dạng cho những người
+                                        đam mê du lịch. Tại đây, bạn có thể khám phá những điểm đến hấp dẫn, những khách sạn tuyệt vời. Hãy để chúng tôi giúp bạn có những trải nghiệm du lịch tuyệt vời
+                                        và thuận lợi!”</p>
+                                    <div className="testimonial-user-name">Huỳnh Nhật Cường</div>
+                                    <div className="testimonial-user-job">Dev</div>
                                 </div>
                                 <div>
-                                    <img src="images/user-2.webp" className="testimonial-user-image" />
-                                    <p className="testimonial-content">"I had an amazing time on my tour with tour. The guide was
-                                        fantastic and showed us all the best sights. I highly recommend tour.”</p>
-                                    <div className="testimonial-user-name">Micheal</div>
-                                    <div className="testimonial-user-job">Teacher</div>
+                                    <img src="images/user-Kiet.jpg" className="testimonial-user-image" />
+                                    <p className="testimonial-content">"SaiGonTrip, bạn có thể khám phá các điểm đến hấp dẫn, tìm hiểu về văn hóa độc đáo,
+                                        lựa chọn địa điểm khách sạn và món ăn. Chúng tôi sẵn sàng giúp bạn có một chuyến du lịch đáng nhớ.
+                                        Cùng chúng tôi khám phá và tìm hiểu những điều mới về những địa điểm du lịch trên khắp đất nước hình chữ S!.”</p>
+                                    <div className="testimonial-user-name">Võ Tuấn Kiệt</div>
+                                    <div className="testimonial-user-job">Dev</div>
                                 </div>
                             </div>
                         </div>
