@@ -4,7 +4,6 @@ import '../style/style.scss'
 class Nav extends React.Component {
     render() {
         return (
-
             <div className="fixed-top shadow rounded" style={{ backgroundColor: "var(--green-50)" }}>
                 <nav className="navbar navbar-expand-lg">
                     <div className="container-fluid">
@@ -16,9 +15,9 @@ class Nav extends React.Component {
                         </button>
                         <div className="collapse navbar-collapse" id="navbarNavDropdown">
                             <ul className="navbar-nav ">
-                                <li className="nav-item dropdown ms-2">
+                                <li className="nav-item dropdown ms-1">
                                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i className="bi bi-globe-europe-africa"></i> Điểm Đến
+                                        <img src="images/icon-destination.gif"></img> Điểm Đến
                                     </a>
 
                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -29,9 +28,9 @@ class Nav extends React.Component {
 
 
                                 </li>
-                                <li className="nav-item dropdown ms-2">
+                                <li className="nav-item dropdown ms-1">
                                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-cursor-fill"></i> Dịch Vụ <span class="badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>Hot</span>
+                                        <img src="images/icon-services.gif"></img> Dịch Vụ <span class="badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>Hot</span>
                                     </a>
                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                         <li><a className="dropdown-item" href="#">Khách Sạn</a></li>
@@ -39,10 +38,10 @@ class Nav extends React.Component {
                                         <li><a className="dropdown-item" href="#">Phương Tiện Di Chuyển</a></li>
                                     </ul>
                                 </li>
-                                <li className="nav-item ms-2">
-                                    <a className="nav-link" href="#"><i class="bi bi-backpack2-fill"></i> Blog</a>
+                                <li className="nav-item ms-1">
+                                    <a className="nav-link" href="#"> <img src="images/icon-blog1.gif"></img> Blog</a>
                                 </li>
-                                <form class="d-flex ms-2">
+                                <form class="d-flex ms-1">
                                     {/* <input class="form-control me-2 col-ms-12" type="search" placeholder="Search" aria-label="Search" style={{ width: "350px" }} /> */}
 
                                     <input className="form-control me-2 col-ms-12" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." style={{ width: "350px" }} />
@@ -55,12 +54,12 @@ class Nav extends React.Component {
                                     </datalist>
                                     <button class="btn btn-success" type="submit"><i class="bi bi-search"></i></button>
                                 </form>
-                                <li className="nav-item ms-2">
-                                    <a className="nav-link" href="#"><i class="bi bi-telephone-fill"></i> Liên Hệ</a>
+                                <li className="nav-item ms-1">
+                                    <a className="nav-link" href="#"> <img src="images/icon-contact.gif"></img> Liên Hệ</a>
                                 </li>
-                                <li className="nav-item dropdown ms-2">
+                                <li className="nav-item dropdown ms-1">
                                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-person-fill"></i> Đăng Nhập
+                                        <img src="images/icon-login.gif"></img> Đăng Nhập
                                     </a>
                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                         <li><a className="dropdown-item" href="#">Đăng Nhập & Đăng Ký</a></li>
@@ -91,12 +90,12 @@ class Nav extends React.Component {
                                     </div>
                                 </li>
                                 {/* <button className="button-partner btn btn-success d-table ms-5" type="button" data-bs-toggle="modal" data-bs-target="#ModalForm"><i class="bi bi-people-fill"></i>Become our partner</button> */}
-                                <li className="nav-item ms-2">
+                                <li className="nav-item ms-1">
                                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-people-fill"></i> Trở Thành Đối Tác <span class="badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>Hot</span>
+                                        <img src="images/icon-partner.gif"></img> Trở Thành Đối Tác <span class="badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>Hot</span>
                                     </a>
                                 </li>
-                                <li className="nav-item dropdown ms-2">
+                                <li className="nav-item dropdown ms-1">
                                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="bi bi-translate"></i>
                                     </a>

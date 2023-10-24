@@ -10,7 +10,7 @@ import Top_Destination from './components/Top_Destination';
 import Blogs from './components/Blogs';
 import Member from './components/Member';
 import Content from './components/Content';
-import Hellovd from './components/Hellovd';
+import './style/style.scss'
 import {
     BrowserRouter as Router,
     Switch,
