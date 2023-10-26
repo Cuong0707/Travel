@@ -1,47 +1,47 @@
 import React from "react";
 import '../style/style.scss'
-
+import { Link } from "react-router-dom";
 class Nav extends React.Component {
     render() {
         return (
             <div className="fixed-top shadow rounded" style={{ backgroundColor: "var(--green-50)" }}>
                 <nav className="navbar navbar-expand-lg">
                     <div className="container-fluid">
-                        <a href="/vd" className="navbar-brand">
+                        <Link to="/" className="navbar-brand">
                             <h3 className="text-success"><span className="text-dark">SAIGON</span>TRIP</h3>
-                        </a>
+                        </Link>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
                         <div className="collapse navbar-collapse" id="navbarNavDropdown">
                             <ul className="navbar-nav ">
                                 <li className="nav-item dropdown ms-1">
-                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <img src="images/icon-destination.gif"></img> Điểm Đến
-                                    </a>
+                                    </Link>
 
                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a className="dropdown-item" href="#">Ha Noi</a></li>
-                                        <li><a className="dropdown-item" href="#">Hai Phong</a></li>
-                                        <li><a className="dropdown-item" href="#">Bac Ninh</a></li>
+                                        <li><Link className="dropdown-item" to="#">Ha Noi</Link></li>
+                                        <li><Link className="dropdown-item" to="#">Hai Phong</Link></li>
+                                        <li><Link className="dropdown-item" to="#">Bac Ninh</Link></li>
                                     </ul>
 
 
                                 </li>
                                 <li className="nav-item dropdown ms-1">
-                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <img src="images/icon-services.gif"></img> Dịch Vụ <span class="badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>Hot</span>
-                                    </a>
+                                    <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="images/icon-services.gif"></img> Dịch Vụ <span className="badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>Hot</span>
+                                    </Link>
                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a className="dropdown-item" href="#">Khách Sạn</a></li>
-                                        <li><a className="dropdown-item" href="#">Nhà Hàng</a></li>
-                                        <li><a className="dropdown-item" href="#">Phương Tiện Di Chuyển</a></li>
+                                        <li><Link className="dropdown-item" to="#">Khách Sạn</Link></li>
+                                        <li><Link className="dropdown-item" to="#">Nhà Hàng</Link></li>
+                                        <li><Link className="dropdown-item" to="#">Phương Tiện Di Chuyển</Link></li>
                                     </ul>
                                 </li>
                                 <li className="nav-item ms-1">
-                                    <a className="nav-link" href="#"> <img src="images/icon-blog1.gif"></img> Blog</a>
+                                    <Link className="nav-link" to="#"> <img src="images/icon-blog1.gif"></img> Blog</Link>
                                 </li>
-                                <form class="d-flex ms-1">
+                                <form className="d-flex ms-1">
                                     {/* <input class="form-control me-2 col-ms-12" type="search" placeholder="Search" aria-label="Search" style={{ width: "350px" }} /> */}
 
                                     <input className="form-control me-2 col-ms-12" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." style={{ width: "350px" }} />
@@ -52,20 +52,20 @@ class Nav extends React.Component {
                                         <option value="Los Angeles" />
                                         <option value="Chicago" />
                                     </datalist>
-                                    <button class="btn btn-success" type="submit"><i class="bi bi-search"></i></button>
+                                    <button className="btn btn-success" type="submit"><i className="bi bi-search"></i></button>
                                 </form>
                                 <li className="nav-item ms-1">
-                                    <a className="nav-link" href="#"> <img src="images/icon-contact.gif"></img> Liên Hệ</a>
+                                    <Link className="nav-link" to="contact"> <img src="images/icon-contact.gif"></img> Liên Hệ</Link>
                                 </li>
                                 <li className="nav-item dropdown ms-1">
-                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <img src="images/icon-login.gif"></img> Đăng Nhập
-                                    </a>
+                                    </Link>
                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a className="dropdown-item" href="#">Đăng Nhập & Đăng Ký</a></li>
-                                        <li><a className="dropdown-item" href="#">Thông Tin Cá Nhân</a></li>
-                                        <li><a className="dropdown-item" href="#">Đổi Mật Khẩu</a></li>
-                                        <li><a className="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalForm" href="#">Quên Mật Khẩu</a></li>
+                                        <li><Link className="dropdown-item" to="./view/login_signup.js">Đăng Nhập & Đăng Ký</Link></li>
+                                        <li><Link className="dropdown-item" to="#">Thông Tin Cá Nhân</Link></li>
+                                        <li><Link className="dropdown-item" to="#">Đổi Mật Khẩu</Link></li>
+                                        <li><Link className="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalForm" to="#">Quên Mật Khẩu</Link></li>
                                     </ul>
                                     <div className="modal fade" id="ModalForm" tabindex="-1" aria-hidden="true">
                                         <div className="modal-dialog modal-dialog-centered">
@@ -91,17 +91,17 @@ class Nav extends React.Component {
                                 </li>
                                 {/* <button className="button-partner btn btn-success d-table ms-5" type="button" data-bs-toggle="modal" data-bs-target="#ModalForm"><i class="bi bi-people-fill"></i>Become our partner</button> */}
                                 <li className="nav-item ms-1">
-                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <img src="images/icon-partner.gif"></img> Trở Thành Đối Tác <span class="badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>Hot</span>
-                                    </a>
+                                    </Link>
                                 </li>
                                 <li className="nav-item dropdown ms-1">
-                                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="bi bi-translate"></i>
-                                    </a>
+                                    </Link>
                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><a className="dropdown-item" href="#">Việt Nam</a></li>
-                                        <li><a className="dropdown-item" href="#">English</a></li>
+                                        <li><Link className="dropdown-item" href="#">Việt Nam</Link></li>
+                                        <li><Link className="dropdown-item" href="#">English</Link></li>
                                     </ul>
                                 </li>
                             </ul>
