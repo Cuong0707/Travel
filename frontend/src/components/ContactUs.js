@@ -62,7 +62,7 @@ class ContactUs extends React.Component {
                         </div>
 
                         <div className="col-md-3 text-center">
-                            <div className="list-unstyled mb-0">
+                            <div className="list-unstyled">
                                 <p><i className="bi bi-geo-alt-fill h1 mt-4"></i>
                                     <p>San Francisco, CA 94126, USA</p>
                                 </p>

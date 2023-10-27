@@ -161,11 +161,12 @@ header {
     overflow: hidden;
     border-radius: 15px;
 }
+
 .card img {
-    width: 100%;
-    height: 250%;
+    width: 230px;
+    height: 150px;
     transition: all 0.3s;
-    border-radius: 15px;
+    border-radius: 15px 0px 0px;
 }
 .card:hover img {
     transform: scale(1.1);
@@ -472,9 +473,6 @@ footer {
         0 3px 1px rgb(123, 122, 122);
 }
 
-.card-img-top{
-    height: 200px;
-}
 /* End Break point */
 /* Content 1*/
 .one h3 {
@@ -531,5 +529,11 @@ footer {
     background-color: #b80000;
   }
   
+.swiper-button-next,
+.swiper-button-prev {
+    background-color: rgba(255, 255, 255, 0.497);
+    padding: 20px 20px;
+    border-radius: 100%;
+    border: 3px solid black;
+}
 
-  

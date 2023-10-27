@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 class Nav extends React.Component {
     render() {
         return (
-            <div className="fixed-top shadow rounded" style={{ backgroundColor: "var(--green-50)" }}>
+            <div className="fixed-top shadow" style={{ backgroundColor: "var(--green-50)" }}>
                 <nav className="navbar navbar-expand-lg">
                     <div className="container-fluid">
                         <Link to="/" className="navbar-brand">
@@ -14,9 +14,8 @@ class Nav extends React.Component {
                             <span className="navbar-toggler-icon"></span>
                         </button>
                         <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                            <ul className="navbar-nav ">
-                                <li className="nav-item dropdown ms-1">
-                                    <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <ul className="navbar-nav">
+                                {/* <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <img src="images/icon-destination.gif"></img> Điểm Đến
                                     </Link>
 
@@ -24,10 +23,123 @@ class Nav extends React.Component {
                                         <li><Link className="dropdown-item" to="#">Ha Noi</Link></li>
                                         <li><Link className="dropdown-item" to="#">Hai Phong</Link></li>
                                         <li><Link className="dropdown-item" to="#">Bac Ninh</Link></li>
-                                    </ul>
+                                    </ul> */}
+                                <li className="nav-item dropdown position-static ms-1">
+                                    <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button"
+                                        data-mdb-toggle="dropdown" aria-expanded="false">
+                                        <img src="images/icon-destination.gif"></img> Điểm Đến
+                                    </Link>
+                                    <div className="dropdown-menu w-100 mt-0" aria-labelledby="navbarDropdown">
+                                        <div className="container-fluid">
+                                            <div className="row my-1">
+                                                <div className="col-md-6 col-lg-2 mb-lg-0">
+                                                    <div className="list-group list-group-flush">
+                                                        <p className="mb-0 list-group-item fw-bold text-center">
+                                                            MIỀN BẮC (ĐBSH)
+                                                        </p>
+                                                        <Link to="" className="list-group-item list-group-item-action" >
+                                                            Hà Nội <span className="badge rounded-pill bg-danger">Hot</span></Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Bắc Ninh</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Hải Dương</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Hà Nam</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Hưng Yên</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Hải Phòng</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Hải Dương</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Nam Định</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Ninh Bình </Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Thái Bình</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Vĩnh Phúc</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Hà Nam</Link>
 
-
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6 col-lg-2 mb-lg-0">
+                                                    <div className="list-group list-group-flush">
+                                                        <p className="mb-0 list-group-item fw-bold text-center text-uppercase">
+                                                            Đông, Tây Bắc Bộ
+                                                        </p>
+                                                        <Link to="" className="list-group-item list-group-item-action">Lào Cai</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Yên Bái</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Điện Biên</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Hòa Bình</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Lai Châu</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Sơn La</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Hà Giang</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Cao Bằng</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Bắc Kạn</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Tuyên Quang</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Thái Nguyên</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Phú Thọ</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Bắc Giang</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Quảng Ninh</Link>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6 col-lg-2 mb-md-0">
+                                                    <div className="list-group list-group-flush">
+                                                        <p className="mb-0 list-group-item fw-bold text-center text-uppercase">
+                                                            Miền Nam
+                                                        </p>
+                                                        <div className="list-group list-group-flush" style={{ fontSize: "11px" }}>
+                                                            <Link to="" className="list-group-item list-group-item-action">Bình Phước</Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Bình Dương</Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Đồng Nai</Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Tây Ninh</Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Hồ Chí Minh <span className="badge rounded-pill bg-danger">Hot</span></Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Bà Rịa Vũng Tàu <span className="badge rounded-pill bg-danger">Hot</span></Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Long An</Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Đồng Tháp</Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Tiền Giang</Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">An Giang</Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Bến Tre</Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Vĩnh Long</Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Trà Vinh</Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Hậu Giang</Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Kiên Giang</Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Sóc Trăng</Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Bạc Liêu</Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Sóc Trăng</Link>
+                                                            <Link to="" className="list-group-item list-group-item-action">Bạc Liêu</Link>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6 col-lg-2 mb-md-0">
+                                                    <div className="list-group list-group-flush">
+                                                        <p className="mb-0 list-group-item fw-bold text-center text-uppercase">
+                                                            Miền Trung
+                                                        </p>
+                                                        <Link to="" className="list-group-item list-group-item-action">Thanh Hoá</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Hà Tĩnh</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Quảng Bình</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Quảng Trị</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Nghệ An <span className="badge rounded-pill bg-danger">Hot</span></Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Thừa Thiên-Huế <span className="badge rounded-pill bg-danger">Hot</span></Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Đà Nẵng <span className="badge rounded-pill bg-danger">Hot</span></Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Quảng Nam</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Quảng Ngãi</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Bình Định</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Phú Yên</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Khánh Hòa</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Ninh Thuận</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Bình Thuận</Link>
+                                                    </div>
+                                                </div>
+                                                <div className="col-md-6 col-lg-2 mb-md-0">
+                                                    <div className="list-group list-group-flush">
+                                                        <p className="mb-0 list-group-item fw-bold text-center text-uppercase">
+                                                            Tây Nguyên
+                                                        </p>
+                                                        <Link to="" className="list-group-item list-group-item-action">Kon Tum</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Gia Lai</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Đắc Lắc</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Đắc Nông</Link>
+                                                        <Link to="" className="list-group-item list-group-item-action">Lâm Đồng <span className="badge rounded-pill bg-danger">Hot</span></Link>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
+
                                 <li className="nav-item dropdown ms-1">
                                     <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <img src="images/icon-services.gif"></img> Dịch Vụ <span className="badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>Hot</span>
@@ -109,7 +221,6 @@ class Nav extends React.Component {
                     </div >
                 </nav >
             </div>
-
         )
     }
 }
