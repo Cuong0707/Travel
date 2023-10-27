@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,13 +13,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.datn.api.enums.Role;
 import com.datn.api.enums.UserStatus;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -38,46 +41,74 @@ import lombok.Setter;
 @EntityListeners(AuditingEntityListener.class)
 public class Users implements UserDetails {
 	@Id
-	@Column(name = "user_id", nullable = false, length = 18)
-	private String userId;
+	@Column(name = "AccountID", nullable = false, length = 10)
+	private String accountId;
 
-	@Column(name = "fullname", nullable = false, length = 255)
-	private String fullname;
-
-	@Column(name = "email", nullable = false, length = 100, unique = true)
-	private String email;
-
-	@Column(name = "password", nullable = false, length = -1)
+	@Column(name = "Password", nullable = true, length = -1)
 	private String password;
 
-	@Column(name = "image", nullable = true, length = -1)
-	private String image;
-
-	@Column(name = "birthday", nullable = true)
-	private LocalDate birthday;
-
-	@Column(name = "description", nullable = true, length = -1)
-	private String description;
-
-	@Column(name = "registered_at", nullable = true)
-	@CreatedDate
-	@Temporal(TemporalType.TIMESTAMP)
-	private LocalDateTime registeredAt;
-
-	@Column(name = "last_login", nullable = true)
-	@LastModifiedDate
-	private LocalDateTime lastLogin;
-
-	@Column(name = "token", nullable = true, length = -1)
+	@Column(name = "Token", nullable = true, length = -1)
 	private String token;
 
-	@Column(name = "role", nullable = true)
+	@Column(name = "Fullname", nullable = false, length = 50)
+	private String fullname;
+
+	@Column(name = "Avatar", nullable = true, length = -1)
+	private String avatar;
+
+	@Column(name = "PhoneNumber", nullable = true, length = 11)
+	private String phoneNumber;
+
+	@Column(name = "Email", nullable = false, length = 50, unique = true)
+	private String email;
+
+	@Column(name = "Birthday", nullable = true)
+	private LocalDate birthday;
+
+	@Column(name = "Registration_Date", nullable = true)
+	@CreatedDate
+	@Temporal(TemporalType.TIMESTAMP)
+	private LocalDateTime registrationDate;
+
+	@Column(name = "Last_Login", nullable = true)
+	private LocalDateTime lastLogin;
+
+	@Column(name = "Status", nullable = true)
+	@Enumerated(EnumType.STRING)
+	private UserStatus status;
+
+	@Column(name = "Role", nullable = true)
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	@Column(name = "status", nullable = true)
-	@Enumerated(EnumType.STRING)
-	private UserStatus status;
+	@OneToOne(mappedBy = "accountId", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private Admins admins;
+
+	@OneToOne(mappedBy = "accountId", cascade = CascadeType.ALL)
+	@JsonManagedReference
+	private Partners partners;
+
+	@OneToMany(mappedBy = "users")
+	@JsonManagedReference
+	List<Orders> orders;
+
+	public Users(String accountId, String password, String token, String fullname, String email, String phoneNumber,
+			String avatar, LocalDate birthday, LocalDateTime registrationDate, LocalDateTime lastLogin,
+			UserStatus status, Role role) {
+		this.accountId = accountId;
+		this.fullname = fullname;
+		this.email = email;
+		this.password = password;
+		this.token = token;
+		this.phoneNumber = phoneNumber;
+		this.avatar = avatar;
+		this.birthday = birthday;
+		this.registrationDate = registrationDate;
+		this.lastLogin = lastLogin;
+		this.status = status;
+		this.role = role;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -103,7 +134,7 @@ public class Users implements UserDetails {
 	@Override
 	// Tài khoản chưa bị khóa ?
 	public boolean isAccountNonLocked() {
-		return true;
+		return this.status != UserStatus.Suspended;
 	}
 
 	@Override

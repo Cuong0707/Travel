@@ -16,15 +16,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UsersDto {
-
-	private String id;
+	private String accountId;
 	private String fullname;
 	private String email;
 	private String password;
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate birthday;
-	private String image;
+	private String phoneNumber;
+	private String avatar;
 	private UserStatus status;
-	private String description;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate registrationDate;
 	private Role role;
 }
