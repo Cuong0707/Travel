@@ -99,9 +99,9 @@ class Blogs extends React.Component {
                         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
                         spaceBetween={40}
                         slidesPerView={5}
-                        autoplay={{ delay: 1000 }}
+                        autoplay={{ delay: 2500 }}
                         navigation
-                        pagination={{ clickable: true }}
+                        // pagination={{ clickable: true }}
                         // scrollbar={{ draggable: true }}
                         onSwiper={(swiper) => console.log(swiper)}
                         onSlideChange={() => console.log('slide change')}

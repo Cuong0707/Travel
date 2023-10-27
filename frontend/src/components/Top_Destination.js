@@ -1,6 +1,6 @@
 import React from "react";
 import '../style/style.scss';
-import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
+import { Navigation, Pagination, Scrollbar, A11y, Autoplay, EffectCoverflow } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -16,12 +16,13 @@ class Top_Destination extends React.Component {
                 <div className="destination-wrapper">
                     <Swiper
                         // install Swiper modules
-                        modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
+                        modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay, EffectCoverflow]}
                         spaceBetween={40}
                         slidesPerView={5}
-                        autoplay={{ delay: 1000 }}
+                        autoplay={{ delay: 2500 }}
                         navigation
-                        pagination={{ clickable: true }}
+                        // effect="coverflow"
+                        // EffectFade pagination={{ clickable: true }}
                         // scrollbar={{ draggable: true }}
                         onSwiper={(swiper) => console.log(swiper)}
                         onSlideChange={() => console.log('slide change')}
@@ -71,9 +72,9 @@ class Top_Destination extends React.Component {
                         <SwiperSlide>
                             <div className="card" >
                                 <img className="card-img-top" src="images/BaiTamSao.jpg" alt="Card image cap" />
-                                <a className="destinations-list-top-favourite">
+                                <Link className="destinations-list-top-favourite">
                                     <i className="ri-heart-3-line"></i>
-                                </a>
+                                </Link>
                                 <span className="destinations-list-top-tag">Popular</span>
                                 <div className="card-body">
                                     <h6 className="card-title">Bãi Tắm Sao, Thành phố Phú Quốc</h6>
@@ -104,16 +105,16 @@ class Top_Destination extends React.Component {
                                         <i className="ri-star-fill"></i>
                                         <i className="ri-star-half-fill"></i>
                                     </div>
-                                    <a href="#" className="btn btn-primary">Chi Tiết</a>
+                                    <Link to="#" className="btn btn-primary">Chi Tiết</Link>
                                 </div>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide>
                             <div className="card" >
                                 <img className="card-img-top" src="images/DinhDocLap.jpg" alt="Card image cap" />
-                                <a className="destinations-list-top-favourite">
+                                <Link className="destinations-list-top-favourite">
                                     <i className="ri-heart-3-line"></i>
-                                </a>
+                                </Link>
                                 <span className="destinations-list-top-tag">Popular</span>
                                 <div className="card-body">
                                     <h6 className="card-title">Dinh Độc Lập, Thành phố Hồ Chí Minh</h6>
@@ -125,15 +126,15 @@ class Top_Destination extends React.Component {
                                         <i className="ri-star-fill"></i>
                                         <i className="ri-star-half-fill"></i>
                                     </div>
-                                    <a href="#" className="btn btn-primary">Chi Tiết</a>
+                                    <Link to="#" className="btn btn-primary">Chi Tiết</Link>
                                 </div>
                             </div>
                         </SwiperSlide>
                         <SwiperSlide><div className="card">
                             <img className="card-img-top" src="images/CauVang.jpg" alt="Card image cap" />
-                            <a className="destinations-list-top-favourite">
+                            <Link className="destinations-list-top-favourite">
                                 <i className="ri-heart-3-line"></i>
-                            </a>
+                            </Link>
                             <span className="destinations-list-top-tag">Popular</span>
                             <div className="card-body">
                                 <h6 className="card-title">Bà Nà Hills, thành phố Đà Nẵng</h6>
@@ -145,15 +146,15 @@ class Top_Destination extends React.Component {
                                     <i className="ri-star-fill"></i>
                                     <i className="ri-star-half-fill"></i>
                                 </div>
-                                <a href="#" class="btn btn-primary">Chi Tiết</a>
+                                <Link to="#" class="btn btn-primary">Chi Tiết</Link>
                             </div>
                         </div>
                         </SwiperSlide>
                         <SwiperSlide><div className="card">
                             <img className="card-img-top" src="images/CauVang.jpg" alt="Card image cap" />
-                            <a className="destinations-list-top-favourite">
+                            <Link className="destinations-list-top-favourite">
                                 <i className="ri-heart-3-line"></i>
-                            </a>
+                            </Link>
                             <span className="destinations-list-top-tag">Popular</span>
                             <div className="card-body">
                                 <h6 className="card-title">Bà Nà Hills, thành phố Đà Nẵng</h6>
@@ -165,29 +166,30 @@ class Top_Destination extends React.Component {
                                     <i className="ri-star-fill"></i>
                                     <i className="ri-star-half-fill"></i>
                                 </div>
-                                <a href="#" class="btn btn-primary">Chi Tiết</a>
+                                <Link to="#" class="btn btn-primary">Chi Tiết</Link>
                             </div>
                         </div>
                         </SwiperSlide>
-                        <SwiperSlide><div className="card">
-                            <img className="card-img-top" src="images/CauVang.jpg" alt="Card image cap" />
-                            <a className="destinations-list-top-favourite">
-                                <i className="ri-heart-3-line"></i>
-                            </a>
-                            <span className="destinations-list-top-tag">Popular</span>
-                            <div className="card-body">
-                                <h6 className="card-title">Bà Nà Hills, thành phố Đà Nẵng</h6>
-                                <p className="card-text">Miễn Phí</p>
-                                <div className="destination-list-content-rating">
-                                    <i className="ri-star-fill"></i>
-                                    <i className="ri-star-fill"></i>
-                                    <i className="ri-star-fill"></i>
-                                    <i className="ri-star-fill"></i>
-                                    <i className="ri-star-half-fill"></i>
+                        <SwiperSlide>
+                            <div className="card">
+                                <img className="card-img-top" src="images/CauVang.jpg" alt="Card image cap" />
+                                <Link className="destinations-list-top-favourite">
+                                    <i className="ri-heart-3-line"></i>
+                                </Link>
+                                <span className="destinations-list-top-tag">Popular</span>
+                                <div className="card-body">
+                                    <h6 className="card-title">Bà Nà Hills, thành phố Đà Nẵng</h6>
+                                    <p className="card-text">Miễn Phí</p>
+                                    <div className="destination-list-content-rating">
+                                        <i className="ri-star-fill"></i>
+                                        <i className="ri-star-fill"></i>
+                                        <i className="ri-star-fill"></i>
+                                        <i className="ri-star-fill"></i>
+                                        <i className="ri-star-half-fill"></i>
+                                    </div>
+                                    <Link to="#" class="btn btn-primary">Chi Tiết</Link>
                                 </div>
-                                <a href="#" class="btn btn-primary">Chi Tiết</a>
                             </div>
-                        </div>
                         </SwiperSlide>
                     </Swiper>
                 </div>

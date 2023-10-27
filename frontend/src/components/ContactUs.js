@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 class ContactUs extends React.Component {
     render() {
@@ -56,7 +57,7 @@ class ContactUs extends React.Component {
                             </form>
 
                             <div className="text-center text-md-left mt-3">
-                                <a className="btn btn-success btn-lg" onclick="document.getElementById('contact-form').submit();">Gửi</a>
+                                <Link className="btn btn-success btn-lg" onclick="document.getElementById('contact-form').submit();">Gửi</Link>
                             </div>
                             <div className="status"></div>
                         </div>

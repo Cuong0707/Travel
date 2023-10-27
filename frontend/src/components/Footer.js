@@ -1,5 +1,5 @@
 import React from "react";
-import '../style/style.scss'
+import { Link } from "react-router-dom";
 
 class Footer extends React.Component {
     render() {
@@ -7,16 +7,16 @@ class Footer extends React.Component {
             <footer>
                 <div className="container">
                     <div className="footer-top">
-                        <a href="#" className="footer-logo"><img src="images/tour-logo.png" /></a>
+                        <Link to="#" className="footer-logo"><img src="images/tour-logo.png" /></Link>
                         <div className="footer-social">
-                            <a href="#"><i className="ri-facebook-fill"></i></a>
-                            <a href="#"><i className="ri-instagram-fill"></i></a>
-                            <a href="#"><i className="ri-twitter-fill"></i></a>
-                            <a href="#"><i className="ri-linkedin-fill"></i></a>
+                            <Link to="#"><i className="ri-facebook-fill"></i></Link>
+                            <Link to="#"><i className="ri-instagram-fill"></i></Link>
+                            <Link to="#"><i className="ri-twitter-fill"></i></Link>
+                            <Link to="#"><i className="ri-linkedin-fill"></i></Link>
                         </div>
                     </div>
                     <div className="footer-links row mt-4">
-                        <div className="col-6">
+                        <div className="col-5">
                             <b style={{ fontSize: "20px" }}>Công ty cổ phần du lịch Việt Nam SaiGonTrip</b>
                             <p className="mt-2">Tổng đài chăm sóc: 1900 2083</p>
                             <p>Email: hotro@saigontrip.vn</p>
@@ -29,11 +29,11 @@ class Footer extends React.Component {
                                 </form>
                             </div>
                             <div>
-                                <a href=""><img src="../images/logo-bocongthuong.png" style={{ height: "50px" }}></img></a>
-                                <a href=""><img src="../images/logo-dkbocongthuong.png" style={{ height: "40px", marginLeft: "20px" }}></img></a>
+                                <Link to=""><img src="../images/logo-bocongthuong.png" style={{ height: "50px" }}></img></Link>
+                                <Link to=""><img src="../images/logo-dkbocongthuong.png" style={{ height: "40px", marginLeft: "20px" }}></img></Link>
                             </div>
                         </div>
-                        <div className="col-2">
+                        <div className="col-3">
                             <div className="footer-links-title">Chính sách & Quy định</div>
                             <ul className="footer-links-list">
                                 <li><a href="#">Điều khoản & điều kiện</a></li>
