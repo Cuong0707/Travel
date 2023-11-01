@@ -1,23 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import '../style/Contact.scss'
 
 class ContactUs extends React.Component {
     render() {
         return (
-            <>
-                <section className="mb-4 m-auto card border-3 col-8">
+            <div className="contact">
+                <div className="mb-4 m-auto card border-3 col-8">
                     <h2 className="fw-bold bg-success text-center text-white">Liên Hệ Với Chúng Tôi</h2>
                     <p className="text-center w-responsive mx-auto mb-5">Bạn có câu hỏi nào không? Xin vui
                         lòng liên hệ trực tiếp với chúng tôi. Chúng tôi sẽ quay lại với bạn trong vòng
                         vài giờ để giúp bạn.</p>
                     <div className="row">
-                        <div className="col-md-9 mb-md-0 mb-5">
+                        <div className="col-md-9 mb-md-2 mb-3">
                             <form id="contact-form" name="contact-form" action="mail.php" method="POST">
                                 <div className="row">
-
                                     <div className="col-md-5 ms-3">
                                         <div className="md-form mb-3">
-                                            <label for="name" className="">Your name</label>
+                                            <label htmlFor="name" className="">Your name</label>
                                             <input type="text" id="name" name="name" className="form-control" />
 
                                         </div>
@@ -25,7 +25,7 @@ class ContactUs extends React.Component {
 
                                     <div className="col-md-5">
                                         <div className="md-form mb-3">
-                                            <label for="email" className="">Your email</label>
+                                            <label htmlFor="email" className="">Your email</label>
                                             <input type="text" id="email" name="email" className="form-control" />
                                         </div>
                                     </div>
@@ -35,7 +35,7 @@ class ContactUs extends React.Component {
                                 <div className="row">
                                     <div className="col-md-10 ms-3">
                                         <div className="md-form mb-3">
-                                            <label for="subject" className="">Subject</label>
+                                            <label htmlFor="subject" className="">Subject</label>
                                             <input type="text" id="subject" name="subject" className="form-control" />
                                         </div>
                                     </div>
@@ -46,7 +46,7 @@ class ContactUs extends React.Component {
                                     <div className="col-md-10 ms-3">
 
                                         <div className="md-form">
-                                            <label for="message">Your message</label>
+                                            <label htmlFor="message">Your message</label>
                                             <textarea type="text" id="message" name="message" rows="2" className="form-control md-textarea"></textarea>
 
                                         </div>
@@ -56,7 +56,7 @@ class ContactUs extends React.Component {
 
                             </form>
 
-                            <div className="text-center text-md-left mt-3">
+                            <div className="text-center text-md-left mt-2">
                                 <Link className="btn btn-success btn-lg" onclick="document.getElementById('contact-form').submit();">Gửi</Link>
                             </div>
                             <div className="status"></div>
@@ -79,9 +79,9 @@ class ContactUs extends React.Component {
                         </div>
 
                     </div>
+                </div>
+            </div>
 
-                </section>
-            </>
         )
     }
 }

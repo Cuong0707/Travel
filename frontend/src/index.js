@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import Home from './components/Home';
 import ContactUs from './components/ContactUs';
 import MyAccount from './components/MyAccount';
+import Login from './components/Login';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,11 +18,12 @@ root.render(
         <Route path='/' element={<App />}>
           <Route path='/' element={<Home />}></Route>
           <Route path='contact' element={<ContactUs />}></Route>
+          <Route path='login' element={<Login />}></Route>
           <Route path='myaccount' element={<MyAccount />}>
-          <Route path='account-general' element={<account-general />}></Route>
+            <Route path='account-general' element={<account-general />}></Route>
             <Route path='account-change-password' element={<account-change-password />}>
             </Route>
-            
+
           </Route>
         </Route>
 

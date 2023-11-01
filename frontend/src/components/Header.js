@@ -25,7 +25,7 @@ class Header extends React.Component {
                             <a href="#"></a>
                             <a href="#"></a>
                         </div> */}
-                    <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel">
+                    <div id="carouselExampleControls" className="carousel slide col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" data-bs-ride="carousel">
                         <div className="carousel-inner" style={{ height: "580px" }}>
                             <div className="carousel-item active">
                                 <img src="images/banner1.png" className="d-block w-100" alt="..." style={{ height: "550px" }} />
@@ -53,9 +53,6 @@ class Header extends React.Component {
                         <span className="visually-hidden">Next</span>
                     </button>
                 </div>
-
-
-
             </header>
         )
     }

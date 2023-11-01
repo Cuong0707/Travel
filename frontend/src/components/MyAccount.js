@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import '../style/myaccount.css'
 
 class MyAccount extends React.Component {
   render() {
     return (
       <div className="container light-style flex-grow-1 container-p-y">
-        <h4 className="font-weight-bold py-3 mb-4">Account settings</h4>
+        <h4 className="font-weight-bold py-3">Account settings</h4>
         <div className="card overflow-hidden">
           <div className="row no-gutters row-bordered row-border-light">
             <div className="col-md-3 pt-0">
@@ -13,7 +14,7 @@ class MyAccount extends React.Component {
                 <Link
                   className="list-group-item list-group-item-action active"
                   data-toggle="list"
-                  to="#account-general"
+                  to="account-general"
                 >
                   General
                 </Link>
@@ -420,7 +421,7 @@ class MyAccount extends React.Component {
               </div>
             </div>
           </div>
-          <div className="text-center mt-3">
+          <div className="text-center mt-3 mb-3">
             <button type="button" className="btn btn-primary">
               Save changes
             </button>

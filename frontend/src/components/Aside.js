@@ -1,22 +1,24 @@
 import React from "react";
 import '../style/style.scss';
-
+import LocationSelector from "./LocationSelector";
 class Aside extends React.Component {
     render() {
+
         return (
 
-            <aside className="col-5">
-                <div className="card">
+            <aside className="col-3">
+                <div className="card shadow p-3 mb-5 bg-white rounded">
                     <div className="card-body">
                         <h5 className="card-title">Lọc</h5>
-                        <label htmlFor="Location">Tỉnh<span className="text-danger">*</span></label>
+                        <label htmlFor="Location">Miền<span className="text-danger">*</span></label>
                         <select id="Location" name="Location" className="form-control mt-2">
-                            <option value="hcm">Hồ Chí Minh</option>
-                            <option value="hanoi">Ha Noi</option>
-                            <option value="hcm">Hai Phong</option>
-                            <option value="danang">Da Nang</option>
+                            <option value="bac">Miền Bắc</option>
+                            <option value="trung">Miền Trung</option>
+                            <option value="nam">Miền Nam</option>
                         </select>
+                        <label className="mt-2" htmlFor="Location">Tỉnh<span className="text-danger">*</span></label>
 
+                        {/* <LocationSelector /> */}
                     </div>
                 </div>
             </aside>
