@@ -23,7 +23,7 @@ public class HotelDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "HotelDetailID", nullable = false)
-	private int hotelDetailId;
+	private int hotelDetailID;
 
 	@Column(name = "TypeOfRoom", nullable = false, length = 50)
 	private String typeOfRoom;
@@ -54,9 +54,9 @@ public class HotelDetails {
 	@JsonBackReference
 	private Hotels hotels;
 
-	public HotelDetails(int hotelDetailId, String typeOfRoom, double areaOfRoom, int amountOfRoom, String typeOfBed,
+	public HotelDetails(int hotelDetailID, String typeOfRoom, double areaOfRoom, int amountOfRoom, String typeOfBed,
 			String sizeOfBed, String highlights, String priceOfRoom, String photosOfRoom) {
-		this.hotelDetailId = hotelDetailId;
+		this.hotelDetailID = hotelDetailID;
 		this.typeOfRoom = typeOfRoom;
 		this.areaOfRoom = areaOfRoom;
 		this.amountOfRoom = amountOfRoom;

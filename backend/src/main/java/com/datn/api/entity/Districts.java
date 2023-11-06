@@ -29,4 +29,8 @@ public class Districts {
 	@OneToMany(mappedBy = "districts")
 	@JsonManagedReference
 	List<Provinces> provinces;
+
+	@OneToMany(mappedBy = "districts")
+	@JsonManagedReference
+	List<Users> users;
 }

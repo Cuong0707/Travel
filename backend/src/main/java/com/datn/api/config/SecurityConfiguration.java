@@ -30,8 +30,8 @@ public class SecurityConfiguration {
 		http.csrf(AbstractHttpConfigurer::disable)
 				.exceptionHandling(exception -> exception.authenticationEntryPoint(entryPointExceptionHandler))
 				.authorizeHttpRequests((request) -> request
-						.requestMatchers(HttpMethod.GET, "/api/v1/auth/**", "/api/v1/users/**", "/api/v1/categories/**",
-								"/api/v1/posts/**", "/api/v1/post/**", "/api/v1/user/**",
+						.requestMatchers(HttpMethod.GET, "/api/v1/auth/**", "/api/v1/users/**", "/api/v1/services/**",
+								"/api/v1/hotels/**", "/api/v1/hotel/**", "/api/v1/user/**",
 								"/oauth2/authorization/google")
 						.permitAll().requestMatchers("/api/v1/post/**", "/api/v1/user/**").permitAll()
 						.requestMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll().anyRequest().authenticated())

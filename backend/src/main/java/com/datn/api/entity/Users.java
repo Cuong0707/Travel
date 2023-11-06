@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.datn.api.enums.Role;
 import com.datn.api.enums.UserStatus;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -22,6 +23,8 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -40,8 +43,8 @@ import lombok.Setter;
 @EntityListeners(AuditingEntityListener.class)
 public class Users implements UserDetails {
 	@Id
-	@Column(name = "AccountID", nullable = false, length = 10)
-	private String accountId;
+	@Column(name = "UserID", nullable = false, length = 10)
+	private String userID;
 
 	@Column(name = "Password", nullable = true, length = -1)
 	private String password;
@@ -64,6 +67,12 @@ public class Users implements UserDetails {
 	@Column(name = "Birthday", nullable = true)
 	private LocalDate birthday;
 
+	@Column(name = "Address", nullable = true, length = -1)
+	private String address;
+
+	@Column(name = "DistrictID", nullable = false)
+	private int districtID;
+
 	@Column(name = "Registration_Date", nullable = true)
 	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
@@ -80,28 +89,33 @@ public class Users implements UserDetails {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	@OneToOne(mappedBy = "accountId", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "userID", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private Admins admins;
 
-	@OneToOne(mappedBy = "accountId", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "userID", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private Partners partners;
+
+	@ManyToOne
+	@JoinColumn(name = "DistrictID")
+	@JsonBackReference
+	private Districts districts;
 
 //	@OneToMany(mappedBy = "users")
 //	@JsonManagedReference
 //	List<Orders> orders;
 
-	public Users(String accountId, String password, String token, String fullname, String email, String phoneNumber,
+	public Users(String userID, String password, String token, String fullname, String email, String phoneNumber,
 			String avatar, LocalDate birthday, LocalDateTime registrationDate, LocalDateTime lastLogin,
 			UserStatus status, Role role) {
-		this.accountId = accountId;
-		this.fullname = fullname;
-		this.email = email;
+		this.userID = userID;
 		this.password = password;
 		this.token = token;
-		this.phoneNumber = phoneNumber;
+		this.fullname = fullname;
 		this.avatar = avatar;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
 		this.birthday = birthday;
 		this.registrationDate = registrationDate;
 		this.lastLogin = lastLogin;
@@ -146,4 +160,5 @@ public class Users implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+
 }

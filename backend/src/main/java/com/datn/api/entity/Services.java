@@ -30,4 +30,9 @@ public class Services {
 	@JsonManagedReference
 	List<Partners> partners;
 
+	public Services(String serviceId, String service) {
+		this.serviceId = serviceId;
+		this.service = service;
+	}
+
 }

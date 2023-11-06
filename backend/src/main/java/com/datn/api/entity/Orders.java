@@ -48,11 +48,11 @@ public class Orders {
 	@ManyToOne
 	@JoinColumn(name = "PartnerID")
 	@JsonBackReference
-	private Partners partners;
+	private Partners partner;
 
 	@OneToMany(mappedBy = "orders")
 	@JsonManagedReference
-	List<OrderDetails> orderDetails;
+	List<OrdersOfHotel> orderDetails;
 
 	public Orders(int orderId, LocalDateTime orderDate, String paymentMethod, String status) {
 		this.orderId = orderId;

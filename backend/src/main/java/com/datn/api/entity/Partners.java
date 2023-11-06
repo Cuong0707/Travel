@@ -26,7 +26,7 @@ import lombok.Setter;
 public class Partners {
 	@Id
 	@Column(name = "PartnerID", nullable = false, length = 10)
-	private String partnerId;
+	private String partnerID;
 
 	@Column(name = "NameOfCompany", nullable = false, length = 255)
 	private String nameOfCompany;
@@ -44,26 +44,27 @@ public class Partners {
 	private String website;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "AccountId")
+	@JoinColumn(name = "UserID")
 	@JsonBackReference
-	private Users accountId;
+	private Users userID;
 
 	@ManyToOne
 	@JoinColumn(name = "ServiceID")
 	@JsonBackReference
 	private Services services;
 
-	@OneToMany(mappedBy = "partners")
+	@OneToMany(mappedBy = "partner")
 	@JsonManagedReference
 	List<Orders> orders;
 
-	@OneToMany(mappedBy = "partners")
+	@OneToMany(mappedBy = "partner")
 	@JsonManagedReference
 	List<Hotels> hotels;
 
-	public Partners(String partnerId, String nameOfCompany, String taxCode, String avatarOfCompany,
+	public Partners(String partnerID, Users userID, String nameOfCompany, String taxCode, String avatarOfCompany,
 			String businessLicense, String website) {
-		this.partnerId = partnerId;
+		this.partnerID = partnerID;
+		this.userID = userID;
 		this.nameOfCompany = nameOfCompany;
 		this.taxCode = taxCode;
 		this.avatarOfCompany = avatarOfCompany;
