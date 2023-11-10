@@ -16,7 +16,6 @@ import com.datn.api.entity.Hotels;
 import com.datn.api.entity.dto.HotelDto;
 import com.datn.api.entity.dto.HotelResponseDto;
 import com.datn.api.entity.dto.PartnersDto;
-import com.datn.api.enums.HotelStatus;
 import com.datn.api.exceptions.NotFoundException;
 import com.datn.api.repository.HotelsRepository;
 import com.datn.api.repository.UsersRepository;
@@ -54,7 +53,7 @@ public class HotelServiceImpl implements HotelService {
 		existingHotel.setServiceFee(hotelDto.getServiceFee());
 		existingHotel.setCheckIn(hotelDto.getCheckIn());
 		existingHotel.setCheckOut(hotelDto.getCheckOut());
-		existingHotel.setHotelStatus(hotelDto.getStatus());
+		existingHotel.setStatus(hotelDto.getStatus());
 		existingHotel.setDescription(hotelDto.getDescription());
 		existingHotel.setChildrenPolicies(hotelDto.getChildrenPolicies());
 		existingHotel.setTermAndPolicies(hotelDto.getTermAndPolicies());
@@ -66,15 +65,7 @@ public class HotelServiceImpl implements HotelService {
 
 	//update with province
 
-	//draft hotel pending?
-	public HotelDto createDraft(Long hotelId) {
-		Hotels existingHotel = this.hotelsRepository.findById(hotelId)
-				.orElseThrow(() -> new NotFoundException("Không tìm thấy bài đăng với ID: " + hotelId));
-		existingHotel.setHotelStatus(HotelStatus.Unavailable);
-		Hotels hotelDraft = this.hotelsRepository.save(existingHotel);
-
-		return this.hotelDto(hotelDraft);
-	}
+	
 
 	public HotelDto updateUnavailableToAvailable(HotelDto hotelDto, Long hotelId) {
 		Hotels existingHotel = hotelsRepository.findById(hotelId)
@@ -86,7 +77,7 @@ public class HotelServiceImpl implements HotelService {
 		existingHotel.setServiceFee(hotelDto.getServiceFee());
 		existingHotel.setCheckIn(hotelDto.getCheckIn());
 		existingHotel.setCheckOut(hotelDto.getCheckOut());
-		existingHotel.setHotelStatus(hotelDto.getStatus());
+		existingHotel.setStatus(hotelDto.getStatus());
 		existingHotel.setDescription(hotelDto.getDescription());
 		existingHotel.setChildrenPolicies(hotelDto.getChildrenPolicies());
 		existingHotel.setTermAndPolicies(hotelDto.getTermAndPolicies());
@@ -106,7 +97,7 @@ public class HotelServiceImpl implements HotelService {
 			throw new NotFoundException("Không tìm thấy khách sạn với ID: " + hotelId);
 		});
 
-		if (!existingHotel.getPartner().getUserID().equals(userId)) {
+		if (!existingHotel.getPartner().getUser().getUserID().equals(userId)) {
 			throw new RuntimeException("Bạn không có quyền xóa khách sạn này.");
 		}
 		// Xóa tất cả các liên kết giữa khách sạn và danh mục
@@ -260,7 +251,7 @@ public class HotelServiceImpl implements HotelService {
 			hotelDto.setServiceFee(hotel.getServiceFee());
 			hotelDto.setCheckIn(hotel.getCheckIn());
 			hotelDto.setCheckOut(hotel.getCheckOut());
-			hotelDto.setStatus(hotel.getHotelStatus());
+			hotelDto.setStatus(hotel.getStatus());
 			hotelDto.setDescription(hotel.getDescription());
 			hotelDto.setChildrenPolicies(hotel.getChildrenPolicies());
 			hotelDto.setTermAndPolicies(hotel.getTermAndPolicies());

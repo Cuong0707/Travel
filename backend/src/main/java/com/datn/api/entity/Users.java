@@ -70,8 +70,6 @@ public class Users implements UserDetails {
 	@Column(name = "Address", nullable = true, length = -1)
 	private String address;
 
-	@Column(name = "DistrictID", nullable = false)
-	private int districtID;
 
 	@Column(name = "Registration_Date", nullable = true)
 	@CreatedDate
@@ -89,11 +87,11 @@ public class Users implements UserDetails {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 
-	@OneToOne(mappedBy = "userID", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private Admins admins;
 
-	@OneToOne(mappedBy = "userID", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	@JsonManagedReference
 	private Partners partners;
 
@@ -101,6 +99,8 @@ public class Users implements UserDetails {
 	@JoinColumn(name = "DistrictID")
 	@JsonBackReference
 	private Districts districts;
+	
+
 
 //	@OneToMany(mappedBy = "users")
 //	@JsonManagedReference
@@ -108,7 +108,7 @@ public class Users implements UserDetails {
 
 	public Users(String userID, String password, String token, String fullname, String email, String phoneNumber,
 			String avatar, LocalDate birthday, LocalDateTime registrationDate, LocalDateTime lastLogin,
-			UserStatus status, Role role) {
+			UserStatus status, Role role, Districts districtID) {
 		this.userID = userID;
 		this.password = password;
 		this.token = token;
@@ -121,6 +121,7 @@ public class Users implements UserDetails {
 		this.lastLogin = lastLogin;
 		this.status = status;
 		this.role = role;
+		this.districts = districtID;
 	}
 
 	@Override

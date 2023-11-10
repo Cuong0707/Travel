@@ -1,6 +1,5 @@
 package com.datn.api.controller;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ import com.datn.api.exceptions.ApiResponse;
 import com.datn.api.services.HotelServiceImpl;
 
 @RestController
-@RequestMapping("/api/v1/posts")
+@RequestMapping("/api/v1/hotels")
 public class HotelController {
     @Autowired
     HotelServiceImpl hotelService;
@@ -29,11 +28,11 @@ public class HotelController {
     
 
     @GetMapping("")
-    public ApiResponse<HotelResponseDto> getPostsByType(
+    public ApiResponse<HotelResponseDto> getHotelsByType(
             @RequestParam(value = "q", defaultValue = "", required = false) String keywords,
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
             @RequestParam(value = "pageSize", defaultValue = "8", required = false) Integer pageSize,
-            @RequestParam(value = "sortBy", defaultValue = "title", required = false) String sortBy,
+            @RequestParam(value = "sortBy", defaultValue = "nameOfHotel", required = false) String sortBy,
             @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
             @RequestParam(value = "type", required = false) Optional<String> type) {
         if (type.isPresent()) {
@@ -51,25 +50,25 @@ public class HotelController {
     }
 
     @GetMapping("/{id}")
-    public ApiResponse<HotelDto> getPost(
+    public ApiResponse<HotelDto> getHotel(
             @PathVariable("id") Long id) {
         HotelDto hotel = hotelService.findById(id);
-        String successMessage = "Tìm thấy post có id " + id;
+        String successMessage = "Tìm thấy hotel có id " + id;
         return ApiResponse.success(HttpStatus.OK, successMessage, hotel);
     }
 
     
 
-    @PutMapping("/{hotelId}")
-    @PreAuthorize("hasAnyAuthority('USER','ADMIN')")
-    public ApiResponse<HotelDto> updatePost(@RequestBody HotelDto hotelDto,
+    @PutMapping("/{hotelID}")
+    @PreAuthorize("hasAnyAuthority('PARTNER','ADMIN')")
+    public ApiResponse<HotelDto> updateHotel(@RequestBody HotelDto hotelDto,
                                            @PathVariable Long hotelID) {
         HotelDto updateHotel = hotelService.update(hotelDto, hotelID);
-        String successMessage = "Cập nhật bài đăng thành công!";
+        String successMessage = "Cập nhật thông tin khách sạn thành công!";
         return ApiResponse.success(HttpStatus.OK, successMessage, updateHotel);
     }
 
-    @DeleteMapping("/{postId}")
+    @DeleteMapping("/{hotelID}")
     @PreAuthorize("hasAnyAuthority('PARTNER','ADMIN')")
     public ApiResponse<HotelDto> deleteHotel(@PathVariable("hotelID") Long hotelID) {
         hotelService.delete(hotelID);
@@ -77,12 +76,8 @@ public class HotelController {
         return ApiResponse.success(HttpStatus.OK, successMessage, null);
     }
 
-    @GetMapping("/draft")
-    @PreAuthorize("hasAnyAuthority('PARTNER','ADMIN')")
-    public ApiResponse<?> getAllDraftPost() {
-        List<HotelDto> hotelDtos = this.hotelService.findHotelUnavailable();
-        return ApiResponse.success(HttpStatus.OK, "", hotelDtos);
-    }
+ 
+    
 
     @GetMapping("/search")
     public ApiResponse<HotelResponseDto> search(@RequestParam(value = "q", defaultValue = "", required = false) String keywords,
@@ -94,30 +89,5 @@ public class HotelController {
 
 
 
-
-    // with hotel //order
-//    @GetMapping("/{postId}/comments")
-//    public ResponseEntity<List<CommentDto>> getListComment(@PathVariable Long postId) {
-//        List<CommentDto> commentDtoList = commentService.findAllCommentByPostId(postId);
-//        return ResponseEntity.ok(commentDtoList);
-//    }
-//
-//
-//    @PostMapping("/{postId}/comments")
-//    @PreAuthorize("hasAnyAuthority('USER','ADMIN')")
-//    public ApiResponse<CommentDto> create(@PathVariable Long postId, @PathVariable Optional<Long> commentId,
-//                                          @RequestBody CommentDto commentDto) {
-//        return ApiResponse.success(HttpStatus.OK, "success",
-//                commentService.saveNewComment(commentDto, postId, commentId));
-//    }
-//
-//
-//    @PostMapping("/{postId}/comments/reply/{commentId}")
-//    @PreAuthorize("hasAnyAuthority('USER','ADMIN')")
-//    public ApiResponse<CommentDto> reply(@PathVariable Long postId, @PathVariable Optional<Long> commentId,
-//                                         @RequestBody CommentDto commentDto) {
-//        return ApiResponse.success(HttpStatus.OK, "success",
-//                commentService.saveNewComment(commentDto, postId, commentId));
-//    }
 
 }

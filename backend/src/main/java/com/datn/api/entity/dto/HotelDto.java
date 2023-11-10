@@ -19,7 +19,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class HotelDto {
-	private int id;
+	private Long id;
 	private PartnersDto partners;
 	private String nameOfHotel;
 	private String typeOfHotel;

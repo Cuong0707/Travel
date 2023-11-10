@@ -17,10 +17,10 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 @Service
 public class JwtService {
-    @Value("${episteme.secret_key}")
+    @Value("${datn.secret_key}")
     private String SECRET_KEY;
 
-    @Value("${episteme.expiration_time}")
+    @Value("${datn.expiration_time}")
     private long EXPIRATION_TIME;
 
     public String extractUsername(String token) {

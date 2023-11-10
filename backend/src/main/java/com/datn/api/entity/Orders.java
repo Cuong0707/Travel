@@ -32,8 +32,18 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "OrderID", nullable = false)
-	private int orderId;
+	private Long orderID;
 
+	@ManyToOne
+	@JoinColumn(name = "PartnerID")
+	@JsonBackReference
+	private Partners partner;
+	
+	@ManyToOne
+	@JoinColumn(name = "UserID")
+	@JsonBackReference
+	private Users user;
+	
 	@Column(name = "OrderDate")
 	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
@@ -45,17 +55,16 @@ public class Orders {
 	@Column(name = "Status", nullable = false, length = 50)
 	private String status;
 
-	@ManyToOne
-	@JoinColumn(name = "PartnerID")
-	@JsonBackReference
-	private Partners partner;
+
 
 	@OneToMany(mappedBy = "orders")
 	@JsonManagedReference
 	List<OrdersOfHotel> orderDetails;
 
-	public Orders(int orderId, LocalDateTime orderDate, String paymentMethod, String status) {
-		this.orderId = orderId;
+	public Orders(Long orderID,Partners partner, Users user, LocalDateTime orderDate, String paymentMethod, String status) {
+		this.orderID = orderID;
+		this.partner = partner;
+		this.user = user;
 		this.orderDate = orderDate;
 		this.paymentMethod = paymentMethod;
 		this.status = status;

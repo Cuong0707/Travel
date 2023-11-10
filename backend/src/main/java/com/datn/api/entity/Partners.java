@@ -46,7 +46,7 @@ public class Partners {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "UserID")
 	@JsonBackReference
-	private Users userID;
+	private Users user;
 
 	@ManyToOne
 	@JoinColumn(name = "ServiceID")
@@ -61,10 +61,10 @@ public class Partners {
 	@JsonManagedReference
 	List<Hotels> hotels;
 
-	public Partners(String partnerID, Users userID, String nameOfCompany, String taxCode, String avatarOfCompany,
+	public Partners(String partnerID, Users user, String nameOfCompany, String taxCode, String avatarOfCompany,
 			String businessLicense, String website) {
 		this.partnerID = partnerID;
-		this.userID = userID;
+		this.user = user;
 		this.nameOfCompany = nameOfCompany;
 		this.taxCode = taxCode;
 		this.avatarOfCompany = avatarOfCompany;

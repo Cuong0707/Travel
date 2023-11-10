@@ -29,5 +29,5 @@ public class Admins {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "UserID")
 	@JsonBackReference
-	private Users users;
+	private Users user;
 }
