@@ -8,7 +8,8 @@ import reportWebVitals from './reportWebVitals';
 import Home from './components/Home';
 import ContactUs from './components/ContactUs';
 import MyAccount from './components/MyAccount';
-import Login from './components/Login';
+import Login from './components/Login/Login';
+import StepperForm from './components/Partner/StepperForm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -21,10 +22,9 @@ root.render(
           <Route path='login' element={<Login />}></Route>
           <Route path='myaccount' element={<MyAccount />}>
             <Route path='account-general' element={<account-general />}></Route>
-            <Route path='account-change-password' element={<account-change-password />}>
-            </Route>
-
+            <Route path='account-change-password' element={<account-change-password />}></Route>
           </Route>
+          <Route path='partner' element={<StepperForm />}></Route>
         </Route>
 
       </Routes>

@@ -33,7 +33,7 @@ function TopDestination() {
                 >
                     <SwiperSlide>
                         <div className="card">
-                            <img className="card-img-top" src="images/CauVang.jpg" alt="Card image cap" />
+                            <img className="card-img-top" src="images/CauVang.jpg" alt="Card image cap" aria-hidden />
                             <Link className="destinations-list-top-favourite">
                                 <i className="ri-heart-3-line"></i>
                             </Link>
@@ -48,13 +48,13 @@ function TopDestination() {
                                     <i className="ri-star-fill"></i>
                                     <i className="ri-star-half-fill"></i>
                                 </div>
-                                <a href="#" className="btn btn-primary">Chi Tiết</a>
+                                <Link to="#" className="btn btn-primary">Chi Tiết</Link>
                             </div>
                         </div>
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className="card" >
-                            <img className="card-img-top" src="images/Fansipan.jpg" alt="Card image cap" />
+                            <img className="card-img-top" src="images/Fansipan.jpg" alt="Card image cap" aria-hidden />
                             <Link className="destinations-list-top-favourite">
                                 <i className="ri-heart-3-line"></i>
                             </Link>
@@ -75,7 +75,7 @@ function TopDestination() {
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className="card" >
-                            <img className="card-img-top" src="images/BaiTamSao.jpg" alt="Card image cap" />
+                            <img className="card-img-top" src="images/BaiTamSao.jpg" alt="Card image cap" aria-hidden />
                             <Link className="destinations-list-top-favourite">
                                 <i className="ri-heart-3-line"></i>
                             </Link>
@@ -95,7 +95,7 @@ function TopDestination() {
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className="card" >
-                            <img className="card-img-top" src="images/ThacDatanla.jpg" alt="Card image cap" />
+                            <img className="card-img-top" src="images/ThacDatanla.jpg" alt="Card image cap" aria-hidden />
                             <Link className="destinations-list-top-favourite">
                                 <i className="ri-heart-3-line"></i>
                             </Link>
@@ -115,7 +115,7 @@ function TopDestination() {
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className="card" >
-                            <img className="card-img-top" src="images/DinhDocLap.jpg" alt="Card image cap" />
+                            <img className="card-img-top" src="images/DinhDocLap.jpg" alt="Card image cap" aria-hidden />
                             <Link className="destinations-list-top-favourite">
                                 <i className="ri-heart-3-line"></i>
                             </Link>
@@ -135,7 +135,7 @@ function TopDestination() {
                         </div>
                     </SwiperSlide>
                     <SwiperSlide><div className="card">
-                        <img className="card-img-top" src="images/CauVang.jpg" alt="Card image cap" />
+                        <img className="card-img-top" src="images/CauVang.jpg" alt="Card image cap" aria-hidden />
                         <Link className="destinations-list-top-favourite">
                             <i className="ri-heart-3-line"></i>
                         </Link>
@@ -155,7 +155,7 @@ function TopDestination() {
                     </div>
                     </SwiperSlide>
                     <SwiperSlide><div className="card">
-                        <img className="card-img-top" src="images/CauVang.jpg" alt="Card image cap" />
+                        <img className="card-img-top" src="images/CauVang.jpg" alt="Card image cap" aria-hidden />
                         <Link className="destinations-list-top-favourite">
                             <i className="ri-heart-3-line"></i>
                         </Link>
@@ -176,7 +176,7 @@ function TopDestination() {
                     </SwiperSlide>
                     <SwiperSlide>
                         <div className="card">
-                            <img className="card-img-top" src="images/CauVang.jpg" alt="Card image cap" />
+                            <img className="card-img-top" src="images/CauVang.jpg" alt="Card image cap" aria-hidden />
                             <Link className="destinations-list-top-favourite">
                                 <i className="ri-heart-3-line"></i>
                             </Link>
@@ -197,19 +197,6 @@ function TopDestination() {
                     </SwiperSlide>
                 </Swiper>
             </div>
-            {/* <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav> */}
         </div>
     )
 

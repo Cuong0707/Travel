@@ -356,17 +356,18 @@ class Nav extends React.Component {
 
                                 {/* <button className="button-partner btn btn-success d-table ms-5" type="button" data-bs-toggle="modal" data-bs-target="#ModalForm"><i class="bi bi-people-fill"></i>Become our partner</button> */}
                                 <li className="nav-item">
-                                    <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <Link className="nav-link" to="partner">
                                         <img src="images/icon-partner.gif" alt="icon-partner"></img> Trở Thành Đối Tác
                                     </Link>
                                 </li>
+
                                 <li className="nav-item dropdown">
                                     <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i className="bi bi-translate"></i>
                                     </Link>
                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><Link className="dropdown-item" href="#">Việt Nam</Link></li>
-                                        <li><Link className="dropdown-item" href="#">English</Link></li>
+                                        <li><Link className="dropdown-item" to="#">Việt Nam</Link></li>
+                                        <li><Link className="dropdown-item" to="#">English</Link></li>
                                     </ul>
                                 </li>
                             </ul>
