@@ -231,6 +231,7 @@ const Three = (props) => {
 
     return (
         <div className="row d-flex ms-2 me-2">
+            <h4 className="text-center h5 text-uppercase fw-bold">Thông Tin Chi Tiết Dịch Vụ</h4>
             <Step3 />
             <div className="d-flex justify-content-end mb-2 mt-3">
                 <ActionButtons {...props} lastStep={handleLastStep} />

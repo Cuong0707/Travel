@@ -9,7 +9,6 @@ import ArticleMap from "./Article/ArticleMap.js";
 import ArticleAds from "./Article/ArticleAds.js";
 import Aos from "aos";
 import 'aos/dist/aos.css';
-import Modal from "./Modal.js";
 
 function Home() {
     useEffect(() => {

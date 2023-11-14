@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import '../style/Step3.scss'
+import '../../style/Step3.scss'
 
 function MyModal() {
     const [show, setShow] = useState(false);
@@ -37,7 +37,7 @@ function MyModal() {
                         </div>
                         <div className="col-md-4 mb-3">
                             <label htmlFor="validationCustom02" className="form-label">Số Lượng Phòng</label>
-                            <input type="text" className="form-control"
+                            <input type="number" className="form-control"
                                 id="validationCustom02" required
                                 name="name" />
                         </div>
@@ -53,21 +53,22 @@ function MyModal() {
                                 id="validationCustom05" required
                                 name="name" />
                         </div>
+                        
                         <div className="col-md-4 mb-3">
-                            <label htmlFor="validationCustom05" className="form-label">Điểm Nổi Bật</label>
-                            <input type="text" className="form-control"
-                                id="validationCustom05" required
-                                name="name" />
-                        </div>
-                        <div className="col-md-6">
                             <label htmlFor="validationCustom05" className="form-label">Giá Phòng</label>
                             <input type="number" className="form-control"
                                 id="validationCustom05" required
                                 name="name" />
                         </div>
+                        <div className="col-md-6">
+                            <label htmlFor="validationCustom05" className="form-label">Điểm Nổi Bật</label>
+                            <input type="text" className="form-control"
+                                id="validationCustom05" required
+                                name="name" />
+                        </div>
                         <div class="mb-3 col-md-6">
-                            <label for="formFile" class="form-label">Hình Ảnh Phòng</label>
-                            <input class="form-control" type="file" id="formFile" />
+                            <label htmlFor="formFile" class="form-label">Hình Ảnh Phòng</label>
+                            <input className="form-control" type="file" id="formFile" />
                         </div>
                     </div>
                 </Modal.Body>

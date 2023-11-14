@@ -5,7 +5,7 @@ class Nav extends React.Component {
     render() {
         return (
             <div className="fixed-top shadow" style={{ backgroundColor: "var(--green-50)" }}>
-                <nav className="navbar navbar-expand-lg navbar-expand-sm navbar-expand-xs">
+                <nav className="navbar navbar-expand-lg">
                     <div className="container-fluid">
                         <Link to="/" className="navbar-brand">
                             {/* <img src="images/icon-web1.png"></img> */}

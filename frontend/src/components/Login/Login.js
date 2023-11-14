@@ -59,12 +59,12 @@ const Login = () => {
 
                                 <div className="sign-in-with row">
                                     <h6 className="m-auto mt-3 col-12">Hoặc</h6>
-                                    <Link to="" className="sign-in-fb mt-2 col-12">
+                                    <Link to="" className="mt-2 col-12">
                                         <button className="btn btn-primary btn-sm"><i className="bi bi-facebook"></i> Đăng Nhập Bằng Facebook</button>
 
                                     </Link>
-                                    <Link to="" className="sign-in-gg mt-2 col-12">
-                                        <button className="btn btn-danger btn-sm " style={{ width: "210px" }}><i className="bi bi-google"></i> Đăng Nhập Bằng Google</button>
+                                    <Link to="" className="mt-2 col-12">
+                                        <button className="sign-in-gg btn btn-danger btn-sm "><i className="bi bi-google"></i> Đăng Nhập Bằng Google</button>
                                     </Link>
                                 </div>
                             </form>
@@ -84,7 +84,7 @@ const Login = () => {
                         </div>
                     </div>
                 </div>
-                <div className="col-3" style={{marginTop:"90px"}}>
+                <div className="col-3" style={{ marginTop: "90px" }}>
                     <ArticleAds />
                 </div>
             </div>

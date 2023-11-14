@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import MyModal from '../Modal'
+import MyModal from './Modal';
 import '../../style/Step3.scss'
 
 const FormFields = () => {
