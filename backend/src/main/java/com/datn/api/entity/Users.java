@@ -22,7 +22,6 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -89,9 +88,9 @@ public class Users implements UserDetails {
 	@JsonManagedReference
 	private Partners partners;
 
-	@OneToMany(mappedBy = "users")
-	@JsonManagedReference
-	List<Orders> orders;
+//	@OneToMany(mappedBy = "users")
+//	@JsonManagedReference
+//	List<Orders> orders;
 
 	public Users(String accountId, String password, String token, String fullname, String email, String phoneNumber,
 			String avatar, LocalDate birthday, LocalDateTime registrationDate, LocalDateTime lastLogin,
