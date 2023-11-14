@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,20 +20,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(name = "photos_of_hotel")
 public class PhotosOfHotel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "PhotosOfHotelID", nullable = false)
+	@Column(name = "photos_of_hotel_id", nullable = false)
 	private int photosOfHotelID;
 
-	@Column(name = "NameOfPhoto", nullable = false, length = 50)
+	@Column(name = "name_of_photo", nullable = false, length = 50)
 	private String nameOfPhoto;
 
-	@Column(name = "Image", nullable = false, length = 50)
+	@Column(name = "image", nullable = false, length = 50)
 	private String image;
 
 	@ManyToOne
-	@JoinColumn(name = "HotelID")
+	@JoinColumn(name = "hotel_id")
 	@JsonBackReference
 	private Hotels hotels;
 }

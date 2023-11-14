@@ -13,6 +13,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,47 +24,49 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(name = "partners")
 public class Partners {
 	@Id
-	@Column(name = "PartnerID", nullable = false, length = 10)
-	private String partnerId;
+	@Column(name = "partner_id", nullable = false, length = 10)
+	private String partner_id;
 
-	@Column(name = "NameOfCompany", nullable = false, length = 255)
+	@Column(name = "name_of_company", nullable = false, length = 255)
 	private String nameOfCompany;
 
-	@Column(name = "TaxCode", nullable = false, length = 10)
+	@Column(name = "tax_code", nullable = false, length = 10)
 	private String taxCode;
 
-	@Column(name = "AvatarOfCompany", nullable = false, length = 50)
+	@Column(name = "avatar_of_company", nullable = false, length = 50)
 	private String avatarOfCompany;
 
-	@Column(name = "BusinessLicense", nullable = false, length = 50)
+	@Column(name = "business_license", nullable = false, length = 50)
 	private String businessLicense;
 
-	@Column(name = "Website", nullable = true, length = -1)
+	@Column(name = "website", nullable = true, length = -1)
 	private String website;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "AccountId")
+	@JoinColumn(name = "user_id")
 	@JsonBackReference
-	private Users accountId;
+	private Users user;
 
 	@ManyToOne
-	@JoinColumn(name = "ServiceID")
+	@JoinColumn(name = "service_id")
 	@JsonBackReference
 	private Services services;
 
-	@OneToMany(mappedBy = "partners")
+	@OneToMany(mappedBy = "partner")
 	@JsonManagedReference
 	List<Orders> orders;
 
-	@OneToMany(mappedBy = "partners")
+	@OneToMany(mappedBy = "partner")
 	@JsonManagedReference
 	List<Hotels> hotels;
 
-	public Partners(String partnerId, String nameOfCompany, String taxCode, String avatarOfCompany,
+	public Partners(String partnerID, Users user, String nameOfCompany, String taxCode, String avatarOfCompany,
 			String businessLicense, String website) {
-		this.partnerId = partnerId;
+		this.partner_id = partnerID;
+		this.user = user;
 		this.nameOfCompany = nameOfCompany;
 		this.taxCode = taxCode;
 		this.avatarOfCompany = avatarOfCompany;

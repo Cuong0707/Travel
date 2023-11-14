@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,44 +20,45 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(name = "hotel_details")
 public class HotelDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "HotelDetailID", nullable = false)
-	private int hotelDetailId;
+	@Column(name = "hotel_detail_id", nullable = false)
+	private long hotelDetailID;
 
-	@Column(name = "TypeOfRoom", nullable = false, length = 50)
+	@Column(name = "type_of_room", nullable = false, length = 50)
 	private String typeOfRoom;
 
-	@Column(name = "AreaOfRoom", nullable = false)
+	@Column(name = "area_of_room", nullable = false)
 	private double areaOfRoom;
 
-	@Column(name = "AmountOfRoom", nullable = false)
+	@Column(name = "amount_of_room", nullable = false)
 	private int amountOfRoom;
 
-	@Column(name = "TypeOfBed", nullable = false, length = 50)
+	@Column(name = "type_of_bed", nullable = false, length = 50)
 	private String TypeOfBed;
 
-	@Column(name = "SizeOfBed", nullable = false, length = 50)
+	@Column(name = "size_of_bed", nullable = false, length = 50)
 	private String SizeOfBed;
 
-	@Column(name = "Highlights", nullable = true, length = -1)
+	@Column(name = "highlights", nullable = true, length = -1)
 	private String highlights;
 
-	@Column(name = "PriceOfRoom", nullable = false, length = 255)
+	@Column(name = "price_of_room", nullable = false, length = 255)
 	private String PriceOfRoom;
 
-	@Column(name = "PhotosOfRoom", nullable = false, length = 255)
+	@Column(name = "photos_of_room", nullable = false, length = 255)
 	private String photosOfRoom;
 
 	@ManyToOne
-	@JoinColumn(name = "HotelID")
+	@JoinColumn(name = "hotel_id")
 	@JsonBackReference
 	private Hotels hotels;
 
-	public HotelDetails(int hotelDetailId, String typeOfRoom, double areaOfRoom, int amountOfRoom, String typeOfBed,
+	public HotelDetails(long hotelDetailID, String typeOfRoom, double areaOfRoom, int amountOfRoom, String typeOfBed,
 			String sizeOfBed, String highlights, String priceOfRoom, String photosOfRoom) {
-		this.hotelDetailId = hotelDetailId;
+		this.hotelDetailID = hotelDetailID;
 		this.typeOfRoom = typeOfRoom;
 		this.areaOfRoom = areaOfRoom;
 		this.amountOfRoom = amountOfRoom;
