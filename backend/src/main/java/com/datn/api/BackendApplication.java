@@ -13,7 +13,7 @@ public class BackendApplication {
 	}
 
 	@Bean
-    public ModelMapper modelMapper(){
-       return new ModelMapper();
-    }
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
 }

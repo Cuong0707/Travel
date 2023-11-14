@@ -11,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,40 +22,41 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(name = "orders_of_hotel")
 public class OrdersOfHotel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "OrderHotelID", nullable = false)
-	private int orderHotelID;
+	@Column(name = "order_hotel_id", nullable = false)
+	private long orderHotelID;
 
-	@Column(name = "AmountOfRoom", nullable = false, columnDefinition = "int default 1")
+	@Column(name = "amount_of_room", nullable = false, columnDefinition = "int default 1")
 	private int amountOfRoom;
 
-	@Column(name = "AmountOfPeople", nullable = false)
-	private int amountOfPeople;
+	@Column(name = "number_of_people", nullable = false)
+	private int numberOfPeople;
 
-	@Column(name = "AmountOfChildren", nullable = true)
-	private int amountOfChildren;
+	@Column(name = "number_of_children", nullable = true)
+	private int numberOfChildren;
 
-	@Column(name = "CheckInDate", nullable = false)
+	@Column(name = "check_in_date", nullable = false)
 	private LocalDateTime checkInDate;
 
-	@Column(name = "LengthOfStay", nullable = false, columnDefinition = "int default 1")
+	@Column(name = "length_of_stay", nullable = false, columnDefinition = "int default 1")
 	private int lengthOfStay;
 
-	@Column(name = "OriginalPrice", nullable = false)
+	@Column(name = "original_price", nullable = false)
 	private double originalPrice;
 
-	@Column(name = "PromotionPrice", nullable = false)
+	@Column(name = "promotion_price", nullable = false)
 	private double promotionPrice;
 
 	@ManyToOne
-	@JoinColumn(name = "OrderID")
+	@JoinColumn(name = "order_id")
 	@JsonBackReference
 	private Orders orders;
 
 	@ManyToOne
-	@JoinColumn(name = "HotelDetailID")
+	@JoinColumn(name = "hotel_detail_id")
 	@JsonBackReference
 	private HotelDetails hotelDetails;
 }

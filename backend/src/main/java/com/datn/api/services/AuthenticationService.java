@@ -45,7 +45,7 @@ public class AuthenticationService {
 		var users = Users.builder().userID(shortUUID()).fullname(request.getFullname())
 				.password(passwordEncoder.encode(request.getPassword())).email(request.getEmail())
 				.birthday(request.getBirthday()).avatar(request.getAvatar()).address(request.getAddress())
-				.registrationDate(LocalDateTime.now()).status(UserStatus.Active).role(Role.USER).build();
+				.registrationDate(LocalDateTime.now()).status(UserStatus.active).role(Role.USER).build();
 		Users userSaved = repository.save(users);
 		var jwtToken = jwtService.generateToken(users);
 		return AuthenticationResponse.builder().infoUser(usersService.usersToDto(userSaved)).token(jwtToken).build();
@@ -71,7 +71,7 @@ public class AuthenticationService {
 
 		var users = Users.builder().userID(shortUUID()).fullname(profileGoogle.getName()).password(null).birthday(null)
 				.email(profileGoogle.getEmail() + "--google").avatar(profileGoogle.getImageUrl()).address(null)
-				.registrationDate(LocalDateTime.now()).status(UserStatus.Active).role(Role.USER).build();
+				.registrationDate(LocalDateTime.now()).status(UserStatus.active).role(Role.USER).build();
 		Optional<Users> optional = repository.findByEmailAndPasswordNull(users.getEmail());
 
 		var userSaved = optional.isPresent() ? optional.get() : repository.save(users);

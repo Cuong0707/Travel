@@ -8,6 +8,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,20 +19,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(name = "services")
 public class Services {
 	@Id
-	@Column(name = "ServiceID", nullable = false, length = 10)
-	private String serviceId;
+	@Column(name = "service_id", nullable = false, length = 10)
+	private String serviceID;
 
-	@Column(name = "Service", nullable = false, length = 255)
+	@Column(name = "service", nullable = false, length = 255)
 	private String service;
 
 	@OneToMany(mappedBy = "services")
 	@JsonManagedReference
 	List<Partners> partners;
 
-	public Services(String serviceId, String service) {
-		this.serviceId = serviceId;
+	public Services(String serviceID, String service) {
+		this.serviceID = serviceID;
 		this.service = service;
 	}
 

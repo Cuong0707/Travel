@@ -9,6 +9,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class CountNewUser {
-    String x;
-    Integer y;
+	String x;
+	Integer y;
 }

@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,16 +19,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@Table(name = "admins")
 public class Admins {
 	@Id
-	@Column(name = "AdminID", nullable = false, length = 10)
+	@Column(name = "admin_id", nullable = false, length = 10)
 	private String adminID;
 
-	@Column(name = "NameOfAdmin", nullable = false, length = 50)
+	@Column(name = "name_of_admin", nullable = false, length = 50)
 	private String nameOfAdmin;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "UserID")
+	@JoinColumn(name = "user_id")
 	@JsonBackReference
 	private Users user;
 }
