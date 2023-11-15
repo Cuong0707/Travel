@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
-import Aside from "./Aside";
+import Aside from "./Aside/Aside.js";
 import TopDestination from "./TopDestination";
 import Blogs from "./Blogs";
 import Content from "./Content";
-import Header from "./Header";
+import Header from "./Header/Header.js";
 import Member from "./Member";
-import ArticleMap from "./ArticleMap";
-import ArticleAds from "./ArticleAds";
+import ArticleMap from "./Article/ArticleMap.js";
+import ArticleAds from "./Article/ArticleAds.js";
 import Aos from "aos";
 import 'aos/dist/aos.css';
+
 function Home() {
     useEffect(() => {
         Aos.init()
@@ -23,9 +24,7 @@ function Home() {
                 <ArticleMap />
                 <ArticleAds />
             </div>
-            <section className="destination" data-aos="fade-right"
-                data-aos-offset="500"
-                data-aos-easing="ease-in-sine">
+            <section className="destination">
                 <TopDestination />
                 <Blogs />
             </section>

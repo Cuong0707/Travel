@@ -1,20 +1,22 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import "../node_modules/bootstrap/dist/js/bootstrap";
-import App from "./App";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import reportWebVitals from "./reportWebVitals";
-import Home from "./components/Home";
-import ContactUs from "./components/ContactUs";
-import MyAccount from "./components/MyAccount";
-import Login from "./components/Login";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../node_modules/bootstrap/dist/js/bootstrap';
+import App from './App';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import reportWebVitals from './reportWebVitals';
+import Home from './components/Home';
+import ContactUs from './components/ContactUs';
+import MyAccount from './components/MyAccount';
+import Login from './components/Login/Login';
+import StepperForm from './components/Partner/StepperForm';
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+
       {/* <Routes>
         <Route path="/" element={<App />}>
           <Route path="/" element={<Home />}></Route>
@@ -27,6 +29,7 @@ root.render(
               element={<account-change-password />}
             ></Route>
           </Route>
+          <Route path='partner' element={<StepperForm />}></Route>
         </Route>
       </Routes> */}
       {/* Admin */}
