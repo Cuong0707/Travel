@@ -9,7 +9,7 @@ import com.datn.api.entity.dto.HotelResponseDto;
 
 @Component
 public interface HotelService extends IService<HotelDto, Long> {
-	HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
+	//HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
 	List<HotelDto> findAllHotelsByProvince(String provinceID);
 
@@ -17,6 +17,7 @@ public interface HotelService extends IService<HotelDto, Long> {
 
 	Integer numberOrderOfHotel(String id);
 
-
 	HotelResponseDto findByKeywords(Integer pageNumber, Integer pageSize, String keywords);
+
+	HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize);
 }

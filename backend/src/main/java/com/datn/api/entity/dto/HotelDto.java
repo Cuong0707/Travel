@@ -19,21 +19,21 @@ import lombok.Setter;
 @Getter
 @Setter
 public class HotelDto {
-	private int id;
+	private Long id;
 	private PartnersDto partners;
-	private String nameOfHotel;
-	private String typeOfHotel;
+	private String name_of_hotel;
+	private String type_of_hotel;
 	private String standard;
 	private Breakfast breakfast;
-	private String serviceFee;
+	private String service_fee;
 	@JsonFormat(pattern = "hh:mma dd/MM/yyyy")
 	private LocalDateTime checkIn;
 	@JsonFormat(pattern = "hh:mma dd/MM/yyyy")
-	private LocalDateTime checkOut;
+	private LocalDateTime check_out;
 	private HotelStatus status;
 	private String description;
-	private String childrenPolicies;
-	private String termAndPolicies;
+	private String Children_Policies;
+	private String term_And_Policies;
 	private Long view;
 	private Integer totalBook;
 	private List<HotelDetails> hotelDetails;

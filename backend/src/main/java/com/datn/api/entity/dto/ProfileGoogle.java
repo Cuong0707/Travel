@@ -10,10 +10,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProfileGoogle {
-    private String email;
-    private String familyName;
-    private String givenName;
-    private String googleId;
-    private String imageUrl;
-    private String name;
+	private String email;
+	private String familyName;
+	private String givenName;
+	private String googleId;
+	private String imageUrl;
+	private String name;
 }

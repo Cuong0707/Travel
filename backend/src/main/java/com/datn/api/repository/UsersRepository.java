@@ -22,6 +22,6 @@ public interface UsersRepository extends JpaRepository<Users, String> {
 	List<Users> findByKeywords(String keywords);
 
 	// Hàm đếm sô lượng người đăng ký
-	@Query("SELECT COUNT(u.userId) FROM Users u WHERE u.registeredAt >= :startDate AND u.registeredAt < :endDate")
+	@Query("SELECT COUNT(u.userID) FROM Users u WHERE u.registrationDate >= :startDate AND u.registrationDate < :endDate")
 	Integer countUsersForDate(LocalDateTime startDate, LocalDateTime endDate);
 }

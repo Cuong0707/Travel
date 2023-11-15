@@ -12,6 +12,6 @@ import java.util.List;
 @Getter
 @Setter
 public class NumberRegister {
-    String id="Người dùng mới";
-    List<CountNewUser> data;
+	String id = "Người dùng mới";
+	List<CountNewUser> data;
 }

@@ -16,12 +16,14 @@ import java.io.IOException;
 
 @Component
 public class EntryPointExceptionHandler implements AuthenticationEntryPoint {
-    @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        objectMapper.writeValue(response.getOutputStream(), ApiResponse.error(HttpStatus.UNAUTHORIZED,"Unauthorized path"));
-    }
+	@Override
+	public void commence(HttpServletRequest request, HttpServletResponse response,
+			AuthenticationException authException) throws IOException, ServletException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		objectMapper.registerModule(new JavaTimeModule());
+		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+		objectMapper.writeValue(response.getOutputStream(),
+				ApiResponse.error(HttpStatus.UNAUTHORIZED, "Unauthorized path"));
+	}
 }
