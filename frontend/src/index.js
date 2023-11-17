@@ -14,10 +14,12 @@ import StepperForm from './components/Partner/StepperForm';
 import SignUp from './components/Login/SignUp';
 import ForgotPass from './components/ForgotPass/ForgotPass';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+
       <Routes>
         <Route path='/' element={<App />}>
           <Route path='/' element={<Home />}></Route>
@@ -27,15 +29,20 @@ root.render(
           <Route path='/myaccount' element={<MyAccount />}>
             <Route path='account-general' element={<account-general />}></Route>
             <Route path='account-change-password' element={<account-change-password />}></Route>
+
+      
+
           </Route>
           <Route path='partner' element={<StepperForm />}></Route>
           <Route path='/forgot-pass' element={<ForgotPass />}></Route>
 
         </Route>
-
-      </Routes>
+      </Routes> 
+      {/* Admin */}
+      <App />
+      {/* Admin */}
     </BrowserRouter>
-  </React.StrictMode >
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
