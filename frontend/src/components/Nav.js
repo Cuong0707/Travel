@@ -347,10 +347,11 @@ class Nav extends React.Component {
                                         <img src="images/icon-login1.gif" alt="icon-login" /> Đăng Nhập
                                     </Link>
                                     <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                        <li><Link className="dropdown-item" to="login" data-toggle="modal" data-target="#myModal">Đăng Nhập & Đăng Ký</Link></li>
+                                        <li><Link className="dropdown-item" to="/login">Đăng Nhập</Link></li>
+                                        <li><Link className="dropdown-item" to="/register">Đăng Ký</Link></li>
                                         <li><Link className="dropdown-item" to="myaccount">Thông Tin Cá Nhân</Link></li>
                                         <li><Link className="dropdown-item" to="#">Đổi Mật Khẩu</Link></li>
-                                        <li><Link className="dropdown-item" to="#">Quên Mật Khẩu</Link></li>
+                                        <li><Link className="dropdown-item" to="/forgot-pass">Quên Mật Khẩu</Link></li>
                                     </ul>
                                 </li>
 
