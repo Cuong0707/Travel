@@ -10,6 +10,16 @@
 
 }
 
+body {
+    -ms-overflow-style: none; /* cho  Internet Explorer, Edge */
+    scrollbar-width: none; /* cho Firefox */
+    overflow-y: scroll; 
+  }
+  
+  body::-webkit-scrollbar {
+    display: none; /* cho Chrome, Safari, and Opera */
+  }
+
 :root {
     --dark: #282828;
     --red-500: #af143e;
@@ -183,9 +193,9 @@ h2:hover {
     transition: all 0.3s;
     border-radius: 15px 0px 0px;
 }
-.card:hover img {
-    transform: scale(1.1);
-}
+// .card:hover img {
+//     transform: scale(1.1);
+// }
 
 .content-1{
     position: relative;

@@ -19,78 +19,78 @@ import { Link } from "react-router-dom";
 function SignUp() {
     return (
         <div className='container-login'>
-            <MDBContainer className="my-3 ">
-                <MDBCard>
-                    <MDBRow className='g-0'>
-                        <MDBCol md='5 m-auto'>
+            <div className="container my-3 ">
+                <div className='card'>
+                    <div className='g-0 row'>
+                        <div className='col-md-5 m-auto'>
                             <h1 className="fw-normal my-4 fw-bold text-center">Đăng Ký</h1>
-                            <MDBCardBody className='d-flex flex-column'>
-                                <Form>
-                                    <Row className="mb-3">
-                                        <Form.Group as={Col} controlId="formGridEmail">
-                                            <Form.Label>Họ Và Tên</Form.Label>
-                                            <Form.Control type="text" />
-                                        </Form.Group>
+                            <div className='card-body d-flex flex-column'>
+                                <form method=''>
+                                    <div className="row mb-3">
+                                        <div className='col-6'>
+                                            <label htmlFor='label1' className='mb-2'>Họ Và Tên</label>
+                                            <input type="text" className='form-control' />
+                                        </div>
 
-                                        <Form.Group as={Col} controlId="formGridPassword">
-                                            <Form.Label>Email</Form.Label>
-                                            <Form.Control type="email" />
-                                        </Form.Group>
-                                    </Row>
-                                    <Row>
-                                        <Form.Group as={Col} className="mb-3" controlId="formGridAddress1">
-                                            <Form.Label>Tỉnh</Form.Label>
-                                            <Form.Select defaultValue="Choose...">
+                                        <div className='col-6'>
+                                            <label htmlFor='label2' className='mb-2'>Email</label>
+                                            <input type="email" className='form-control' />
+                                        </div>
+                                    </div>
+                                    <div className="mb-3 row">
+                                        <div className="col">
+                                            <label htmlFor="province" className="form-label">Tỉnh</label>
+                                            <select id="province" className="form-select" defaultValue="Choose...">
                                                 <option>Choose...</option>
                                                 <option>...</option>
-                                            </Form.Select>
-                                        </Form.Group>
-                                        <Form.Group as={Col} className="mb-3" controlId="formGridAddress1">
-                                            <Form.Label>Quận/Huyện</Form.Label>
-                                            <Form.Select defaultValue="Choose...">
+                                            </select>
+                                        </div>
+                                        <div className="col">
+                                            <label htmlFor="district" className="form-label">Quận/Huyện</label>
+                                            <select id="district" className="form-select" defaultValue="Choose...">
                                                 <option>Choose...</option>
                                                 <option>...</option>
-                                            </Form.Select>
-                                        </Form.Group>
-                                        <Form.Group as={Col} className="mb-3" controlId="formGridAddress1">
-                                            <Form.Label>Xã</Form.Label>
-                                            <Form.Select defaultValue="Choose...">
+                                            </select>
+                                        </div>
+                                        <div className="col">
+                                            <label htmlFor="commune" className="form-label">Xã</label>
+                                            <select id="commune" className="form-select" defaultValue="Choose...">
                                                 <option>Choose...</option>
                                                 <option>...</option>
-                                            </Form.Select>
-                                        </Form.Group>
-                                        {/* <DropdownComponent /> */}
-                                    </Row>
-                                    <Form.Group className="mb-3" controlId="formGridAddress2">
-                                        <Form.Label>Mật Khẩu</Form.Label>
-                                        <Form.Control />
-                                    </Form.Group>
-
-                                    <Form.Group className="mb-3" controlId="formGridAddress2">
-                                        <Form.Label>Xác Nhận Mật Khẩu</Form.Label>
-                                        <Form.Control />
-                                    </Form.Group>
-                                    <Row>
-                                        <Form.Group as={Col} className="mb-3" id="formGridCheckbox">
-                                            <Form.Check type="checkbox" label="Đồng Ý Các Điều Khoản" />
-                                        </Form.Group>
-
-                                        <Form.Group as={Col} className="mb-3 text-end" id="formGridCheckbox">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="password" className="form-label">Mật Khẩu</label>
+                                        <input type="password" className="form-control" id="password" />
+                                    </div>
+                                    <div className="mb-3">
+                                        <label htmlFor="confirmPassword" className="form-label">Xác Nhận Mật Khẩu</label>
+                                        <input type="password" className="form-control" id="confirmPassword" />
+                                    </div>
+                                    <div className="row mb-3">
+                                        <div className="col">
+                                            <div className="form-check">
+                                                <input className="form-check-input" type="checkbox" id="agreeTerms" />
+                                                <label className="form-check-label" htmlFor="agreeTerms">Đồng Ý Các Điều Khoản</label>
+                                            </div>
+                                        </div>
+                                        <div className="col text-end">
                                             <p className="pb-lg-2 fw-bold">Đã Có Tài Khoản ? <Link to="/login" style={{ color: '#393f81' }}> <u>Đăng Nhập</u></Link></p>
-                                        </Form.Group>
-                                    </Row>
-                                </Form>
+                                        </div>
+                                    </div>
+                                </form>
                                 <div className='row'>
                                 </div>
                                 <button className="btn btn-success col-5 m-auto" type='submit'>Xác Nhận</button>
-                            </MDBCardBody>
-                        </MDBCol>
-                        <MDBCol md='6'>
-                            <MDBCardImage src='images/images-signup.png' alt="login form" style={{ height: "600px", width: "650px" }} className="rounded-start" />
-                        </MDBCol>
-                    </MDBRow>
-                </MDBCard>
-            </MDBContainer>
+                            </div>
+                        </div>
+                        <div className='col-md-6'>
+                            <img src='images/images-signup.png' alt="login form" style={{ height: "600px", width: "650px" }} className="rounded-start" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

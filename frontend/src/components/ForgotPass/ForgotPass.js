@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import '../../style/ForgotPass.scss'
+import '../../style/ForgotPass.scss'
 
 function ForgotPass() {
     return (
@@ -14,7 +14,7 @@ function ForgotPass() {
                     <div className="form-outline">
                         <input type="email" id="typeEmail" placeholder='Email' className="form-control my-3" />
                     </div>
-                    <button type="submit" className="btn btn-primary w-100">Reset password</button>
+                    <button type="submit" className="btn btn-primary w-100">Gửi</button>
                     <div className="d-flex justify-content-between mt-4">
                         <Link to="/login">Đăng Nhập</Link>
                         <Link to="/register">Đăng Ký</Link>

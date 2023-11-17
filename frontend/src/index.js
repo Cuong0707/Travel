@@ -30,17 +30,12 @@ root.render(
             <Route path='account-general' element={<account-general />}></Route>
             <Route path='account-change-password' element={<account-change-password />}></Route>
 
-      
-
           </Route>
           <Route path='partner' element={<StepperForm />}></Route>
           <Route path='/forgot-pass' element={<ForgotPass />}></Route>
-
         </Route>
       </Routes> 
-      {/* Admin */}
-      <App />
-      {/* Admin */}
+   
     </BrowserRouter>
   </React.StrictMode>
 );

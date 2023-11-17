@@ -1,14 +1,4 @@
 import React from 'react';
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBCard,
-  MDBCardBody,
-  MDBCardImage,
-  MDBRow,
-  MDBCol,
-}
-  from 'mdb-react-ui-kit';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
@@ -19,78 +9,54 @@ import { Link } from "react-router-dom";
 function SignIn() {
   return (
     <div className='container-login'>
-      <MDBContainer className="my-3 ">
-        <MDBCard>
-          <MDBRow className='g-0'>
-            <MDBCol md='5 m-auto'>
-              <h1 className="fw-normal my-4 fw-bold text-center">Đăng Ký</h1>
-              <MDBCardBody className='d-flex flex-column'>
-                <Form>
-                  <Row className="mb-3">
-                    <Form.Group as={Col} controlId="formGridEmail">
-                      <Form.Label>Họ Và Tên</Form.Label>
-                      <Form.Control type="text" />
-                    </Form.Group>
+      <div className="container my-3">
+        <div className='card'>
+          <div className='g-0 row'>
+            <div className='col-md-5 m-auto'>
+              <h1 className="fw-normal my-4 fw-bold text-center">Đăng Nhập</h1>
+              <div className='card-body d-flex flex-column'>
+                <form method=''>
+                  <input className='mb-3 form-control form-control-lg' type='email' placeholder='Email' />
+                  <input className='mb-3 form-control form-control-lg' type='password' placeholder='Mật Khẩu' />
+                  <div className='row'>
+                    <h6 className="col-6 mb-3 fw-bold">
+                      Chưa Có Tài Khoản ?{" "}
+                      <Link className="" to="/register">
+                        <u>Đăng Ký</u>
+                      </Link>
+                    </h6>
+                    <Link className=" fw-bold col-6 text-end" to="/forgot-pass" >
+                      Quên Mật Khẩu?
+                    </Link>
+                  </div>
+                  <div class="col-md-12 text-center">
+                    <button className="btn btn-success col-5 mb-3" type='submit'>Xác Nhận</button>
+                  </div>
+                </form>
+                <div class="col-md-12 text-center">
+                  <hr style={{
+                    width: "60%",
+                    margin: "0 auto"
+                  }} />
+                  <div className="sign-in-with row m-auto">
+                    <h6 className="mt-3 col-12">Hoặc</h6>
+                    <Link to="" className="mt-2 col-12">
+                      <button className="btn btn-primary btn-sm"><i className="bi bi-facebook"></i> Đăng Nhập Bằng Facebook</button>
 
-                    <Form.Group as={Col} controlId="formGridPassword">
-                      <Form.Label>Email</Form.Label>
-                      <Form.Control type="email" />
-                    </Form.Group>
-                  </Row>
-                  <Row>
-                    <Form.Group as={Col} className="mb-3" controlId="formGridAddress1">
-                      <Form.Label>Tỉnh</Form.Label>
-                      <Form.Select defaultValue="Choose...">
-                        <option>Choose...</option>
-                        <option>...</option>
-                      </Form.Select>
-                    </Form.Group>
-                    <Form.Group as={Col} className="mb-3" controlId="formGridAddress1">
-                      <Form.Label>Quận/Huyện</Form.Label>
-                      <Form.Select defaultValue="Choose...">
-                        <option>Choose...</option>
-                        <option>...</option>
-                      </Form.Select>
-                    </Form.Group>
-                    <Form.Group as={Col} className="mb-3" controlId="formGridAddress1">
-                      <Form.Label>Xã</Form.Label>
-                      <Form.Select defaultValue="Choose...">
-                        <option>Choose...</option>
-                        <option>...</option>
-                      </Form.Select>
-                    </Form.Group>
-                    {/* <DropdownComponent /> */}
-                  </Row>
-                  <Form.Group className="mb-3" controlId="formGridAddress2">
-                    <Form.Label>Mật Khẩu</Form.Label>
-                    <Form.Control />
-                  </Form.Group>
-
-                  <Form.Group className="mb-3" controlId="formGridAddress2">
-                    <Form.Label>Xác Nhận Mật Khẩu</Form.Label>
-                    <Form.Control />
-                  </Form.Group>
-                  <Row>
-                    <Form.Group as={Col} className="mb-3" id="formGridCheckbox">
-                      <Form.Check type="checkbox" label="Đồng Ý Các Điều Khoản" />
-                    </Form.Group>
-
-                    <Form.Group as={Col} className="mb-3 text-end" id="formGridCheckbox">
-                      <p className="pb-lg-2 fw-bold">Đã Có Tài Khoản ? <Link to="/login" style={{ color: '#393f81' }}> <u>Đăng Nhập</u></Link></p>
-                    </Form.Group>
-                  </Row>
-                </Form>
-                <div className='row'>
+                    </Link>
+                    <Link to="" className="mt-2 col-12">
+                      <button className="sign-in-gg btn btn-danger btn-sm "><i className="bi bi-google"></i> Đăng Nhập Bằng Google</button>
+                    </Link>
+                  </div>
                 </div>
-                <button className="btn btn-success col-5 m-auto" type='submit'>Xác Nhận</button>
-              </MDBCardBody>
-            </MDBCol>
-            <MDBCol md='6'>
-              <MDBCardImage src='images/images-signup.png' alt="login form" style={{ height: "600px", width: "650px" }} className="rounded-start" />
-            </MDBCol>
-          </MDBRow>
-        </MDBCard>
-      </MDBContainer>
+              </div>
+            </div>
+            <div className='col-md-6 img-signin'>
+              <img src='images/images-signin.jpg' alt="login form" style={{ height: "600px", width: "650px" }} className="rounded-start" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
