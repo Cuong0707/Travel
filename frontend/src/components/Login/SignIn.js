@@ -6,7 +6,7 @@ function SignIn() {
   return (
     <div className='container-login'>
       <div className="container my-3">
-        <div className='card'>
+        <div className='card shadow p-3 mb-5 bg-white rounded'>
           <div className='g-0 row'>
             <div className='col-md-5 m-auto'>
               <h1 className="fw-normal my-4 fw-bold text-center">Đăng Nhập</h1>
@@ -48,7 +48,7 @@ function SignIn() {
               </div>
             </div>
             <div className='col-md-6 img-signin'>
-              <img src='images/images-signin.jpg' alt="login form" style={{ height: "600px", width: "650px" }} className="rounded-start" />
+              <img src='images/images-signin.jpg' alt="login form" style={{ height: "600px", width: "630px" }} className="rounded-start" />
             </div>
           </div>
         </div>

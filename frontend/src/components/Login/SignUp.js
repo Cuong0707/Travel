@@ -7,8 +7,11 @@ function SignUp() {
     return (
         <div className='container-login'>
             <div className="container my-3 ">
-                <div className='card'>
+                <div className='card shadow p-3 mb-5 bg-white rounded'>
                     <div className='g-0 row'>
+                        <div className='col-md-6'>
+                            <img src='images/images-signup.png' alt="login form" style={{ height: "600px", width: "630px" }} className="rounded-start" />
+                        </div>
                         <div className='col-md-5 m-auto'>
                             <h1 className="fw-normal my-4 fw-bold text-center">Đăng Ký</h1>
                             <div className='card-body d-flex flex-column'>
@@ -71,9 +74,6 @@ function SignUp() {
                                 </div>
                                 <button className="btn btn-success col-5 m-auto" type='submit'>Xác Nhận</button>
                             </div>
-                        </div>
-                        <div className='col-md-6'>
-                            <img src='images/images-signup.png' alt="login form" style={{ height: "600px", width: "650px" }} className="rounded-start" />
                         </div>
                     </div>
                 </div>
