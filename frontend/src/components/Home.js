@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Aside from "./Aside/Aside.js";
 import TopDestination from "./TopDestination";
-import Blogs from "./Blogs";
+import Blogs from "./Blog/Blogs.js";
 import Content from "./Content";
 import Header from "./Header/Header.js";
 import Member from "./Member";

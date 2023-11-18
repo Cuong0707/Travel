@@ -350,7 +350,7 @@ class Nav extends React.Component {
                                         <li><Link className="dropdown-item" to="/login">Đăng Nhập</Link></li>
                                         <li><Link className="dropdown-item" to="/register">Đăng Ký</Link></li>
                                         <li><Link className="dropdown-item" to="myaccount">Thông Tin Cá Nhân</Link></li>
-                                        <li><Link className="dropdown-item" to="#">Đổi Mật Khẩu</Link></li>
+                                        <li><Link className="dropdown-item" to="/change-pass">Đổi Mật Khẩu</Link></li>
                                         <li><Link className="dropdown-item" to="/forgot-pass">Quên Mật Khẩu</Link></li>
                                     </ul>
                                 </li>
