@@ -1,30 +1,42 @@
-import React from "react";
-import Aside from "./Aside";
-import Article from "./Article";
-import Top_Destination from "./Top_Destination";
-import Blogs from "./Blogs";
+import React, { useEffect } from "react";
+import Aside from "./Aside/Aside.js";
+import TopDestination from "./TopDestination";
+import Blogs from "./Blog/Blogs.js";
 import Content from "./Content";
+import Header from "./Header/Header.js";
 import Member from "./Member";
-class Home extends React.Component {
-    render() {
-        return (
-            <>
-                <div className="container-fluid row">
-                    <Aside />
-                    <Article />
-                </div>
-                <section className="destination">
-                    <Top_Destination />
-                    <Blogs />
-                </section>
-                <section className="content">
-                    <Content />
-                </section>
-                <section className="testimonial">
-                    <Member />
-                </section>
-            </>
-        )
-    }
+import ArticleMap from "./Article/ArticleMap.js";
+import ArticleAds from "./Article/ArticleAds.js";
+import Aos from "aos";
+import 'aos/dist/aos.css';
+
+function Home() {
+    useEffect(() => {
+        Aos.init()
+    }, [])
+    return (
+        <>
+            <div className="App-header">
+                <Header />
+            </div>
+            <div className="container-fluid row">
+                <Aside />
+                <ArticleMap />
+                <ArticleAds />
+            </div>
+            <section className="destination">
+                <TopDestination />
+                <Blogs />
+            </section>
+            <section className="content" data-aos="fade-left"
+                data-aos-offset="500">
+                <Content />
+            </section>
+            <section className="testimonial" data-aos="zoom-out-up">
+                <Member />
+            </section>
+        </>
+    )
+
 }
 export default Home;

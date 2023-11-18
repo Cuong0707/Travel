@@ -1,0 +1,333 @@
+body {
+     font-family: 'Open Sans', sans-serif;
+ }
+
+ .homeStepper{
+     margin: 90px auto;
+     border: none;
+ }
+ .thank-you-message {
+  font-size: 28px;
+  color: #3498db; /* Màu xanh dương đẹp mắt */
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  margin-top: 20px;
+  text-transform: uppercase; /* Chuyển đổi văn bản thành chữ in hoa */
+  letter-spacing: 2px; /* Khoảng cách giữa các ký tự */
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5); /* Đổ bóng văn bản */
+}
+//  #signUpForm {
+//      max-width: 700px;
+//      background-color: #ffffff;
+//      margin: 25px 450px;
+//      padding: 40px;
+//      box-shadow: 0px 6px 18px rgb(0 0 0 / 9%);
+//      border-radius: 12px;
+     
+//  }
+//  #signUpForm .form-header {
+//      gap: 5px;
+//      text-align: center;
+//      font-size: .9em;
+//  }
+//  #signUpForm .form-header .stepIndicator {
+//      position: relative;
+//      flex: 1;
+//      padding-bottom: 30px;
+//  }
+//  #signUpForm .form-header .stepIndicator.active {
+//      font-weight: 600;
+//  }
+//  #signUpForm .form-header .stepIndicator.finish {
+//      font-weight: 600;
+//      color: #009688;
+//  }
+//  #signUpForm .form-header .stepIndicator::before {
+//      content: "";
+//      position: absolute;
+//      left: 50%;
+//      bottom: 0;
+//      transform: translateX(-50%);
+//      z-index: 9;
+//      width: 20px;
+//      height: 20px;
+//      background-color: #d5efed;
+//      border-radius: 50%;
+//      border: 3px solid #ecf5f4;
+//  }
+//  #signUpForm .form-header .stepIndicator.active::before {
+//      background-color: #a7ede8;
+//      border: 3px solid #d5f9f6;
+//  }
+//  #signUpForm .form-header .stepIndicator.finish::before {
+//      background-color: #009688;
+//      border: 3px solid #b7e1dd;
+//  }
+//  #signUpForm .form-header .stepIndicator::after {
+//      content: "";
+//      position: absolute;
+//      left: 50%;
+//      bottom: 8px;
+//      width: 100%;
+//      height: 3px;
+//      background-color: #f3f3f3;
+//  }
+//  #signUpForm .form-header .stepIndicator.active::after {
+//      background-color: #a7ede8;
+//  }
+//  #signUpForm .form-header .stepIndicator.finish::after {
+//      background-color: #009688;
+//  }
+//  #signUpForm .form-header .stepIndicator:last-child:after {
+//      display: none;
+//  }
+//  #signUpForm input {
+//     padding: 15px 20px;
+//     width: 100%;
+//     font-size: 1em;
+//     border: 1px solid #e3e3e3;
+//     border-radius: 5px;
+//  }
+
+//  #signUpForm select {
+//     padding: 15px 20px;
+//     width: 100%;
+//     font-size: 1em;
+//     border: 1px solid #e3e3e3;
+//     border-radius: 5px;
+//  }
+
+//  #signUpForm input:focus {
+//      border: 1px solid #009688;
+//      outline: 0;
+//  }
+//  #signUpForm input.invalid {
+//      border: 1px solid #ffaba5;
+//  }
+//  #signUpForm .step {
+//    display: none;
+//  }
+//  #signUpForm .form-footer{
+//      overflow:auto;
+//      gap: 20px;
+//  }
+//  #signUpForm .form-footer button{
+//      background-color: #009688;
+//      border: 1px solid #009688 !important;
+//      color: #ffffff;
+//      border: none;
+//      padding: 13px 30px;
+//      font-size: 1em;
+//      cursor: pointer;
+//      border-radius: 5px;
+//      flex: 1;
+//      margin-top: 5px;
+//  }
+//  #signUpForm .form-footer button:hover {
+//    opacity: 0.8;
+//  }
+ 
+//  #signUpForm .form-footer #prevBtn {
+//      background-color: #fff;
+//      color: #009688;
+//  }
+
+.stepper{
+    position: relative;
+    width: 100%;
+    height: 115vh;
+    background: #3586ff;
+    overflow: hidden;
+    border: none;
+  }
+.stepper .air{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url(https://1.bp.blogspot.com/-xQUc-TovqDk/XdxogmMqIRI/AAAAAAAACvI/AizpnE509UMGBcTiLJ58BC6iViPYGYQfQCLcBGAsYHQ/s1600/wave.png);
+    background-size: 1000px 100px;
+    border: none;
+  }
+.stepper .air.air1{
+    animation: wave 30s linear infinite;
+    z-index: 1000;
+    opacity: 1;
+    animation-delay: 0s;
+    bottom: 0;
+    border: none;
+
+  }
+.stepper .air.air2{
+    animation: wave2 15s linear infinite;
+    z-index: 999;
+    opacity: 0.5;
+    animation-delay: -5s;
+    bottom: 10px;
+    border: none;
+
+  }
+  .stepper .air.air3{
+    animation: wave 30s linear infinite;
+    z-index: 998;
+    opacity: 0.2;
+    animation-delay: -2s;
+    bottom: 15px;
+    border: none;
+  }
+.stepper .air.air4{
+    animation: wave2 5s linear infinite;
+    z-index: 997;
+    opacity: 0.7;
+    animation-delay: -5s;
+    bottom: 20px;
+    border: none;
+
+  }
+  @keyframes wave{
+    0%{
+      background-position-x: 0px; 
+    }
+    100%{
+      background-position-x: 1000px; 
+    }
+  }
+  @keyframes wave2{
+    0%{
+      background-position-x: 0px; 
+    }
+    100%{
+      background-position-x: -1000px; 
+    }
+  }
+  
+  @keyframes bounce {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0); }
+    0% { text-shadow: 0 0 5px #545454; }
+    50% { text-shadow: 0 0 20px #46e12f, 0 0 30px #22ff00, 0 0 40px #22ff00; }
+    100% { text-shadow: 0 0 5px #676767; }
+  }
+  
+  .bouncing-text {
+    animation: bounce 1.5s ease-in-out infinite;
+  }
+
+$particles: 60;
+$width: 500;
+$height: 400;
+
+// Create the explosion...
+$box-shadow: ();
+$box-shadow2: ();
+@for $i from 0 through $particles {
+  $box-shadow: $box-shadow,
+               random($width)-$width / 2 + px
+               random($height)-$height / 1.2 + px
+               hsl(random(360), 100, 50);
+  $box-shadow2: $box-shadow2, 0 0 #fff
+}
+@mixin keyframes ($animationName) {
+    @-webkit-keyframes #{$animationName} {
+        @content;
+    }
+
+    @-moz-keyframes #{$animationName} {
+        @content;
+    }
+
+    @-o-keyframes #{$animationName} {
+        @content;
+    }
+
+    @-ms-keyframes #{$animationName} {
+        @content;
+    }
+
+    @keyframes #{$animationName} {
+        @content;
+    }
+}
+
+@mixin animation-delay ($settings) {
+    -moz-animation-delay: $settings;
+    -webkit-animation-delay: $settings;
+    -o-animation-delay: $settings;
+    -ms-animation-delay: $settings;
+    animation-delay: $settings;
+}
+
+@mixin animation-duration ($settings) {
+    -moz-animation-duration: $settings;
+    -webkit-animation-duration: $settings;
+    -o-animation-duration: $settings;
+    -ms-animation-duration: $settings;
+    animation-duration: $settings;
+}
+
+@mixin animation ($settings) {
+    -moz-animation: $settings;
+    -webkit-animation: $settings;
+    -o-animation: $settings;
+    -ms-animation: $settings;
+    animation: $settings;
+}
+
+@mixin transform ($settings) {
+    transform: $settings;
+    -moz-transform: $settings;
+    -webkit-transform: $settings;
+    -o-transform: $settings;
+    -ms-transform: $settings;
+}
+.pyro > .before, .pyro > .after {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    box-shadow: $box-shadow2;
+    @include animation((1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards));
+  }
+      
+  .pyro > .after {
+    @include animation-delay((1.25s, 1.25s, 1.25s));
+    @include animation-duration((1.25s, 1.25s, 6.25s));
+  }
+          
+  @include keyframes(bang) {
+    to {
+      box-shadow:$box-shadow;
+    }
+  }
+      
+  @include keyframes(gravity)  {
+    to {
+      @include transform(translateY(200px));
+      opacity: 0;
+    }
+  }
+      
+  @include keyframes(position) {
+    0%, 19.9% {
+      margin-top: 10%;
+      margin-left: 40%;
+    }
+    20%, 39.9% {
+      margin-top: 40%;
+      margin-left: 30%;
+    }
+    40%, 59.9% {  
+      margin-top: 20%;
+      margin-left: 70%
+    }
+    60%, 79.9% {  
+      margin-top: 30%;
+      margin-left: 20%;
+    }
+    80%, 99.9% {  
+      margin-top: 30%;
+      margin-left: 80%;
+    }
+  }
