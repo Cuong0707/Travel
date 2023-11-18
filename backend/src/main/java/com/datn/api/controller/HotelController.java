@@ -6,6 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.datn.api.entity.dto.HotelDto;
+import com.datn.api.entity.dto.HotelRequest;
 import com.datn.api.entity.dto.HotelResponseDto;
 import com.datn.api.exceptions.ApiResponse;
 import com.datn.api.services.HotelServiceImpl;
@@ -23,12 +25,16 @@ public class HotelController {
 	@Autowired
 	HotelServiceImpl hotelService;
 
+
 	@GetMapping("")
 	public ApiResponse<HotelResponseDto> getAllHotels(
-            @RequestParam(value = "q", defaultValue = "", required = false) String keywords,
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-            @RequestParam(value = "pageSize", defaultValue = "8", required = false) Integer pageSize){
-				return ApiResponse.success(HttpStatus.OK, "success",hotelService.getAllHotels(pageNumber, pageSize));
+            @RequestParam(value = "pageSize", defaultValue = "8", required = false) Integer pageSize,
+			@RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
+			@RequestParam(value = "sortBy", defaultValue = "nameOfHotel", required = false) String sortBy
+	){
+
+				return ApiResponse.success(HttpStatus.OK, "success",hotelService.getAllHotels(pageNumber, pageSize,sortDir,sortBy));
 	}
 
 	@GetMapping("/increase-view/{id}")
@@ -43,6 +49,16 @@ public class HotelController {
 		String successMessage = "Tìm thấy hotel có id " + id;
 		return ApiResponse.success(HttpStatus.OK, successMessage, hotel);
 	}
+	@PostMapping()
+	public ApiResponse<?> createHotel(@RequestBody HotelRequest hotelRequest ){
+		try {
+			return ApiResponse.success(HttpStatus.OK,"create success hotel",hotelService.create(hotelRequest));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ApiResponse.error(HttpStatus.BAD_REQUEST,"create error hotel");
+		}
+	}
+
 
 	@PutMapping("/{hotelID}")
 	@PreAuthorize("hasAnyAuthority('PARTNER','ADMIN')")
@@ -64,9 +80,16 @@ public class HotelController {
 	public ApiResponse<HotelResponseDto> search(
 			@RequestParam(value = "q", defaultValue = "", required = false) String keywords,
 			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize) {
-		return ApiResponse.success(HttpStatus.OK, "sucesss",
-				hotelService.findByKeywords(pageNumber, pageSize, keywords));
+			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
+	) {
+		return ApiResponse.success(HttpStatus.OK, "sucesss",hotelService.findByKeywords(pageNumber, pageSize, keywords));
 	}
-
+	@GetMapping("/provinces/{id}")
+	public ApiResponse<HotelResponseDto> search(
+			@PathVariable Long id,
+			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
+	) {
+		return ApiResponse.success(HttpStatus.OK, "sucesss",hotelService.findByProvinces(id,pageNumber, pageSize));
+	}
 }

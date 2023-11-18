@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.datn.api.entity.Districts;
+import com.datn.api.repository.DistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,20 +39,28 @@ public class AuthenticationService {
 	@Autowired
 	UsersServiceImpl usersService;
 
+	@Autowired
+	DistrictRepository districtRepository;
+
 	public AuthenticationResponse register(RegisterRequest request) {
 		var user = repository.findByEmailAndPasswordNotNull(request.getEmail()).orElse(null);
 		if (user != null)
 			throw new DuplicateRecordException("Email đã tồn tại");
-
 		var users = Users.builder().userID(shortUUID()).fullname(request.getFullname())
+
 				.password(passwordEncoder.encode(request.getPassword())).email(request.getEmail())
-				.birthday(request.getBirthday()).avatar(request.getAvatar()).address(request.getAddress())
-				.registrationDate(LocalDateTime.now()).status(UserStatus.active).role(Role.USER).build();
-		Users userSaved = repository.save(users);
+				.districts(districtRepository.findById(request.getDistrictId()).get())
+				.registrationDate(LocalDateTime.now()).status(UserStatus.active).role(Role.user)
+				.lastLogin(LocalDateTime.now()).build()
+				;
 		var jwtToken = jwtService.generateToken(users);
+		users.setToken(jwtToken);
+		Users userSaved = repository.save(users);
+
 		return AuthenticationResponse.builder().infoUser(usersService.usersToDto(userSaved)).token(jwtToken).build();
 	}
 
+	// request.getEmail()
 	public AuthenticationResponse authenticate(AuthenticationRequest request) {
 		try {
 			authenticationManager
@@ -59,6 +69,7 @@ public class AuthenticationService {
 					.orElseThrow(() -> new NotFoundException("Email không tồn tại"));
 			users.setLastLogin(LocalDateTime.now());
 			String jwtToken = jwtService.generateToken(users);
+			users.setToken(jwtToken);
 			Users userSaved = repository.save(users);
 			return AuthenticationResponse.builder().infoUser(usersService.usersToDto(users)).token(jwtToken).build();
 		} catch (DuplicateRecordException ex) {
@@ -71,7 +82,7 @@ public class AuthenticationService {
 
 		var users = Users.builder().userID(shortUUID()).fullname(profileGoogle.getName()).password(null).birthday(null)
 				.email(profileGoogle.getEmail() + "--google").avatar(profileGoogle.getImageUrl()).address(null)
-				.registrationDate(LocalDateTime.now()).status(UserStatus.active).role(Role.USER).build();
+				.registrationDate(LocalDateTime.now()).status(UserStatus.active).role(Role.user).build();
 		Optional<Users> optional = repository.findByEmailAndPasswordNull(users.getEmail());
 
 		var userSaved = optional.isPresent() ? optional.get() : repository.save(users);

@@ -27,28 +27,28 @@ public class OrdersOfHotel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_hotel_id", nullable = false)
-	private long orderHotelID;
+	private Long orderHotelID;
 
 	@Column(name = "amount_of_room", nullable = false, columnDefinition = "int default 1")
-	private int amountOfRoom;
+	private Integer amountOfRoom;
 
 	@Column(name = "number_of_people", nullable = false)
-	private int numberOfPeople;
+	private Integer numberOfPeople;
 
 	@Column(name = "number_of_children", nullable = true)
-	private int numberOfChildren;
+	private Integer numberOfChildren;
 
 	@Column(name = "check_in_date", nullable = false)
 	private LocalDateTime checkInDate;
 
 	@Column(name = "length_of_stay", nullable = false, columnDefinition = "int default 1")
-	private int lengthOfStay;
+	private Integer lengthOfStay;
 
 	@Column(name = "original_price", nullable = false)
-	private double originalPrice;
+	private Double originalPrice;
 
 	@Column(name = "promotion_price", nullable = false)
-	private double promotionPrice;
+	private Double promotionPrice;
 
 	@ManyToOne
 	@JoinColumn(name = "order_id")

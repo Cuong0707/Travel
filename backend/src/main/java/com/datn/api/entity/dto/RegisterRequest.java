@@ -16,6 +16,7 @@ public class RegisterRequest {
 	private String fullname;
 	private String password;
 	private String email;
+	private long districtId;
 	private LocalDate birthday;
 	private String avatar;
 	private String address;

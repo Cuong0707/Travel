@@ -28,13 +28,16 @@ import lombok.Setter;
 public class Partners {
 	@Id
 	@Column(name = "partner_id", nullable = false, length = 10)
-	private String partner_id;
+	private String partnerID;
 
 	@Column(name = "name_of_company", nullable = false, length = 255)
 	private String nameOfCompany;
 
 	@Column(name = "tax_code", nullable = false, length = 10)
 	private String taxCode;
+
+	@Column(name = "email",nullable = false,length = 255)
+	private String email;
 
 	@Column(name = "avatar_of_company", nullable = false, length = 50)
 	private String avatarOfCompany;
@@ -65,7 +68,7 @@ public class Partners {
 
 	public Partners(String partnerID, Users user, String nameOfCompany, String taxCode, String avatarOfCompany,
 			String businessLicense, String website) {
-		this.partner_id = partnerID;
+		this.partnerID = partnerID;
 		this.user = user;
 		this.nameOfCompany = nameOfCompany;
 		this.taxCode = taxCode;

@@ -1,12 +1,13 @@
 package com.datn.api.entity;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,13 +23,16 @@ import lombok.Setter;
 public class Provinces {
 	@Id
 	@Column(name = "province_id", nullable = false)
-	private long provinceID;
+	private Long provinceID;
 
 	@Column(name = "name_of_province", nullable = false, length = 30)
 	private String nameOfProvince;
 
-	@ManyToOne
-	@JoinColumn(name = "district_id")
+	@OneToMany(mappedBy = "provinces")
 	@JsonBackReference
-	private Districts districts;
+	private List<Districts> districts;
+
+	@OneToMany(mappedBy = "provinces")
+	@JsonBackReference
+	private List<Hotels> hotels;
 }

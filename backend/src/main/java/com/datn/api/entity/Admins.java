@@ -27,7 +27,8 @@ public class Admins {
 
 	@Column(name = "name_of_admin", nullable = false, length = 50)
 	private String nameOfAdmin;
-
+	@Column(name = "is_Delete", nullable = false)
+	private boolean isDelete;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
 	@JsonBackReference

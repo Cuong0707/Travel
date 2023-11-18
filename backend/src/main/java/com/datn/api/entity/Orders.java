@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
 
+import com.datn.api.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,6 +27,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -34,7 +39,7 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "order_id", nullable = false)
-	private long orderID;
+	private Long orderID;
 
 	@ManyToOne
 	@JoinColumn(name = "partner_id")
@@ -54,21 +59,14 @@ public class Orders {
 	@Column(name = "payment_method", nullable = false, length = 50)
 	private String paymentMethod;
 
-	@Column(name = "status", nullable = false, length = 50)
-	private String status;
+
+	@Column(name = "status", nullable = false)
+	@Enumerated(EnumType.STRING)
+	private OrderStatus status;
 
 	@OneToMany(mappedBy = "orders")
 	@JsonManagedReference
-	List<OrdersOfHotel> orderDetails;
+	List<OrdersOfHotel> ordersOfHotels;
 
-	public Orders(long orderID, Partners partner, Users user, LocalDateTime orderDate, String paymentMethod,
-			String status) {
-		this.orderID = orderID;
-		this.partner = partner;
-		this.user = user;
-		this.orderDate = orderDate;
-		this.paymentMethod = paymentMethod;
-		this.status = status;
-	}
 
 }

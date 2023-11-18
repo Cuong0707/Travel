@@ -2,6 +2,9 @@ package com.datn.api.repository;
 
 import java.util.List;
 
+import com.datn.api.entity.HotelDetails;
+import com.datn.api.entity.Partners;
+import com.datn.api.entity.Provinces;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,13 +27,15 @@ public interface HotelsRepository extends JpaRepository<Hotels, Long> {
 //	@Query("select h from Hotels h where h.status = 'Available' and (h.nameOfHotel like %?1% or h.description like %?1%)")
 //	Page<Hotels> findByKeywords(String keywords, Pageable pageable);
 //
-	@Query("select h from Hotels h where h.status like 'Available' and h.standard like %?1")
+	@Query("select o from  Hotels o where o.partner=?1 and o.isDelete=false ")
+	List<Hotels> findHotelsByPartner(Partners partners);
+	@Query("select h from Hotels h where h.status = 'Available' and h.standard like %?1")
 	List<Hotels> findByStandard(String standard);
 
 //	List<Hotels> findByBreakfast(Breakfast breakfast);
 
-	@Query("select h from Hotels h where h.partner.user.userID = ?1")
-	Page<Hotels> findHotelByUserID(String userID, Pageable pageable);
+	@Query("select h from Hotels h where h.status = 'Available' and (h.nameOfHotel like %?1% or h.description like %?1%)")
+	Page<Hotels> findHotelByKeyword(String userID, Pageable pageable);
 
 	@Modifying
 	@Transactional
@@ -45,7 +50,10 @@ public interface HotelsRepository extends JpaRepository<Hotels, Long> {
 
 	@Query(value = "select * from Hotels order by view DESC limit 10", nativeQuery = true)
 	Page<Object[]> findTop10HotelsWithMostOrdersAndHighestView(Pageable pageable);
-	
+
+
+	@Query("select o from  Hotels o where  o.isDelete=false and o.provinces=?1")
+	Page<Hotels> findByProvinces(Provinces provinces, Pageable pageable);
 //	@Query(value = "SELECT * FROM Hotels h where h.status like 'Available'", nativeQuery = true)
 //	List<Hotels> findAll();
 //

@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.datn.api.entity.Hotels;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -46,27 +47,30 @@ public class UsersServiceImpl implements UsersService {
 	@Autowired
 	private JwtService jwtService;
 
+
 	public static String shortUUID() {
 		UUID uuid = UUID.randomUUID();
 		long l = ByteBuffer.wrap(uuid.toString().getBytes()).getLong();
 		return Long.toString(l, Character.MAX_RADIX);
 	}
 
+
 	@Override
 	public UsersDto save(UsersDto usersDto) {
-		try {
-			Users users = this.dtoToUsers(usersDto);
-
-			users.setUserID(shortUUID());
-			users.setPassword(passwordEncoder.encode(usersDto.getPassword()));
-			Users saveUsers = this.usersRepository.save(users);
-
-			return this.usersToDto(saveUsers);
-		} catch (DataIntegrityViolationException ex) {
-			ApiResponse<UsersDto> apiResponse = new ApiResponse<>(HttpStatus.CONFLICT,
-					"Duplicate record: " + ex.getMessage());
-			throw new DuplicateRecordException(apiResponse.getMessage());
-		}
+//		try {
+//			Users users = this.dtoToUsers(usersDto);
+//
+//			users.setUserID(shortUUID());
+//			users.setPassword(passwordEncoder.encode(usersDto.getPassword()));
+//			Users saveUsers = this.usersRepository.save(users);
+//
+//			return this.usersToDto(saveUsers);
+//		} catch (DataIntegrityViolationException ex) {
+//			ApiResponse<UsersDto> apiResponse = new ApiResponse<>(HttpStatus.CONFLICT,
+//					"Duplicate record: " + ex.getMessage());
+//			throw new DuplicateRecordException(apiResponse.getMessage());
+//		}
+		return  null;
 	}
 
 	public UsersDto saveResp(UsersDto usersDto) {
@@ -86,7 +90,6 @@ public class UsersServiceImpl implements UsersService {
 		Users u = this.usersRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Không tìm thấy User Id: " + id));
 		Users users = this.dtoToUsers(usersDto);
-		users.setPassword(passwordEncoder.encode(usersDto.getPassword()));
 		Users updateUser = usersRepository.save(users);
 		return this.modelMapper.map(updateUser, UsersDto.class);
 	}
@@ -249,7 +252,6 @@ public class UsersServiceImpl implements UsersService {
 				.orElseThrow(() -> new NotFoundException("Không tìm thấy User Id: " + id));
 		user.setEmail(partnersDto.getEmail());
 		user.setAvatar(partnersDto.getAvatar());
-		user.setFullname(partnersDto.getFullname());
 		;
 		Users updateUser = usersRepository.save(user);
 		return this.modelMapper.map(updateUser, PartnersDto.class);
