@@ -34,12 +34,17 @@ public class Hotels {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "hotel_id", nullable = false)
-	private long hotel_ID;
+	private Long hotel_ID;
 
 	@ManyToOne
 	@JoinColumn(name = "partner_id")
 	@JsonBackReference
 	private Partners partner;
+
+	@ManyToOne
+	@JoinColumn(name = "province_id")
+	@JsonBackReference
+	private Provinces provinces;
 
 	@Column(name = "name_of_hotel", nullable = false, length = 50)
 	private String nameOfHotel;
@@ -79,6 +84,9 @@ public class Hotels {
 	@Column(name = "View", nullable = false)
 	private Long view;
 
+	@Column(name = "is_Delete", nullable = false)
+	private boolean isDelete;
+
 	@OneToMany(mappedBy = "hotels")
 	@JsonManagedReference
 	List<HotelDetails> hotelDetails;
@@ -87,11 +95,13 @@ public class Hotels {
 	@JsonManagedReference
 	List<PhotosOfHotel> photosOfHotels;
 
-	public Hotels(long hotelID, Partners partner, String nameOfHotel, String standard, HotelStatus status,
+	public Hotels(long hotelID, Partners partner, Provinces province, String nameOfHotel, String standard,
+			HotelStatus status,
 			Breakfast breakfast, String serviceFee, LocalDateTime checkIn, LocalDateTime checkOut, String description,
 			String childrenPolicies, String termAndPolicies) {
 		this.hotel_ID = hotelID;
 		this.partner = partner;
+		this.provinces = province;
 		this.nameOfHotel = nameOfHotel;
 		this.standard = standard;
 		this.status = status;

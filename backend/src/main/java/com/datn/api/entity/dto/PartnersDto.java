@@ -12,8 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PartnersDto {
-	private String id;
-	private String fullname;
+	private String partnerID;
 	private String email;
 	private String nameOfCompany;
 	private String avatar;

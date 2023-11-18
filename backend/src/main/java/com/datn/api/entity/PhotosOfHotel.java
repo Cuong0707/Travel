@@ -25,7 +25,7 @@ public class PhotosOfHotel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "photos_of_hotel_id", nullable = false)
-	private int photosOfHotelID;
+	private Long photosOfHotelID;
 
 	@Column(name = "name_of_photo", nullable = false, length = 50)
 	private String nameOfPhoto;

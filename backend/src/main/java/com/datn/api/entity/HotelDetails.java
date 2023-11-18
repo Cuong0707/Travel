@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,13 +26,13 @@ public class HotelDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "hotel_detail_id", nullable = false)
-	private long hotelDetailID;
+	private Long hotelDetailID;
 
 	@Column(name = "type_of_room", nullable = false, length = 50)
 	private String typeOfRoom;
 
 	@Column(name = "area_of_room", nullable = false)
-	private double areaOfRoom;
+	private String areaOfRoom;
 
 	@Column(name = "amount_of_room", nullable = false)
 	private int amountOfRoom;
@@ -51,22 +52,13 @@ public class HotelDetails {
 	@Column(name = "photos_of_room", nullable = false, length = 255)
 	private String photosOfRoom;
 
-	@ManyToOne
+	@Column(name = "is_Delete", nullable = false)
+	private boolean isDelete;
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "hotel_id")
 	@JsonBackReference
 	private Hotels hotels;
 
-	public HotelDetails(long hotelDetailID, String typeOfRoom, double areaOfRoom, int amountOfRoom, String typeOfBed,
-			String sizeOfBed, String highlights, String priceOfRoom, String photosOfRoom) {
-		this.hotelDetailID = hotelDetailID;
-		this.typeOfRoom = typeOfRoom;
-		this.areaOfRoom = areaOfRoom;
-		this.amountOfRoom = amountOfRoom;
-		TypeOfBed = typeOfBed;
-		SizeOfBed = sizeOfBed;
-		this.highlights = highlights;
-		PriceOfRoom = priceOfRoom;
-		this.photosOfRoom = photosOfRoom;
-	}
+
 
 }

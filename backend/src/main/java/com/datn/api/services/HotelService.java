@@ -11,7 +11,11 @@ import com.datn.api.entity.dto.HotelResponseDto;
 public interface HotelService extends IService<HotelDto, Long> {
 	//HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize, String sortBy, String sortDir);
 
-	List<HotelDto> findAllHotelsByProvince(String provinceID);
+    HotelResponseDto findByProvinces(Long id, Integer pageNumber, Integer pageSize);
+
+    HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize, String sortDir, String sortBy);
+
+    List<HotelDto> findAllHotelsByProvince(String provinceID);
 
 	Integer sumHotelsViewOfUser(String id);
 
@@ -19,5 +23,4 @@ public interface HotelService extends IService<HotelDto, Long> {
 
 	HotelResponseDto findByKeywords(Integer pageNumber, Integer pageSize, String keywords);
 
-	HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize);
 }

@@ -1,26 +1,33 @@
 package com.datn.api.services;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.datn.api.entity.HotelDetails;
+import com.datn.api.entity.PhotosOfHotel;
+import com.datn.api.entity.Provinces;
+import com.datn.api.entity.dto.*;
+import com.datn.api.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.datn.api.entity.Hotels;
-import com.datn.api.entity.dto.HotelDto;
-import com.datn.api.entity.dto.HotelResponseDto;
-import com.datn.api.entity.dto.PartnersDto;
 import com.datn.api.enums.HotelStatus;
 import com.datn.api.exceptions.NotFoundException;
-import com.datn.api.repository.HotelsRepository;
-import com.datn.api.repository.UsersRepository;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class HotelServiceImpl implements HotelService {
@@ -35,9 +42,17 @@ public class HotelServiceImpl implements HotelService {
 
 	@Autowired
 	private HttpSession session;
-	@Autowired
-	private UsersRepository usersRepository;
 
+	@Autowired
+	private ProvincesRepository provincesRepository;
+
+	@Autowired
+	private PhotosOfHotelRepository photosOfHotelRepository;
+
+	@Autowired
+	IStorageService storageService;
+	@Autowired
+	private PartnerRepository partnerRepository;
 	// save Hotel with service
 
 	public HotelDto updateHotelForAdmin(HotelDto hotelDto, Long hotelId) {
@@ -45,17 +60,17 @@ public class HotelServiceImpl implements HotelService {
 		Hotels existingHotel = hotelsRepository.findById(hotelId)
 				.orElseThrow(() -> new NotFoundException("Không tìm thấy bài đăng với ID: " + hotelId));
 		// Cập nhật thông tin hotel từ HotelDto
-		existingHotel.setNameOfHotel(hotelDto.getName_of_hotel());
-		existingHotel.setTypeOfHotel(hotelDto.getType_of_hotel());
+		existingHotel.setNameOfHotel(hotelDto.getNameOfHotel());
+		existingHotel.setTypeOfHotel(hotelDto.getTypeOfHotel());
 		existingHotel.setStandard(hotelDto.getStandard());
 		existingHotel.setBreakfast(hotelDto.getBreakfast());
-		existingHotel.setServiceFee(hotelDto.getService_fee());
+		existingHotel.setServiceFee(hotelDto.getServiceFee());
 		existingHotel.setCheckIn(hotelDto.getCheckIn());
-		existingHotel.setCheckOut(hotelDto.getCheck_out());
+		existingHotel.setCheckOut(hotelDto.getCheckOut());
 		existingHotel.setStatus(hotelDto.getStatus());
 		existingHotel.setDescription(hotelDto.getDescription());
-		existingHotel.setChildrenPolicies(hotelDto.getChildren_Policies());
-		existingHotel.setTermAndPolicies(hotelDto.getTerm_And_Policies());
+		existingHotel.setChildrenPolicies(hotelDto.getChildrenPolicies());
+		existingHotel.setTermAndPolicies(hotelDto.getTermAndPolicies());
 
 		Hotels updatedHotel = hotelsRepository.save(existingHotel);
 
@@ -67,17 +82,17 @@ public class HotelServiceImpl implements HotelService {
 	public HotelDto updateUnavailableToAvailable(HotelDto hotelDto, Long hotelId) {
 		Hotels existingHotel = hotelsRepository.findById(hotelId)
 				.orElseThrow(() -> new NotFoundException("Không tìm thấy khách sạn với ID: " + hotelId));
-		existingHotel.setNameOfHotel(hotelDto.getName_of_hotel());
-		existingHotel.setTypeOfHotel(hotelDto.getType_of_hotel());
+		existingHotel.setNameOfHotel(hotelDto.getNameOfHotel());
+		existingHotel.setTypeOfHotel(hotelDto.getTypeOfHotel());
 		existingHotel.setStandard(hotelDto.getStandard());
 		existingHotel.setBreakfast(hotelDto.getBreakfast());
-		existingHotel.setServiceFee(hotelDto.getService_fee());
+		existingHotel.setServiceFee(hotelDto.getServiceFee());
 		existingHotel.setCheckIn(hotelDto.getCheckIn());
-		existingHotel.setCheckOut(hotelDto.getCheck_out());
+		existingHotel.setCheckOut(hotelDto.getCheckOut());
 		existingHotel.setStatus(HotelStatus.Available);
 		existingHotel.setDescription(hotelDto.getDescription());
-		existingHotel.setChildrenPolicies(hotelDto.getChildren_Policies());
-		existingHotel.setChildrenPolicies(hotelDto.getTerm_And_Policies());
+		existingHotel.setChildrenPolicies(hotelDto.getChildrenPolicies());
+		existingHotel.setChildrenPolicies(hotelDto.getTermAndPolicies());
 
 		Hotels updatedUnavailableHotel = hotelsRepository.save(existingHotel);
 
@@ -99,7 +114,24 @@ public class HotelServiceImpl implements HotelService {
 		// Xóa khách sạn
 		hotelsRepository.delete(existingHotel);
 	}
-
+	public Hotels create(HotelRequest hotelRequest) throws IOException {
+		Hotels hotels = new Hotels();
+		hotels.setProvinces(provincesRepository.findById(hotelRequest.getProvinceId()).orElseThrow());
+		hotels.setPartner(partnerRepository.findById(hotelRequest.getPartnerId()).orElseThrow());
+		hotels.setNameOfHotel(hotelRequest.getNameOfHotel());
+		hotels.setTypeOfHotel(hotelRequest.getTypeOfHotel());
+		hotels.setStandard(hotelRequest.getStandard());
+		hotels.setBreakfast(hotelRequest.getBreakfast());
+		hotels.setServiceFee(hotelRequest.getServiceFee());
+		hotels.setCheckIn(hotelRequest.getCheckIn());
+		hotels.setCheckOut(hotelRequest.getCheckOut());
+		hotels.setStatus(HotelStatus.Available);
+		hotels.setView(0L);
+		hotels.setDescription(hotelRequest.getDescription());
+		hotels.setChildrenPolicies(hotelRequest.getChildrenPolicies());
+		hotels.setTermAndPolicies(hotelRequest.getTermAndPolicies());
+		return  hotelsRepository.save(hotels);
+	}
 	@Override
 	public HotelDto save(HotelDto hotelDto) {
 		return null;
@@ -152,7 +184,28 @@ public class HotelServiceImpl implements HotelService {
 
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
-		Page<Hotels> hotels = hotelsRepository.findHotelByUserID(keywords, pageable);
+		Page<Hotels> hotels = hotelsRepository.findHotelByKeyword(keywords, pageable);
+
+		// get content for page object
+		List<Hotels> listOfHotels = hotels.getContent();
+
+		List<HotelDto> content = listOfHotels.stream().map(hotel -> this.hotelDto(hotel)).collect(Collectors.toList());
+		HotelResponseDto hotelResponse = new HotelResponseDto();
+		hotelResponse.setContent(content);
+		hotelResponse.setPageNumber(hotels.getNumber());
+		hotelResponse.setPageSize(hotels.getSize());
+		hotelResponse.setTotalElements(hotels.getTotalElements());
+		hotelResponse.setTotalPages(hotels.getTotalPages());
+		hotelResponse.setLastPage(hotels.isLast());
+		return hotelResponse;
+
+	}
+	@Override
+	public HotelResponseDto findByProvinces(Long id,Integer pageNumber, Integer pageSize) {
+
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		Provinces provinces = provincesRepository.findById(id).orElseThrow();
+		Page<Hotels> hotels = hotelsRepository.findByProvinces(provinces, pageable);
 
 		// get content for page object
 		List<Hotels> listOfHotels = hotels.getContent();
@@ -236,28 +289,22 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	public HotelDto hotelDto(Hotels hotel) {
-		try {
-			HotelDto hotelDto = new HotelDto();
-			hotelDto.setId(hotel.getHotel_ID());
-			hotelDto.setName_of_hotel(hotel.getNameOfHotel());
-			hotelDto.setType_of_hotel(hotel.getTypeOfHotel());
-			hotelDto.setStandard(hotel.getStandard());
-			hotelDto.setBreakfast(hotel.getBreakfast());
-			hotelDto.setService_fee(hotel.getServiceFee());
-			hotelDto.setCheckIn(hotel.getCheckIn());
-			hotelDto.setCheck_out(hotel.getCheckOut());
-			hotelDto.setStatus(hotel.getStatus());
-			hotelDto.setDescription(hotel.getDescription());
-			hotelDto.setChildren_Policies(hotel.getChildrenPolicies());
-			hotelDto.setTerm_And_Policies(hotel.getTermAndPolicies());
-			hotelDto.setView(hotel.getView());
-//            UsersDto usersDto = this.usersService.findById(hotel.getUser().getUserId());
-			hotelDto.setPartners(this.modelMapper.map(hotel.getPartner(), PartnersDto.class));
-			return hotelDto;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+		HotelDto hotelDto = modelMapper.map(hotel, HotelDto.class);
+		hotelDto.setPartner(modelMapper.map(hotel.getPartner(),PartnersDto.class));
+		hotelDto.setProvince(modelMapper.map(hotel.getProvinces(),ProvincesDto.class));
+		List<HotelDetailDto> dtoListDetail = new ArrayList<>();
+		for (HotelDetails entity : hotel.getHotelDetails()) {
+			HotelDetailDto dto = modelMapper.map(entity,HotelDetailDto.class);
+			dtoListDetail.add(dto);
 		}
+		List<PhotosOfHotelsDto> dtoListPhoto = new ArrayList<>();
+		for (PhotosOfHotel entity : hotel.getPhotosOfHotels()) {
+			PhotosOfHotelsDto dto = modelMapper.map(entity,PhotosOfHotelsDto.class);
+			dtoListPhoto.add(dto);
+		}
+		hotelDto.setHotelDetails(dtoListDetail);
+		hotelDto.setPhotosOfHotels(dtoListPhoto);
+		return hotelDto;
 	}
 
 //	public List<HotelDto> findAllHotelByUserId(String userId) {
@@ -290,20 +337,18 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize) {
-//		Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
-//				: Sort.by(sortBy).descending();
+	public HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize,String sortDir,String sortBy) {
+		Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+				: Sort.by(sortBy).descending();
 
 		// create Pageable instance
-		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		Pageable pageable = PageRequest.of(pageNumber, pageSize,sort);
 
 		Page<Hotels> hotels = hotelsRepository.findAll(pageable);
 
 		// get content for page object
 		List<Hotels> listOfHotels = hotels.getContent();
-
 		List<HotelDto> content = listOfHotels.stream().map(hotel -> this.hotelDto(hotel)).collect(Collectors.toList());
-
 		HotelResponseDto hotelResponse = new HotelResponseDto();
 		hotelResponse.setContent(content);
 		hotelResponse.setPageNumber(hotels.getNumber());
@@ -311,12 +356,11 @@ public class HotelServiceImpl implements HotelService {
 		hotelResponse.setTotalElements(hotels.getTotalElements());
 		hotelResponse.setTotalPages(hotels.getTotalPages());
 		hotelResponse.setLastPage(hotels.isLast());
-
 		return hotelResponse;
 	}
 
 	@Override
-	public List<HotelDto> findAllHotelsByProvince(String proviceId) {
+	public List<HotelDto> findAllHotelsByProvince(String provinceID) {
 		// TODO Auto-generated method stub
 		return null;
 	}

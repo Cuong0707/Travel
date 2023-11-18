@@ -45,13 +45,13 @@ import lombok.Setter;
 @EntityListeners(AuditingEntityListener.class)
 public class Users implements UserDetails {
 	@Id
-	@Column(name = "user_id", nullable = false, length = 10)
+	@Column(name = "user_id", nullable = false, length = 60)
 	private String userID;
 
-	@Column(name = "password", nullable = true, length = -1)
+	@Column(name = "password", nullable = true, length = 60)
 	private String password;
 
-	@Column(name = "token", nullable = true, length = -1)
+	@Column(name = "token", nullable = true, length = 255)
 	private String token;
 
 	@Column(name = "fullname", nullable = false, length = 50)
@@ -73,13 +73,14 @@ public class Users implements UserDetails {
 	private String address;
 
 	@Column(name = "registration_date", nullable = true)
-	@CreatedDate
 	@Temporal(TemporalType.TIMESTAMP)
 	private LocalDateTime registrationDate;
 
 	@Column(name = "last_login", nullable = true)
 	private LocalDateTime lastLogin;
 
+	@Column(name = "is_Delete", nullable = false)
+	private boolean isDelete;
 	@Column(name = "status", nullable = true)
 	@Enumerated(EnumType.STRING)
 	private UserStatus status;
@@ -106,8 +107,8 @@ public class Users implements UserDetails {
 //	List<Orders> orders;
 
 	public Users(String user_id, String password, String token, String fullname, String email, String phone_number,
-			String avatar, LocalDate birthday, LocalDateTime registrationDate, LocalDateTime lastLogin,
-			UserStatus status, Role role, Districts districtID) {
+				 String avatar, LocalDate birthday, LocalDateTime registrationDate, LocalDateTime lastLogin,
+				 UserStatus status, Role role, Districts districtID) {
 		this.userID = user_id;
 		this.password = password;
 		this.token = token;
