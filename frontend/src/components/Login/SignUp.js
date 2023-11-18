@@ -1,17 +1,4 @@
 import React from 'react';
-import {
-    MDBBtn,
-    MDBContainer,
-    MDBCard,
-    MDBCardBody,
-    MDBCardImage,
-    MDBRow,
-    MDBCol,
-}
-    from 'mdb-react-ui-kit';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
 import '../../style/Login.scss'
 import { Link } from "react-router-dom";
 
