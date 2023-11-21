@@ -17,6 +17,7 @@ import ChangePass from './components/ChangePass/ChangePass';
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
