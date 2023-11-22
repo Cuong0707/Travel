@@ -166,6 +166,35 @@ public class OrdersServiceImpl implements OrdersService{
         orderResponse.setLastPage(orders.isLast());
         return orderResponse;
     }
+
+
+	@Override
+	public OrderResponse getOrdersOfPartner(String id, Integer pageNumber, Integer pageSize, String sortDir,
+			String sortBy) {
+		Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+				: Sort.by(sortBy).descending();
+		Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+		// Users users = usersRepository.findById(id).orElseThrow();
+		Partners partners = partnerRepository.findPartnerByUserID(id).orElseThrow();
+
+		// Page<Orders> orders = ordersRepository.getAllByUser(users,pageable);
+		Page<Orders> orders = ordersRepository.getOrdersByPartner(partners, pageable);
+
+		List<Orders> ordersList = orders.getContent();
+
+		List<OrderDto> content = ordersList.stream().map(this::hotelDetailDto).toList();
+
+		OrderResponse orderResponse = new OrderResponse();
+		orderResponse.setContent(content);
+		orderResponse.setPageNumber(orders.getNumber());
+		orderResponse.setPageSize(orders.getSize());
+		orderResponse.setTotalElements(orders.getTotalElements());
+		orderResponse.setTotalPages(orders.getTotalPages());
+		orderResponse.setLastPage(orders.isLast());
+		return orderResponse;
+	}
+
+
     public OrderDto hotelDetailDto(Orders orders) {
         OrderDto orderDto = modelMapper.map(orders, OrderDto.class);
 		orderDto.setPartnerID(orders.getPartner().getPartnerID());
@@ -181,5 +210,6 @@ public class OrdersServiceImpl implements OrdersService{
         orderDto.setTotalPrice(sum);
         return orderDto;
     }
+
 
 }
