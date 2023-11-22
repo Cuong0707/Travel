@@ -1,6 +1,7 @@
 package com.datn.api.entity.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import com.datn.api.enums.Role;
 import com.datn.api.enums.UserStatus;
@@ -16,15 +17,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UsersDto {
-
-	private String id;
+	private String userID;
 	private String fullname;
 	private String email;
-	private String password;
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate birthday;
-	private String image;
+	private String phoneNumber;
+	private String avatar;
 	private UserStatus status;
-	private String description;
+	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
+	private LocalDateTime registrationDate;
 	private Role role;
 }

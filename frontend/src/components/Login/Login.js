@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import '../../style/Login.scss'
 import { Link } from "react-router-dom";
 import ArticleAds from "../Article/ArticleAds";
+import ScrollToTop from './Services/ScrollToTop';
 
 const Login = () => {
     const [isSignIn, setIsSignIn] = useState(false);

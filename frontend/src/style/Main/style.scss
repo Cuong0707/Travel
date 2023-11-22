@@ -109,7 +109,7 @@ header {
 /* Destination Start */
 .destination {
     //background-color: #f5f5f5;
-    background-image: url("../../public/images/ruongbacthang.jpg");
+    background-image: url("../../../public/images/ruongbacthang.jpg");
     background-repeat: no-repeat;
 }
 .destination-title {
@@ -184,14 +184,14 @@ h2:hover {
 .card {
     position: relative;
     overflow: hidden;
-    border-radius: 15px;
+    // border-radius: 15px;
 }
 
 .card img {
     width: 230px;
     height: 150px;
     transition: all 0.3s;
-    border-radius: 15px 0px 0px;
+    // border-radius: 15px 0px 0px;
 }
 // .card:hover img {
 //     transform: scale(1.1);
