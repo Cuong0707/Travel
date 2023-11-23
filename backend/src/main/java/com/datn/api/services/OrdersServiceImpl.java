@@ -1,5 +1,6 @@
 package com.datn.api.services;
 
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,7 @@ import com.datn.api.entity.dto.OrderResponse;
 import com.datn.api.entity.dto.UpdateOrderRequest;
 import com.datn.api.enums.OrderStatus;
 import com.datn.api.repository.HotelsDetailsRepository;
+import com.datn.api.repository.HotelsRepository;
 import com.datn.api.repository.OrdersOfHotelRepository;
 import com.datn.api.repository.OrdersRepository;
 import com.datn.api.repository.PartnerRepository;
@@ -41,28 +43,35 @@ public class OrdersServiceImpl implements OrdersService{
     @Autowired
     OrdersOfHotelRepository ordersOfHotelRepository;
 
-	@Autowired
-	HotelsDetailsRepository hotelsDetailsRepository;
+
+    @Autowired
+    HotelsRepository hotelsRepository;
+
 
     private Double sum=0D;
+    @Autowired
+    private HotelsDetailsRepository hotelsDetailsRepository;
+
     @Override
     public Orders create(OrderRequest orderRequest){
         try{
             Orders orders = new Orders();
-			System.out.println(orderRequest.getPartnerId());
-			System.out.println(orderRequest.getUserId());
-			Partners partners = partnerRepository.findById(orderRequest.getPartnerId()).get();
-			Users users = usersRepository.findById(orderRequest.getUserId()).get();
-			orders.setUser(users);
-			orders.setPartner(partners);
+
+            System.out.println(orderRequest.getPartnerId());
+            System.out.println(orderRequest.getUserId());
+            Partners partners=partnerRepository.findById(orderRequest.getPartnerId()).get();
+            Users users = usersRepository.findById(orderRequest.getUserId()).get();
+            orders.setUser(users);
+            orders.setPartner(partners);
             orders.setPaymentMethod(orderRequest.getPaymentMethod());
             orders.setOrderDate(LocalDateTime.now());
-			orders.setStatus(OrderStatus.pending);
-			System.out.println(orders.toString());
+            orders.setStatus(OrderStatus.pending);
+            System.out.println(orders.toString());
             Orders ordersSaved = ordersRepository.save(orders);
-			System.out.println(ordersSaved.getOrderID());
+            System.out.println(ordersSaved.getOrderID());
             OrdersOfHotel ordersOfHotel = new OrdersOfHotel();
-			orderRequest.getOrdersOfHotels().forEach(item -> {
+            orderRequest.getOrdersOfHotels().forEach(item->{
+
                 ordersOfHotel.setAmountOfRoom(item.getAmountOfRoom());
                 ordersOfHotel.setCheckInDate(item.getCheckInDate());
                 ordersOfHotel.setLengthOfStay(item.getLengthOfStay());
@@ -71,14 +80,15 @@ public class OrdersServiceImpl implements OrdersService{
                 ordersOfHotel.setOriginalPrice(item.getOriginalPrice());
                 ordersOfHotel.setPromotionPrice(item.getPromotionPrice());
                 ordersOfHotel.setOrders(ordersSaved);
-				ordersOfHotel.setHotelDetails(hotelsDetailsRepository.findById(item.getHotelDetailId()).get());
-				System.out.println(ordersOfHotel);
+
+                ordersOfHotel.setHotelDetails(hotelsDetailsRepository.findById(item.getHotelDetailId()).get());
                 ordersOfHotelRepository.save(ordersOfHotel);
 
             });
-			return ordersRepository.findById(ordersSaved.getOrderID()).get();
+            return ordersRepository.findById(ordersSaved.getOrderID()).get();
         }catch (Exception e){
-			throw new RuntimeException(e.getMessage());
+            throw new RuntimeException(e.getMessage());
+
         }
 
     }
@@ -195,7 +205,9 @@ public class OrdersServiceImpl implements OrdersService{
 
     public OrderDto hotelDetailDto(Orders orders) {
         OrderDto orderDto = modelMapper.map(orders, OrderDto.class);
-		orderDto.setPartnerID(orders.getPartner().getPartnerID());
+
+        orderDto.setPartnerID(orders.getPartner().getPartnerId());
+
         orderDto.setUserID(orders.getUser().getUserID());
         List<OrdersOfHotel> ordersOfHotels = ordersOfHotelRepository.findOrdersOfHotelByOrders(orders);
         ordersOfHotels.forEach(orderOfHotel -> {

@@ -68,5 +68,4 @@ public class Orders {
 	@JsonManagedReference
 	List<OrdersOfHotel> ordersOfHotels;
 
-
 }
