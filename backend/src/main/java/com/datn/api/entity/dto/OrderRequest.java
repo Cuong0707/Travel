@@ -11,5 +11,7 @@ public class OrderRequest {
     private String userId;
     private String paymentMethod;
     private String orderStatus;
-	private List<OrdersOfHotelDto> ordersOfHotels;
+
+    private List<OrdersOfHotelDto> ordersOfHotels;
+
 }
