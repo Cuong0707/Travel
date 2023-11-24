@@ -1,5 +1,6 @@
 import React from "react";
 import '../../style/Main/style.scss';
+
 class Aside extends React.Component {
     render() {
 

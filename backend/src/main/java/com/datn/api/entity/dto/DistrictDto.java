@@ -12,5 +12,5 @@ import lombok.Setter;
 public class DistrictDto {
 	private Long districtID;
 	private String nameOfDistrict;
-	private ProvinceDto province;
+//	private ProvinceDto province;
 }

@@ -8,7 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import Home from './components/Home';
 
 import ContactUs from './components/ContactUs/ContactUs';
-// import MyAccount from './components/MyAccount';
+
 // import Login from './components/Login/Login';
 import Login from './components/Login/SignIn';
 import StepperForm from './components/Partner/StepperForm';
@@ -23,6 +23,13 @@ import VistLocation from './components/Page404/VistLocation';
 import Transport from './components/Page404/Transport';
 import Search from './components/Search';
 
+import HotelList from './components/Hotel/HotelList';
+import HotelDetail from './components/Hotel/HotelDetail';
+import Blog from './components/Page404/Blog';
+import Restaurant from './components/Page404/Restaurant';
+import VistLocation from './components/Page404/VistLocation';
+import Transport from './components/Page404/Transport';
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -34,6 +41,7 @@ root.render(
           <Route path='/contact' element={<ContactUs />}></Route>
           <Route path='/login' element={<Login />}></Route>
           <Route path='/register' element={<SignUp />}></Route>
+
           {/* <Route path='/myaccount' element={<MyAccount />}>
             <Route path='account-general' element={<account-general />}></Route>
             <Route path='account-change-password' element={<account-change-password />}></Route>

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+
 import '../../style/Login.scss'
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
 function SignIn() {
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -28,6 +29,7 @@ function SignIn() {
     }
   };
 
+
   return (
     <div className='container-login'>
       <div className="container my-3">
@@ -43,6 +45,7 @@ function SignIn() {
                     value={email} onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Email' />
                   <input className='mb-3 form-control form-control-lg'
                     value={password} onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Mật Khẩu' />
+
                   <div className='row'>
                     <h6 className="col-6 mb-3 fw-bold">
                       Chưa Có Tài Khoản ?{" "}

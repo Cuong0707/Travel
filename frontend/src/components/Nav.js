@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import ScrollToTop from '../Services/ScrollToTop';
 import DarkModeToggle from "../Services/DarkModeToggle";
 
+
 const Nav = () => {
 
     return (
@@ -381,7 +382,6 @@ const Nav = () => {
                                     <li><Link className="dropdown-item" to="#">English</Link></li>
                                 </ul>
                             </li>
-
                             <div className="ms-2">
                                 <DarkModeToggle />
                             </div>
@@ -390,7 +390,6 @@ const Nav = () => {
                 </div >
             </nav >
         </div>
-
     )
 }
 

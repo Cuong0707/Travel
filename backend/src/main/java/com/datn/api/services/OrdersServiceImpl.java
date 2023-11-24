@@ -1,6 +1,7 @@
 package com.datn.api.services;
 
 
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -38,15 +39,16 @@ public class OrdersServiceImpl implements OrdersService{
 
     @Autowired
     UsersRepository usersRepository;
+
     @Autowired
     PartnerRepository partnerRepository;
+
     @Autowired
     OrdersOfHotelRepository ordersOfHotelRepository;
 
 
     @Autowired
     HotelsRepository hotelsRepository;
-
 
     private Double sum=0D;
     @Autowired
@@ -56,7 +58,6 @@ public class OrdersServiceImpl implements OrdersService{
     public Orders create(OrderRequest orderRequest){
         try{
             Orders orders = new Orders();
-
             System.out.println(orderRequest.getPartnerId());
             System.out.println(orderRequest.getUserId());
             Partners partners=partnerRepository.findById(orderRequest.getPartnerId()).get();
@@ -71,7 +72,6 @@ public class OrdersServiceImpl implements OrdersService{
             System.out.println(ordersSaved.getOrderID());
             OrdersOfHotel ordersOfHotel = new OrdersOfHotel();
             orderRequest.getOrdersOfHotels().forEach(item->{
-
                 ordersOfHotel.setAmountOfRoom(item.getAmountOfRoom());
                 ordersOfHotel.setCheckInDate(item.getCheckInDate());
                 ordersOfHotel.setLengthOfStay(item.getLengthOfStay());
@@ -80,7 +80,6 @@ public class OrdersServiceImpl implements OrdersService{
                 ordersOfHotel.setOriginalPrice(item.getOriginalPrice());
                 ordersOfHotel.setPromotionPrice(item.getPromotionPrice());
                 ordersOfHotel.setOrders(ordersSaved);
-
                 ordersOfHotel.setHotelDetails(hotelsDetailsRepository.findById(item.getHotelDetailId()).get());
                 ordersOfHotelRepository.save(ordersOfHotel);
 
@@ -88,7 +87,6 @@ public class OrdersServiceImpl implements OrdersService{
             return ordersRepository.findById(ordersSaved.getOrderID()).get();
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
-
         }
 
     }
@@ -207,9 +205,7 @@ public class OrdersServiceImpl implements OrdersService{
 
     public OrderDto hotelDetailDto(Orders orders) {
         OrderDto orderDto = modelMapper.map(orders, OrderDto.class);
-
         orderDto.setPartnerID(orders.getPartner().getPartnerId());
-
         orderDto.setUserID(orders.getUser().getUserID());
         List<OrdersOfHotel> ordersOfHotels = ordersOfHotelRepository.findOrdersOfHotelByOrders(orders);
         ordersOfHotels.forEach(orderOfHotel -> {

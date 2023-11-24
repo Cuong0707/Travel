@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import com.datn.api.entity.PhotosOfHotel;
 
-
 @Repository
 public interface PhotosOfHotelRepository extends JpaRepository<PhotosOfHotel,Long> {
 

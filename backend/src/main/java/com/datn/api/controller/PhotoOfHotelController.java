@@ -29,6 +29,8 @@ public class PhotoOfHotelController {
     @Autowired
     ImageStorageService storageService;
 
+
+   
     @Autowired
     HotelsRepository hotelsRepository;
     @PostMapping("/hotels/{id}")
@@ -37,15 +39,15 @@ public class PhotoOfHotelController {
        List<PhotosOfHotel> photosOfHotels = new ArrayList<>();
         for(int i=0;i<files.size();i++){
             PhotosOfHotel photosOfHotel = new PhotosOfHotel();
-
             photosOfHotel.setHotels(hotelsRepository.findById(id).orElseThrow());
-
             photosOfHotel.setNameOfPhoto("Hinh"+i);
             photosOfHotel.setImage(storageService.storeFile(files.get(i)).toString());
             photosOfHotels.add(photosOfHotelRepository.save(photosOfHotel));
         }
         return ApiResponse.success(HttpStatus.OK,"success",photosOfHotels);
     }
+
+
 
     @PutMapping("/{id}")
     public ApiResponse<?> update(@PathVariable Long id, @RequestParam MultipartFile files){
@@ -64,4 +66,3 @@ public class PhotoOfHotelController {
        }
     }
 }
-

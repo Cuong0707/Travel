@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
+
 import '../../style/Main/style.scss';
+
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
