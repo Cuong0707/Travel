@@ -1,12 +1,6 @@
 package com.datn.api.controller;
 
-<<<<<<< HEAD
-=======
-import com.datn.api.entity.Hotels;
-import com.datn.api.entity.dto.HotelRequest;
-import com.datn.api.entity.dto.HotelResponse;
-import com.datn.api.repository.HotelsRepository;
->>>>>>> update_entity_v0
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -89,24 +83,17 @@ public class HotelController {
 			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
 	) {
-<<<<<<< HEAD
-		return ApiResponse.success(HttpStatus.OK, "sucesss",hotelService.findByKeywords(pageNumber, pageSize, keywords));
-	}
-	@GetMapping("/provinces/{id}")
-	public ApiResponse<HotelResponseDto> search(
-=======
+
 		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByKeywords(pageNumber, pageSize, keywords));
 	}
 	@GetMapping("/provinces/{id}")
 	public ApiResponse<HotelResponseDto> getHotelsProvince(
->>>>>>> services-test
+
 			@PathVariable Long id,
 			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
 	) {
-<<<<<<< HEAD
-		return ApiResponse.success(HttpStatus.OK, "sucesss",hotelService.findByProvinces(id,pageNumber, pageSize));
-=======
+
 		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByProvinces(id,pageNumber, pageSize));
 	}
 	@GetMapping("/partners/{id}")
@@ -114,6 +101,5 @@ public class HotelController {
 																   @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
 																   @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize){
 		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByPartner(id,pageNumber, pageSize));
->>>>>>> services-test
 	}
 }

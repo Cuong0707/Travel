@@ -1,38 +1,9 @@
 package com.datn.api.services;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
->>>>>>> services-test
-import com.datn.api.entity.Partners;
-import com.datn.api.entity.Users;
-import com.datn.api.entity.dto.PartnerRequest;
-import com.datn.api.entity.dto.UpdatePartnerAdminRequest;
-<<<<<<< HEAD
-=======
-=======
-import com.datn.api.entity.*;
-import com.datn.api.entity.dto.*;
->>>>>>> update_entity_v0
->>>>>>> services-test
-import com.datn.api.enums.PartnerStatus;
-import com.datn.api.enums.Role;
-import com.datn.api.repository.PartnerRepository;
-import com.datn.api.repository.ServicesRepository;
-import com.datn.api.repository.UsersRepository;
-<<<<<<< HEAD
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.util.UUID;
-=======
-<<<<<<< HEAD
-=======
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -40,11 +11,17 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
->>>>>>> update_entity_v0
->>>>>>> services-test
+import com.datn.api.entity.Partners;
+import com.datn.api.entity.Users;
+import com.datn.api.entity.dto.PartnerRequest;
+import com.datn.api.entity.dto.PartnerResponseDto;
+import com.datn.api.entity.dto.PartnersDto;
+import com.datn.api.entity.dto.UpdatePartnerAdminRequest;
+import com.datn.api.enums.PartnerStatus;
+import com.datn.api.enums.Role;
+import com.datn.api.repository.PartnerRepository;
+import com.datn.api.repository.ServicesRepository;
+import com.datn.api.repository.UsersRepository;
 
 @Component
 public class PartnerServiceImpl implements PartnerService{
@@ -59,10 +36,7 @@ public class PartnerServiceImpl implements PartnerService{
     @Autowired
     UsersService usersService;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
+
     @Autowired
     ModelMapper modelMapper;
 
@@ -86,8 +60,7 @@ public class PartnerServiceImpl implements PartnerService{
         return partnerResponseDto;
     }
 
->>>>>>> update_entity_v0
->>>>>>> services-test
+
     @Override
     public Partners create(PartnerRequest partnerRequest){
         if(!checkEmail(partnerRequest.getEmail())){
@@ -120,15 +93,7 @@ public class PartnerServiceImpl implements PartnerService{
                 user.setRole(Role.partner);
                 usersService.updateStatusAndRoleForAdmin(user);
             }else if(updatePartnerAdminRequest.getStatus().equals("refunded")){
-<<<<<<< HEAD
-                partnerCheck.setStatus(PartnerStatus.refunded);
-=======
-<<<<<<< HEAD
 				partnerCheck.setStatus(PartnerStatus.refused);
-=======
-                partnerCheck.setStatus(PartnerStatus.refunded);
->>>>>>> update_entity_v0
->>>>>>> services-test
             }else {
                 partnerCheck.setStatus(PartnerStatus.pending);
             }
@@ -142,14 +107,9 @@ public class PartnerServiceImpl implements PartnerService{
         var partnerCheck = partnerRepository.findByEmail(email).orElse(null);
         return userCheck == null && partnerCheck == null;
     }
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
+
 
     public PartnersDto partnerDto(Partners partners) {
         return modelMapper.map(partners, PartnersDto.class);
     }
->>>>>>> update_entity_v0
->>>>>>> services-test
 }

@@ -7,16 +7,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import Home from './components/Home';
 import ContactUs from './components/ContactUs/ContactUs';
-<<<<<<< HEAD
-import MyAccount from './components/MyAccount';
-// import Login from './components/Login/Login';
-import Login from './components/Login/SignIn';
-import StepperForm from './components/Partner/StepperForm';
-import SignUp from './components/Login/SignUp';
-import ForgotPass from './components/ForgotPass/ForgotPass';
-import ChangePass from './components/ChangePass/ChangePass';
-
-=======
 
 import MyAccount from './components/MyAccount';
 
@@ -34,8 +24,6 @@ import Restaurant from './components/Page404/Restaurant';
 import VistLocation from './components/Page404/VistLocation';
 import Transport from './components/Page404/Transport';
 
-
->>>>>>> services-test
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -16,18 +16,7 @@ import com.datn.api.entity.dto.OrderRequest;
 import com.datn.api.entity.dto.UpdateOrderRequest;
 import com.datn.api.exceptions.ApiResponse;
 import com.datn.api.services.OrdersService;
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-
-=======
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
->>>>>>> update_entity_v0
->>>>>>> services-test
 
 @RestController
 @RequestMapping("/api/v1/orders")

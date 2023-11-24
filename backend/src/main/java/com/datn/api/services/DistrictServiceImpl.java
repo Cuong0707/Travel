@@ -9,10 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.datn.api.entity.Districts;
 import com.datn.api.entity.dto.DistrictDto;
-<<<<<<< HEAD
-import com.datn.api.entity.dto.ProvinceDto;
-=======
->>>>>>> services-test
 import com.datn.api.repository.DistrictRepository;
 
 @Service
@@ -71,11 +67,7 @@ public class DistrictServiceImpl implements DistrictService {
 			DistrictDto districtDto = new DistrictDto();
 			districtDto.setDistrictID(districts.getDistrictID());
 			districtDto.setNameOfDistrict(districts.getNameOfDistrict());
-<<<<<<< HEAD
-			districtDto.setProvince(this.modelMapper.map(districts.getProvinces(), ProvinceDto.class));
-=======
 //			districtDto.setProvince(this.modelMapper.map(districts.getProvinces(), ProvinceDto.class));
->>>>>>> services-test
 			return districtDto;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,29 +1,11 @@
 package com.datn.api.services;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> services-test
+
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-<<<<<<< HEAD
-=======
-=======
-import com.datn.api.entity.Orders;
-import com.datn.api.entity.OrdersOfHotel;
-import com.datn.api.entity.Partners;
-import com.datn.api.entity.Users;
-import com.datn.api.entity.dto.OrderDto;
-import com.datn.api.entity.dto.OrderRequest;
-import com.datn.api.entity.dto.OrderResponse;
-import com.datn.api.entity.dto.UpdateOrderRequest;
-import com.datn.api.enums.OrderStatus;
-import com.datn.api.repository.*;
->>>>>>> update_entity_v0
->>>>>>> services-test
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -57,28 +39,17 @@ public class OrdersServiceImpl implements OrdersService{
 
     @Autowired
     UsersRepository usersRepository;
+
     @Autowired
     PartnerRepository partnerRepository;
+
     @Autowired
     OrdersOfHotelRepository ordersOfHotelRepository;
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> services-test
 
     @Autowired
     HotelsRepository hotelsRepository;
 
-
-<<<<<<< HEAD
-=======
-=======
-    @Autowired
-    HotelsRepository hotelsRepository;
-
->>>>>>> update_entity_v0
->>>>>>> services-test
     private Double sum=0D;
     @Autowired
     private HotelsDetailsRepository hotelsDetailsRepository;
@@ -87,14 +58,6 @@ public class OrdersServiceImpl implements OrdersService{
     public Orders create(OrderRequest orderRequest){
         try{
             Orders orders = new Orders();
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> update_entity_v0
->>>>>>> services-test
             System.out.println(orderRequest.getPartnerId());
             System.out.println(orderRequest.getUserId());
             Partners partners=partnerRepository.findById(orderRequest.getPartnerId()).get();
@@ -109,14 +72,6 @@ public class OrdersServiceImpl implements OrdersService{
             System.out.println(ordersSaved.getOrderID());
             OrdersOfHotel ordersOfHotel = new OrdersOfHotel();
             orderRequest.getOrdersOfHotels().forEach(item->{
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> update_entity_v0
->>>>>>> services-test
                 ordersOfHotel.setAmountOfRoom(item.getAmountOfRoom());
                 ordersOfHotel.setCheckInDate(item.getCheckInDate());
                 ordersOfHotel.setLengthOfStay(item.getLengthOfStay());
@@ -125,14 +80,6 @@ public class OrdersServiceImpl implements OrdersService{
                 ordersOfHotel.setOriginalPrice(item.getOriginalPrice());
                 ordersOfHotel.setPromotionPrice(item.getPromotionPrice());
                 ordersOfHotel.setOrders(ordersSaved);
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> update_entity_v0
->>>>>>> services-test
                 ordersOfHotel.setHotelDetails(hotelsDetailsRepository.findById(item.getHotelDetailId()).get());
                 ordersOfHotelRepository.save(ordersOfHotel);
 
@@ -140,14 +87,6 @@ public class OrdersServiceImpl implements OrdersService{
             return ordersRepository.findById(ordersSaved.getOrderID()).get();
         }catch (Exception e){
             throw new RuntimeException(e.getMessage());
-<<<<<<< HEAD
-
-=======
-<<<<<<< HEAD
-
-=======
->>>>>>> update_entity_v0
->>>>>>> services-test
         }
 
     }
@@ -264,19 +203,7 @@ public class OrdersServiceImpl implements OrdersService{
 
     public OrderDto hotelDetailDto(Orders orders) {
         OrderDto orderDto = modelMapper.map(orders, OrderDto.class);
-<<<<<<< HEAD
-
         orderDto.setPartnerID(orders.getPartner().getPartnerId());
-
-=======
-<<<<<<< HEAD
-
-        orderDto.setPartnerID(orders.getPartner().getPartnerId());
-
-=======
-        orderDto.setPartnerID(orders.getPartner().getPartnerId());
->>>>>>> update_entity_v0
->>>>>>> services-test
         orderDto.setUserID(orders.getUser().getUserID());
         List<OrdersOfHotel> ordersOfHotels = ordersOfHotelRepository.findOrdersOfHotelByOrders(orders);
         ordersOfHotels.forEach(orderOfHotel -> {
