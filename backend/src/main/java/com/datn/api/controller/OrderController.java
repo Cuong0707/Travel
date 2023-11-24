@@ -2,6 +2,7 @@ package com.datn.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import com.datn.api.entity.dto.UpdateOrderRequest;
 import com.datn.api.exceptions.ApiResponse;
 import com.datn.api.services.OrdersService;
 
+
 @RestController
 @RequestMapping("/api/v1/orders")
 public class OrderController {
@@ -24,6 +26,7 @@ public class OrderController {
     OrdersService ordersService;
 
     @GetMapping()
+    @PreAuthorize("hasAnyAuthority('partner','admin')")
     public ApiResponse<?> getAll(@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
                                  @RequestParam(value = "pageSize", defaultValue = "8", required = false) Integer pageSize,
                                  @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
@@ -47,6 +50,19 @@ public class OrderController {
     {
         return ApiResponse.success(HttpStatus.OK,"success",ordersService.getOrdersOfUser(id,pageNumber,pageSize,sortDir,sortBy));
     }
+
+
+	@GetMapping("/partner/{id}")
+	public ApiResponse<?> getOrderOfPartner(@PathVariable String id,
+			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = "8", required = false) Integer pageSize,
+			@RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
+			@RequestParam(value = "sortBy", defaultValue = "orderDate", required = false) String sortBy) {
+		return ApiResponse.success(HttpStatus.OK, "success",
+				ordersService.getOrdersOfPartner(id, pageNumber, pageSize, sortDir, sortBy));
+	}
+
+
     @PostMapping()
     public ApiResponse<?> create(@RequestBody OrderRequest orderRequest){
         return ApiResponse.success(HttpStatus.OK,"success",ordersService.create(orderRequest));
@@ -56,6 +72,7 @@ public class OrderController {
         return ApiResponse.success(HttpStatus.OK,"success",ordersService.updateForUser(updateOrderRequest));
     }
 
+    @PreAuthorize("hasAnyAuthority('partner','admin')")
     @PutMapping("/partners")
     public ApiResponse<?> updateForPartner(@RequestBody UpdateOrderRequest updateOrderRequest){
         return ApiResponse.success(HttpStatus.OK,"success",ordersService.updateForPartner(updateOrderRequest));

@@ -1,5 +1,6 @@
 package com.datn.api.controller;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,15 +28,18 @@ public class PhotoOfHotelController {
     PhotosOfHotelRepository photosOfHotelRepository;
     @Autowired
     ImageStorageService storageService;
-	@Autowired
-	HotelsRepository hotelsRepository;
 
-	@PostMapping("/hotels/{id}")
+
+   
+    @Autowired
+    HotelsRepository hotelsRepository;
+    @PostMapping("/hotels/{id}")
+
     public ApiResponse<?> create(@PathVariable Long id, @RequestParam List<MultipartFile> files){
        List<PhotosOfHotel> photosOfHotels = new ArrayList<>();
         for(int i=0;i<files.size();i++){
             PhotosOfHotel photosOfHotel = new PhotosOfHotel();
-			photosOfHotel.setHotels(hotelsRepository.findById(id).orElseThrow());
+            photosOfHotel.setHotels(hotelsRepository.findById(id).orElseThrow());
             photosOfHotel.setNameOfPhoto("Hinh"+i);
             photosOfHotel.setImage(storageService.storeFile(files.get(i)).toString());
             photosOfHotels.add(photosOfHotelRepository.save(photosOfHotel));
@@ -43,20 +47,22 @@ public class PhotoOfHotelController {
         return ApiResponse.success(HttpStatus.OK,"success",photosOfHotels);
     }
 
-	@PutMapping("/{id}")
-	public ApiResponse<?> update(@PathVariable Long id, @RequestParam MultipartFile files) {
-		PhotosOfHotel photosOfHotel = photosOfHotelRepository.findById(id).orElseThrow();
-		photosOfHotel.setImage(storageService.storeFile(files).toString());
-		return ApiResponse.success(HttpStatus.OK, "success", photosOfHotel);
-	}
 
-	@DeleteMapping("/{id}")
-	public ApiResponse<?> delete(@PathVariable Long id) {
-		try {
-			photosOfHotelRepository.delete(photosOfHotelRepository.findById(id).orElseThrow());
-			return ApiResponse.success(HttpStatus.OK, "success", null);
-		} catch (Exception e) {
-			throw e;
-		}
-	}
+
+    @PutMapping("/{id}")
+    public ApiResponse<?> update(@PathVariable Long id, @RequestParam MultipartFile files){
+        PhotosOfHotel photosOfHotel = photosOfHotelRepository.findById(id).orElseThrow();
+        photosOfHotel.setImage(storageService.storeFile(files).toString());
+        return ApiResponse.success(HttpStatus.OK,"success",photosOfHotel);
+    }
+
+    @DeleteMapping("/{id}")
+    public ApiResponse<?>delete(@PathVariable Long id){
+       try {
+           photosOfHotelRepository.delete(photosOfHotelRepository.findById(id).orElseThrow());
+        return ApiResponse.success(HttpStatus.OK,"success",null);
+       }catch (Exception e){
+           throw e;
+       }
+    }
 }

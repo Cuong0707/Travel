@@ -2,9 +2,6 @@ package com.datn.api.repository;
 
 import java.util.List;
 
-import com.datn.api.entity.HotelDetails;
-import com.datn.api.entity.Partners;
-import com.datn.api.entity.Provinces;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.datn.api.entity.Hotels;
+import com.datn.api.entity.Partners;
+import com.datn.api.entity.Provinces;
 
 import jakarta.transaction.Transactional;
 
@@ -54,6 +53,12 @@ public interface HotelsRepository extends JpaRepository<Hotels, Long> {
 
 	@Query("select o from  Hotels o where  o.isDelete=false and o.provinces=?1")
 	Page<Hotels> findByProvinces(Provinces provinces, Pageable pageable);
+
+
+
+	@Query("select o from  Hotels o where  o.isDelete=false and o.partner=?1")
+	Page<Hotels> findByPartner(Partners partners, Pageable pageable);
+
 //	@Query(value = "SELECT * FROM Hotels h where h.status like 'Available'", nativeQuery = true)
 //	List<Hotels> findAll();
 //

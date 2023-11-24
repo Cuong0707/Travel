@@ -1,18 +1,10 @@
 package com.datn.api.services;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.datn.api.entity.HotelDetails;
-import com.datn.api.entity.PhotosOfHotel;
-import com.datn.api.entity.Provinces;
-import com.datn.api.entity.dto.*;
-import com.datn.api.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,13 +13,26 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.datn.api.entity.HotelDetails;
 import com.datn.api.entity.Hotels;
+import com.datn.api.entity.Partners;
+import com.datn.api.entity.PhotosOfHotel;
+import com.datn.api.entity.Provinces;
+import com.datn.api.entity.dto.HotelDetailDto;
+import com.datn.api.entity.dto.HotelDto;
+import com.datn.api.entity.dto.HotelRequest;
+import com.datn.api.entity.dto.HotelResponseDto;
+import com.datn.api.entity.dto.PartnersDto;
+import com.datn.api.entity.dto.PhotosOfHotelsDto;
+import com.datn.api.entity.dto.ProvincesDto;
 import com.datn.api.enums.HotelStatus;
 import com.datn.api.exceptions.NotFoundException;
+import com.datn.api.repository.HotelsRepository;
+import com.datn.api.repository.PartnerRepository;
+import com.datn.api.repository.PhotosOfHotelRepository;
+import com.datn.api.repository.ProvincesRepository;
 
 import jakarta.servlet.http.HttpSession;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class HotelServiceImpl implements HotelService {
@@ -53,7 +58,7 @@ public class HotelServiceImpl implements HotelService {
 	IStorageService storageService;
 	@Autowired
 	private PartnerRepository partnerRepository;
-	// save Hotel with service
+
 
 	public HotelDto updateHotelForAdmin(HotelDto hotelDto, Long hotelId) {
 		// Kiểm tra nếu khách sạn không tồn tại thì không tiến hành cập nhật
@@ -335,7 +340,23 @@ public class HotelServiceImpl implements HotelService {
 			hotelsRepository.autoIncreaseViews(hotelID);
 		}
 	}
-
+	@Override
+	public HotelResponseDto findByPartner(String id, Integer pageNumber, Integer pageSize){
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		Partners partners = partnerRepository.findById(id).orElseThrow();
+		Page<Hotels> hotels = hotelsRepository.findByPartner(partners, pageable);
+		// get content for page object
+		List<Hotels> listOfHotels = hotels.getContent();
+		List<HotelDto> content = listOfHotels.stream().map(hotel -> this.hotelDto(hotel)).collect(Collectors.toList());
+		HotelResponseDto hotelResponse = new HotelResponseDto();
+		hotelResponse.setContent(content);
+		hotelResponse.setPageNumber(hotels.getNumber());
+		hotelResponse.setPageSize(hotels.getSize());
+		hotelResponse.setTotalElements(hotels.getTotalElements());
+		hotelResponse.setTotalPages(hotels.getTotalPages());
+		hotelResponse.setLastPage(hotels.isLast());
+		return hotelResponse;
+	}
 	@Override
 	public HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize,String sortDir,String sortBy) {
 		Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()

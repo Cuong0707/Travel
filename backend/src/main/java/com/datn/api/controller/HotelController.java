@@ -1,5 +1,6 @@
 package com.datn.api.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -61,7 +62,7 @@ public class HotelController {
 
 
 	@PutMapping("/{hotelID}")
-	@PreAuthorize("hasAnyAuthority('PARTNER','ADMIN')")
+	@PreAuthorize("hasAnyAuthority('partner','admin')")
 	public ApiResponse<HotelDto> updateHotel(@RequestBody HotelDto hotelDto, @PathVariable Long hotelID) {
 		HotelDto updateHotel = hotelService.update(hotelDto, hotelID);
 		String successMessage = "updated success";
@@ -69,7 +70,7 @@ public class HotelController {
 	}
 
 	@DeleteMapping("/{hotelID}")
-	@PreAuthorize("hasAnyAuthority('PARTNER','ADMIN')")
+	@PreAuthorize("hasAnyAuthority('partner','admin')")
 	public ApiResponse<HotelDto> deleteHotel(@PathVariable("hotelID") Long hotelID) {
 		hotelService.delete(hotelID);
 		String successMessage = "DELETED!";
@@ -82,14 +83,23 @@ public class HotelController {
 			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
 	) {
-		return ApiResponse.success(HttpStatus.OK, "sucesss",hotelService.findByKeywords(pageNumber, pageSize, keywords));
+
+
+		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByKeywords(pageNumber, pageSize, keywords));
 	}
 	@GetMapping("/provinces/{id}")
-	public ApiResponse<HotelResponseDto> search(
+	public ApiResponse<HotelResponseDto> getHotelsProvince(
 			@PathVariable Long id,
 			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
 	) {
-		return ApiResponse.success(HttpStatus.OK, "sucesss",hotelService.findByProvinces(id,pageNumber, pageSize));
+
+		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByProvinces(id,pageNumber, pageSize));
+	}
+	@GetMapping("/partners/{id}")
+	public ApiResponse<HotelResponseDto> listHostelOfPartner(@PathVariable String id,
+																   @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+																   @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize){
+		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByPartner(id,pageNumber, pageSize));
 	}
 }

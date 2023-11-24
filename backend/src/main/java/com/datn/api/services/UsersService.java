@@ -2,6 +2,7 @@ package com.datn.api.services;
 
 import java.time.LocalDate;
 
+import com.datn.api.entity.Users;
 import org.springframework.stereotype.Component;
 
 import com.datn.api.entity.dto.NumberRegister;
@@ -21,6 +22,9 @@ public interface UsersService extends IService<UsersDto, String> {
 	NumberRegister numberRegister(LocalDate startDate, LocalDate endDate);
 
 	Integer numberRegisterNow();
+
+
+	Users updateStatusAndRoleForAdmin(Users users);
 
 //	List<HotelsDto> getTopViewHotel();
 

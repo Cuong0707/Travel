@@ -124,23 +124,21 @@ public class Users implements UserDetails {
 		this.districts = districtID;
 	}
 
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority(role.name()));
 	}
-
 	@Override
 	public String getPassword() {
-		return password;
+		return password ;
 	}
-
 	@Override
 	public String getUsername() {
 		return email;
 	}
 
 	@Override
-	// Tài khoản chưa hết hạn ?
 	public boolean isAccountNonExpired() {
 		return true;
 	}
@@ -148,11 +146,10 @@ public class Users implements UserDetails {
 	@Override
 	// Tài khoản chưa bị khóa ?
 	public boolean isAccountNonLocked() {
-		return this.status != UserStatus.inactive;
+		return this.status!=UserStatus.inactive;
 	}
 
 	@Override
-	// Thông tin đăng nhập chưa hết hạn ?
 	public boolean isCredentialsNonExpired() {
 		return true;
 	}
@@ -161,5 +158,4 @@ public class Users implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-
 }

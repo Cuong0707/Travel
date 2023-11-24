@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.datn.api.entity.Districts;
 import com.datn.api.entity.dto.DistrictDto;
-import com.datn.api.entity.dto.ProvinceDto;
 import com.datn.api.repository.DistrictRepository;
 
 @Service
@@ -41,8 +40,10 @@ public class DistrictServiceImpl implements DistrictService {
 
 	@Override
 	public List<DistrictDto> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Districts> districts = this.districtRepository.findAll();
+		List<DistrictDto> districtDtos = districts.stream().map(district -> this.districtDto(district))
+				.collect(Collectors.toList());
+		return districtDtos;
 	}
 
 	@Override
@@ -59,6 +60,14 @@ public class DistrictServiceImpl implements DistrictService {
 		return districtDtos;
 	}
 
+	@Override
+	public List<DistrictDto> findByProvinceName(String provinceID) {
+		List<Districts> districts = this.districtRepository.findByProvinceName(provinceID);
+		List<DistrictDto> districtDtos = districts.stream().map(district -> this.districtDto(district))
+				.collect(Collectors.toList());
+		return districtDtos;
+	}
+
 	public Districts dtoToDistrict(DistrictDto districtDto) {
 		return this.modelMapper.map(districtDto, Districts.class);
 	}
@@ -68,7 +77,7 @@ public class DistrictServiceImpl implements DistrictService {
 			DistrictDto districtDto = new DistrictDto();
 			districtDto.setDistrictID(districts.getDistrictID());
 			districtDto.setNameOfDistrict(districts.getNameOfDistrict());
-			districtDto.setProvince(this.modelMapper.map(districts.getProvinces(), ProvinceDto.class));
+//			districtDto.setProvince(this.modelMapper.map(districts.getProvinces(), ProvinceDto.class));
 			return districtDto;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -16,5 +16,5 @@ public class OrderDto {
     private String paymentMethod;
     private String status;
     private Double totalPrice;
-    private List<OrdersOfHotelDto> orderDetails;
+    private List<OrdersOfHotelDto> ordersOfHotels;
 }

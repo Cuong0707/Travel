@@ -2,12 +2,15 @@ package com.datn.api.entity;
 
 import java.util.List;
 
+import com.datn.api.enums.PartnerStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -28,7 +31,7 @@ import lombok.Setter;
 public class Partners {
 	@Id
 	@Column(name = "partner_id", nullable = false, length = 10)
-	private String partnerID;
+	private String partnerId;
 
 	@Column(name = "name_of_company", nullable = false, length = 255)
 	private String nameOfCompany;
@@ -48,6 +51,9 @@ public class Partners {
 	@Column(name = "website", nullable = true, length = -1)
 	private String website;
 
+	@Column(name = "status", nullable = true)
+	@Enumerated(EnumType.STRING)
+	private PartnerStatus status;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_id")
 	@JsonBackReference
@@ -68,7 +74,7 @@ public class Partners {
 
 	public Partners(String partnerID, Users user, String nameOfCompany, String taxCode, String avatarOfCompany,
 			String businessLicense, String website) {
-		this.partnerID = partnerID;
+		this.partnerId = partnerID;
 		this.user = user;
 		this.nameOfCompany = nameOfCompany;
 		this.taxCode = taxCode;

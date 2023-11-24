@@ -13,6 +13,12 @@ public interface HotelService extends IService<HotelDto, Long> {
 
     HotelResponseDto findByProvinces(Long id, Integer pageNumber, Integer pageSize);
 
+
+
+    HotelResponseDto findByPartner(String id, Integer pageNumber, Integer pageSize);
+
+
+
     HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize, String sortDir, String sortBy);
 
     List<HotelDto> findAllHotelsByProvince(String provinceID);

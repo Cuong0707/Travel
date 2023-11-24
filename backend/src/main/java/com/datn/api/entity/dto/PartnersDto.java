@@ -1,6 +1,7 @@
 package com.datn.api.entity.dto;
 
-import com.datn.api.enums.UserStatus;
+
+import com.datn.api.enums.PartnerStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,10 +13,15 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PartnersDto {
-	private String partnerID;
+	private String partnerId;
+	private UsersDto user;
+	private ServiceDto services;
 	private String email;
 	private String nameOfCompany;
 	private String avatar;
-	private UserStatus userStatus;
+	private String taxCode;
+	private String avatarOfCompany;
+	private String businessLicense;
 	private String website;
+	private PartnerStatus status;
 }
