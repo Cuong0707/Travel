@@ -24,4 +24,7 @@ public interface UsersRepository extends JpaRepository<Users, String> {
 	// Hàm đếm sô lượng người đăng ký
 	@Query("SELECT COUNT(u.userID) FROM Users u WHERE u.registrationDate >= :startDate AND u.registrationDate < :endDate")
 	Integer countUsersForDate(LocalDateTime startDate, LocalDateTime endDate);
+
+	@Query("SELECT u FROM Users u WHERE u.token=?1")
+	Optional<Users> getUsersByToken(String token);
 }
