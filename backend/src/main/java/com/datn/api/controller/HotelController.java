@@ -61,7 +61,7 @@ public class HotelController {
 
 
 	@PutMapping("/{hotelID}")
-	@PreAuthorize("hasAnyAuthority('PARTNER','ADMIN')")
+	@PreAuthorize("hasAnyAuthority('partner','admin')")
 	public ApiResponse<HotelDto> updateHotel(@RequestBody HotelDto hotelDto, @PathVariable Long hotelID) {
 		HotelDto updateHotel = hotelService.update(hotelDto, hotelID);
 		String successMessage = "updated success";
@@ -69,7 +69,7 @@ public class HotelController {
 	}
 
 	@DeleteMapping("/{hotelID}")
-	@PreAuthorize("hasAnyAuthority('PARTNER','ADMIN')")
+	@PreAuthorize("hasAnyAuthority('partner','admin')")
 	public ApiResponse<HotelDto> deleteHotel(@PathVariable("hotelID") Long hotelID) {
 		hotelService.delete(hotelID);
 		String successMessage = "DELETED!";

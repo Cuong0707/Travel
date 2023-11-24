@@ -9,8 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import com.datn.api.entity.Partners;
 
+
 @Repository
 public interface PartnerRepository extends JpaRepository<Partners, String> {
+    Optional<Partners> findByEmail(String email);
+
 
 	@Query("select p from Partners p where p.user.userID=?1")
 	Optional<Partners> findPartnerByUserID(String userID);

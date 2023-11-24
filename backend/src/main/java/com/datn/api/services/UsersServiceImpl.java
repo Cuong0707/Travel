@@ -10,7 +10,6 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import com.datn.api.entity.Hotels;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -255,5 +254,11 @@ public class UsersServiceImpl implements UsersService {
 		;
 		Users updateUser = usersRepository.save(user);
 		return this.modelMapper.map(updateUser, PartnersDto.class);
+	}
+
+	@Override
+	public Users updateStatusAndRoleForAdmin(Users users){
+		usersRepository.findById(users.getUserID()).orElseThrow(() -> new NotFoundException("Không tìm thấy User Id: " + users.getUserID()));
+		return usersRepository.save(users);
 	}
 }
