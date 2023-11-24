@@ -6,10 +6,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> services-test
 import com.datn.api.entity.Orders;
 import com.datn.api.entity.Partners;
 import com.datn.api.entity.Users;
 
+<<<<<<< HEAD
+=======
+=======
+import java.util.List;
+>>>>>>> update_entity_v0
+>>>>>>> services-test
 @Repository
 public interface OrdersRepository extends JpaRepository<Orders, Long> {
     @Query("select o from Orders o where o.user = ?1")

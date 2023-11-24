@@ -2,7 +2,9 @@
 import React, { Component } from 'react';
 import Nav from '../src/components/Nav';
 import Footer from './components/Footer/Footer';
-import './style/style.scss'
+
+import './style/Main/style.scss'
+
 import { Outlet } from 'react-router-dom';
 class App extends Component {
   render() {

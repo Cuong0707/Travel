@@ -1,5 +1,8 @@
 import React from "react";
-import '../../style/style.scss';
+
+
+import '../../style/Main/style.scss';
+
 import vnTopo from '../../geo_data/map.geojson';
 import hs from '../../geo_data/Hoangsa.json';
 import ts from '../../geo_data/Truongsa.json';

@@ -20,10 +20,25 @@ public class PartnerController {
     public ApiResponse<?> getOnePartner(@PathVariable("id") String id) {
         return ApiResponse.success(HttpStatus.OK, "Success", partnerRepository.findById(id));
     }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> services-test
 //Hello
    @GetMapping("users/{id}")
    public ApiResponse<?> getListPartnerOfUser(@PathVariable("id")String id){
         return null;
+<<<<<<< HEAD
+=======
+=======
+
+   @GetMapping("users/{id}")
+   public ApiResponse<?> getListPartnerOfUser(@PathVariable("id")String id,
+                                              @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+                                              @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize){
+       return ApiResponse.success(HttpStatus.OK, "Success", partnerService.findByUser(id,pageNumber,pageSize));
+>>>>>>> update_entity_v0
+>>>>>>> services-test
    }
     @PostMapping("")
     public ApiResponse<?> create(@RequestBody PartnerRequest partnerRequest){

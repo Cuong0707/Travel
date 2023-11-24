@@ -1,16 +1,23 @@
 package com.datn.api.services;
 
 import java.io.IOException;
+<<<<<<< HEAD
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+=======
+>>>>>>> services-test
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+<<<<<<< HEAD
 import com.datn.api.entity.HotelDetails;
 import com.datn.api.entity.PhotosOfHotel;
 import com.datn.api.entity.Provinces;
+=======
+import com.datn.api.entity.*;
+>>>>>>> services-test
 import com.datn.api.entity.dto.*;
 import com.datn.api.repository.*;
 import org.modelmapper.ModelMapper;
@@ -21,7 +28,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+<<<<<<< HEAD
 import com.datn.api.entity.Hotels;
+=======
+>>>>>>> services-test
 import com.datn.api.enums.HotelStatus;
 import com.datn.api.exceptions.NotFoundException;
 
@@ -53,7 +63,11 @@ public class HotelServiceImpl implements HotelService {
 	IStorageService storageService;
 	@Autowired
 	private PartnerRepository partnerRepository;
+<<<<<<< HEAD
 	// save Hotel with service
+=======
+
+>>>>>>> services-test
 
 	public HotelDto updateHotelForAdmin(HotelDto hotelDto, Long hotelId) {
 		// Kiểm tra nếu khách sạn không tồn tại thì không tiến hành cập nhật
@@ -335,7 +349,37 @@ public class HotelServiceImpl implements HotelService {
 			hotelsRepository.autoIncreaseViews(hotelID);
 		}
 	}
+	@Override
+<<<<<<< HEAD
+	public HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize,String sortDir,String sortBy) {
+		Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+				: Sort.by(sortBy).descending();
 
+		// create Pageable instance
+		Pageable pageable = PageRequest.of(pageNumber, pageSize,sort);
+
+		Page<Hotels> hotels = hotelsRepository.findAll(pageable);
+=======
+	public HotelResponseDto findByPartner(String id, Integer pageNumber, Integer pageSize){
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		Partners partners = partnerRepository.findById(id).orElseThrow();
+		Page<Hotels> hotels = hotelsRepository.findByPartner(partners, pageable);
+>>>>>>> services-test
+
+		// get content for page object
+		List<Hotels> listOfHotels = hotels.getContent();
+		List<HotelDto> content = listOfHotels.stream().map(hotel -> this.hotelDto(hotel)).collect(Collectors.toList());
+		HotelResponseDto hotelResponse = new HotelResponseDto();
+		hotelResponse.setContent(content);
+		hotelResponse.setPageNumber(hotels.getNumber());
+		hotelResponse.setPageSize(hotels.getSize());
+		hotelResponse.setTotalElements(hotels.getTotalElements());
+		hotelResponse.setTotalPages(hotels.getTotalPages());
+		hotelResponse.setLastPage(hotels.isLast());
+<<<<<<< HEAD
+=======
+		return hotelResponse;
+	}
 	@Override
 	public HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize,String sortDir,String sortBy) {
 		Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
@@ -356,6 +400,7 @@ public class HotelServiceImpl implements HotelService {
 		hotelResponse.setTotalElements(hotels.getTotalElements());
 		hotelResponse.setTotalPages(hotels.getTotalPages());
 		hotelResponse.setLastPage(hotels.isLast());
+>>>>>>> services-test
 		return hotelResponse;
 	}
 

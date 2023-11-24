@@ -12,5 +12,9 @@ import lombok.Setter;
 public class DistrictDto {
 	private Long districtID;
 	private String nameOfDistrict;
+<<<<<<< HEAD
 	private ProvinceDto province;
+=======
+//	private ProvinceDto province;
+>>>>>>> services-test
 }
