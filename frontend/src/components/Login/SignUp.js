@@ -60,8 +60,6 @@ function SignUp() {
                                                     <option>...</option>
                                                 </select>
                                             </div>
-
-
                                         </div>
                                         <div className="mb-3">
                                             <label htmlFor="password" className="form-label">Mật Khẩu</label>

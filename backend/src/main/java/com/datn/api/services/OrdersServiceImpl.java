@@ -175,6 +175,7 @@ public class OrdersServiceImpl implements OrdersService{
         return orderResponse;
     }
 
+
 	@Override
 	public OrderResponse getOrdersOfPartner(String id, Integer pageNumber, Integer pageSize, String sortDir,
 			String sortBy) {
@@ -200,6 +201,7 @@ public class OrdersServiceImpl implements OrdersService{
 		orderResponse.setLastPage(orders.isLast());
 		return orderResponse;
 	}
+
 
     public OrderDto hotelDetailDto(Orders orders) {
         OrderDto orderDto = modelMapper.map(orders, OrderDto.class);

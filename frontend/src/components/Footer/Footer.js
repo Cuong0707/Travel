@@ -22,7 +22,7 @@ class Footer extends React.Component {
                             <p>Email: hotro@saigontrip.vn</p>
                             <p>Văn phòng chính: Cong vien phan mem Quang Trung</p>
                             <div className="mb-3 row">
-                                <label htmlFor="exampleInputEmail1" className="form-label">Đăng ký nhận thông báo mới nhất từ chúng tôi:</label>
+                                <label className="form-label">Đăng ký nhận thông báo mới nhất từ chúng tôi:</label>
                                 <form className="d-flex">
                                     <input className="form-control me-2 col-ms-12" type="Email" placeholder="Email" aria-label="Email" style={{ width: "280px" }} />
                                     <button className="btn btn-success" type="submit">Gửi</button>
