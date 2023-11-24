@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 import '../../style/Login.scss'
 import { Link } from "react-router-dom";
-
+import axios from 'axios';
 
 function SignUp() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordMatch, setPasswordMatch] = useState(true); // State để lưu trạng thái xác nhận mật khẩu
-
+    const [formData, setFormData] = useState({
+        userID: '',
+        fullname: '',
+        password: '',
+        email: '',
+        districtId:'',
+        birthday : '',
+        avatar : '',
+        address : '',
+      });
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
@@ -16,11 +25,18 @@ function SignUp() {
         setConfirmPassword(event.target.value);
         setPasswordMatch(event.target.value === password); // Kiểm tra xem mật khẩu xác nhận có khớp với mật khẩu mới hay không
     };
-
-    const handleSubmit = (event) => {
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+      };
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        // Thực hiện xử lý khi người dùng ấn nút submit
-    };
+        try {
+          const response = await axios.post('http://localhost:8080/api/v1/auth/register', formData);
+          console.log(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
     return (
         <form onSubmit={handleSubmit}>
             <div className='container-login'>
@@ -37,12 +53,12 @@ function SignUp() {
                                         <div className="row mb-3">
                                             <div className='col-6'>
                                                 <label htmlFor='label1' className='mb-2'>Họ Và Tên</label>
-                                                <input type="text" className='form-control' />
+                                                <input type="text" className='form-control' value={formData.fullname} onChange={handleChange} />
                                             </div>
 
                                             <div className='col-6'>
                                                 <label htmlFor='label2' className='mb-2'>Email</label>
-                                                <input type="email" className='form-control' />
+                                                <input type="email" className='form-control' value={formData.email} onChange={handleChange} />
                                             </div>
                                         </div>
                                         <div className="mb-3 row">
@@ -65,15 +81,13 @@ function SignUp() {
                                             <label htmlFor="password" className="form-label">Mật Khẩu</label>
                                             <input type="password"
                                                 id="password"
-                                                value={password}
-                                                onChange={handlePasswordChange} className="form-control" />
+                                                value={formData.fullname} onChange={handleChange} className="form-control" />
                                         </div>
                                         <div className="mb-3">
                                             <label htmlFor="confirmPassword" className="form-label">Xác Nhận Mật Khẩu</label>
                                             <input type="password"
                                                 id="confirmPassword"
-                                                value={confirmPassword}
-                                                onChange={handleConfirmPasswordChange} className="form-control" />
+                                                value={formData.fullname} onChange={handleChange} className="form-control" />
                                             {!passwordMatch && <p style={{ color: 'red' }}>Mật Khẩu Không Trùng Kìa Ba</p>} {/* Hiển thị thông báo nếu mật khẩu không khớp */}
                                         </div>
                                         <div className="row mb-3">
