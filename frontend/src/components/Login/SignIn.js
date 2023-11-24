@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import '../../style/Login.scss'
 import { Link } from "react-router-dom";
 import axios from 'axios';
@@ -8,8 +7,6 @@ function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -29,7 +26,6 @@ function SignIn() {
     }
   };
 
-
   return (
     <div className='container-login'>
       <div className="container my-3">
@@ -39,6 +35,7 @@ function SignIn() {
               <h1 className="fw-normal my-4 fw-bold text-center">Đăng Nhập</h1>
               <div className='card-body d-flex flex-column'>
                 <form onSubmit={handleSubmit}>
+
                   {/* Nơi hiển thị báo lỗi*/}
                   {error && <div className="text-danger">{error}</div>}
                   <input className='mb-3 form-control form-control-lg'

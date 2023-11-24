@@ -23,15 +23,10 @@ import VistLocation from './components/Page404/VistLocation';
 import Transport from './components/Page404/Transport';
 import Search from './components/Search';
 
-import HotelList from './components/Hotel/HotelList';
-import HotelDetail from './components/Hotel/HotelDetail';
-import Blog from './components/Page404/Blog';
-import Restaurant from './components/Page404/Restaurant';
-import VistLocation from './components/Page404/VistLocation';
-import Transport from './components/Page404/Transport';
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
