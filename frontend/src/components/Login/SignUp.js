@@ -3,23 +3,21 @@ import '../../style/Login.scss'
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
+
+
 function SignUp() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordMatch, setPasswordMatch] = useState(true); // State để lưu trạng thái xác nhận mật khẩu
     const [formData, setFormData] = useState({
-        userID: '',
         fullname: '',
         password: '',
         email: '',
         districtId:'',
-        birthday : '',
-        avatar : '',
-        address : '',
       });
-    const handlePasswordChange = (event) => {
-        setPassword(event.target.value);
-    };
+    // const handlePasswordChange = (event) => {
+    //     setPassword(event.target.value);
+    // };
 
     const handleConfirmPasswordChange = (event) => {
         setConfirmPassword(event.target.value);
@@ -27,7 +25,8 @@ function SignUp() {
     };
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-      };
+        console.log(formData.districtId);
+    };
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -53,20 +52,21 @@ function SignUp() {
                                         <div className="row mb-3">
                                             <div className='col-6'>
                                                 <label htmlFor='label1' className='mb-2'>Họ Và Tên</label>
-                                                <input type="text" className='form-control' value={formData.fullname} onChange={handleChange} />
+                                                <input type="text" name="fullname" className='form-control' value={formData.fullname} onChange={handleChange} />
                                             </div>
 
                                             <div className='col-6'>
                                                 <label htmlFor='label2' className='mb-2'>Email</label>
-                                                <input type="email" className='form-control' value={formData.email} onChange={handleChange} />
+                                                <input type="email" name="email" className='form-control' value={formData.email} onChange={handleChange} />
                                             </div>
                                         </div>
                                         <div className="mb-3 row">
                                             <div className="col">
                                                 <label htmlFor="province" className="form-label">Tỉnh</label>
-                                                <select id="province" className="form-select" defaultValue="Choose...">
+                                                <select name="districtId" className="form-select" defaultValue='Choose...' value={formData.districtId} onChange={handleChange}> 
                                                     <option>Choose...</option>
-                                                    <option>...</option>
+                                                    <option value="123">123</option>
+                                                    <option value="1">1</option>
                                                 </select>
                                             </div>
                                             <div className="col">
@@ -79,15 +79,15 @@ function SignUp() {
                                         </div>
                                         <div className="mb-3">
                                             <label htmlFor="password" className="form-label">Mật Khẩu</label>
-                                            <input type="password"
+                                            <input type="password" name="password"
                                                 id="password"
-                                                value={formData.fullname} onChange={handleChange} className="form-control" />
+                                                value={formData.password} onChange={handleChange} className="form-control" />
                                         </div>
                                         <div className="mb-3">
                                             <label htmlFor="confirmPassword" className="form-label">Xác Nhận Mật Khẩu</label>
-                                            <input type="password"
+                                            <input type="password" name="password"
                                                 id="confirmPassword"
-                                                value={formData.fullname} onChange={handleChange} className="form-control" />
+                                                value={formData.password} onChange={handleChange} className="form-control" />
                                             {!passwordMatch && <p style={{ color: 'red' }}>Mật Khẩu Không Trùng Kìa Ba</p>} {/* Hiển thị thông báo nếu mật khẩu không khớp */}
                                         </div>
                                         <div className="row mb-3">

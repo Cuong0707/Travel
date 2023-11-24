@@ -41,6 +41,7 @@ public class DistrictController {
 	public ApiResponse<List<DistrictDto>> findDistrictByProvince()
 	{
 		List<DistrictDto> district = districtService.findAll();
+		System.out.println("Hello");
 		return ApiResponse.success(HttpStatus.OK, "sucesss", district);
 	}
 
