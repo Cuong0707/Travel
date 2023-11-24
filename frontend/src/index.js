@@ -6,6 +6,7 @@ import App from './App';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 import Home from './components/Home';
+
 import ContactUs from './components/ContactUs/ContactUs';
 // import MyAccount from './components/MyAccount';
 // import Login from './components/Login/Login';
@@ -20,6 +21,7 @@ import Blog from './components/Page404/Blog';
 import Restaurant from './components/Page404/Restaurant';
 import VistLocation from './components/Page404/VistLocation';
 import Transport from './components/Page404/Transport';
+import Search from './components/Search';
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -46,6 +48,9 @@ root.render(
           <Route path='partner' element={<StepperForm />}></Route>
           <Route path='/forgot-pass' element={<ForgotPass />}></Route>
           <Route path='/change-pass' element={<ChangePass />}></Route>
+
+          <Route path='/search' element={<Search />}></Route>
+
         </Route>
       </Routes>
 

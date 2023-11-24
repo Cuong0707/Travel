@@ -7,6 +7,7 @@ function SignIn() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -15,9 +16,15 @@ function SignIn() {
         email,
         password,
       });
-      console.log(response.data);
+      // Lưu token vào localstorge
+      localStorage.setItem('token', response.data.token);
+      
+      window.location.href = '/';
+      console.log(response.data.token);
+
     } catch (error) {
       console.error(error);
+      setError("Sai tên đăng nhập hoặc mật khẩu. Vui lòng thử lại.");
     }
   };
 
@@ -30,6 +37,8 @@ function SignIn() {
               <h1 className="fw-normal my-4 fw-bold text-center">Đăng Nhập</h1>
               <div className='card-body d-flex flex-column'>
                 <form onSubmit={handleSubmit}>
+                  {/* Nơi hiển thị báo lỗi*/}
+                  {error && <div className="text-danger">{error}</div>}
                   <input className='mb-3 form-control form-control-lg'
                     value={email} onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Email' />
                   <input className='mb-3 form-control form-control-lg'

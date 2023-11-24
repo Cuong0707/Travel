@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ScrollToTop from './Services/ScrollToTop';
+import ScrollToTop from '../Services/ScrollToTop';
+import DarkModeToggle from "../Services/DarkModeToggle";
 
 const Nav = () => {
+
     return (
         <div className="fixed-top shadow" style={{ backgroundColor: "var(--green-50)" }}>
             <nav className="navbar navbar-expand-lg">
-                <div className="container-fluid">
+                <div className="container-fluid fw-bold">
                     <Link to="/" className="navbar-brand">
                         {/* <img src="images/icon-web1.png"></img> */}
                         <ScrollToTop><h3 className="text-success"><span className="text-dark">SAIGON</span>TRIP</h3></ScrollToTop>
@@ -335,17 +337,21 @@ const Nav = () => {
 
                                 <input className="form-control me-2 col-ms-12" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." style={{ width: "350px" }} />
                                 <datalist id="datalistOptions">
-                                    <option value="San Francisco" />
-                                    <option value="New York" />
-                                    <option value="Seattle" />
-                                    <option value="Los Angeles" />
-                                    <option value="Chicago" />
+                                    <option value="Thành Phố Hồ Chí Minh" />
+                                    <option value="Hà Nội" />
+                                    <option value="Bình Thuận" />
+                                    <option value="An Giang" />
+                                    <option value="Đắk Lắk" />
+                                    <option value="Long An" />
+                                    <option value="Lâm Đồng" />
+                                    <option value="Bình Dương" />
                                 </datalist>
                                 <button className="btn btn-success" type="submit"><i className="bi bi-search"></i></button>
                             </form>
                             <li className="nav-item">
-                                <Link className="nav-link" to="contact"> <img src="images/icon-contact.gif" alt="icon-contact" /> Liên Hệ</Link>
+                                <ScrollToTop><Link className="nav-link" to="contact"> <img src="images/icon-contact.gif" alt="icon-contact" /> Liên Hệ</Link></ScrollToTop>
                             </li>
+
                             <li className="nav-item dropdown">
                                 <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img src="images/icon-login1.gif" alt="icon-login" /> Đăng Nhập
@@ -375,6 +381,10 @@ const Nav = () => {
                                     <li><Link className="dropdown-item" to="#">English</Link></li>
                                 </ul>
                             </li>
+
+                            <div className="ms-2">
+                                <DarkModeToggle />
+                            </div>
                         </ul>
                     </div>
                 </div >
