@@ -1,8 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../style/Login.scss'
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 function SignIn() {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8080/api/v1/auth/login', {
+        email,
+        password,
+      });
+      // Lưu token vào localstorge
+      localStorage.setItem('token', response.data.token);
+      
+      window.location.href = '/';
+      console.log(response.data.token);
+
+    } catch (error) {
+      console.error(error);
+      setError("Sai tên đăng nhập hoặc mật khẩu. Vui lòng thử lại.");
+    }
+  };
+
   return (
     <div className='container-login'>
       <div className="container my-3">
@@ -11,9 +36,13 @@ function SignIn() {
             <div className='col-md-5 m-auto'>
               <h1 className="fw-normal my-4 fw-bold text-center">Đăng Nhập</h1>
               <div className='card-body d-flex flex-column'>
-                <form method=''>
-                  <input className='mb-3 form-control form-control-lg' type='email' placeholder='Email' />
-                  <input className='mb-3 form-control form-control-lg' type='password' placeholder='Mật Khẩu' />
+                <form onSubmit={handleSubmit}>
+                  {/* Nơi hiển thị báo lỗi*/}
+                  {error && <div className="text-danger">{error}</div>}
+                  <input className='mb-3 form-control form-control-lg'
+                    value={email} onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Email' />
+                  <input className='mb-3 form-control form-control-lg'
+                    value={password} onChange={(e) => setPassword(e.target.value)} type='password' placeholder='Mật Khẩu' />
                   <div className='row'>
                     <h6 className="col-6 mb-3 fw-bold">
                       Chưa Có Tài Khoản ?{" "}

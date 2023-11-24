@@ -51,6 +51,7 @@ public class OrderController {
         return ApiResponse.success(HttpStatus.OK,"success",ordersService.getOrdersOfUser(id,pageNumber,pageSize,sortDir,sortBy));
     }
 
+
 	@GetMapping("/partner/{id}")
 	public ApiResponse<?> getOrderOfPartner(@PathVariable String id,
 			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
@@ -60,6 +61,7 @@ public class OrderController {
 		return ApiResponse.success(HttpStatus.OK, "success",
 				ordersService.getOrdersOfPartner(id, pageNumber, pageSize, sortDir, sortBy));
 	}
+
 
     @PostMapping()
     public ApiResponse<?> create(@RequestBody OrderRequest orderRequest){

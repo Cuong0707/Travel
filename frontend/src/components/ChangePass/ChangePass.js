@@ -36,6 +36,7 @@ function ChangePass() {
                             <input type="email" id="typeEmail" placeholder='Email' className="form-control my-3" />
 
                             <input type="password" id="typePass1" placeholder='Mật Khẩu Cũ' className="form-control my-3" />
+                            
                             <input
                                 type="password" // Sử dụng conditional (ternary) operator để thay đổi kiểu input
                                 id="password"
