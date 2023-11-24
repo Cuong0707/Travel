@@ -15,4 +15,7 @@ import com.datn.api.entity.Districts;
 public interface DistrictRepository extends JpaRepository<Districts, Long> {
 	@Query("select d from Districts d where d.provinces.provinceID like ?1")
 	List<Districts> findByProvinces(Long provinceID);
+
+	@Query("select d from Districts d where d.provinces.nameOfProvince like %?1%")
+	List<Districts> findByProvinceName(String nameOfDistrict);
 }

@@ -1,5 +1,6 @@
 package com.datn.api.entity.dto;
 
+
 import com.datn.api.enums.PartnerStatus;
 
 import lombok.AllArgsConstructor;

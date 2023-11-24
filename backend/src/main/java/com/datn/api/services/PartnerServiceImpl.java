@@ -1,5 +1,6 @@
 package com.datn.api.services;
 
+
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -22,6 +23,7 @@ import com.datn.api.enums.Role;
 import com.datn.api.repository.PartnerRepository;
 import com.datn.api.repository.ServicesRepository;
 import com.datn.api.repository.UsersRepository;
+
 
 @Component
 public class PartnerServiceImpl implements PartnerService{
@@ -107,7 +109,6 @@ public class PartnerServiceImpl implements PartnerService{
         var partnerCheck = partnerRepository.findByEmail(email).orElse(null);
         return userCheck == null && partnerCheck == null;
     }
-
 
     public PartnersDto partnerDto(Partners partners) {
         return modelMapper.map(partners, PartnersDto.class);

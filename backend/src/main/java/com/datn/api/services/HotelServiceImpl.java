@@ -355,7 +355,6 @@ public class HotelServiceImpl implements HotelService {
 		hotelResponse.setTotalElements(hotels.getTotalElements());
 		hotelResponse.setTotalPages(hotels.getTotalPages());
 		hotelResponse.setLastPage(hotels.isLast());
-
 		return hotelResponse;
 	}
 	@Override

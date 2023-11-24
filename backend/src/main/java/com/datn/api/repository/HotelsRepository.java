@@ -55,6 +55,7 @@ public interface HotelsRepository extends JpaRepository<Hotels, Long> {
 	Page<Hotels> findByProvinces(Provinces provinces, Pageable pageable);
 
 
+
 	@Query("select o from  Hotels o where  o.isDelete=false and o.partner=?1")
 	Page<Hotels> findByPartner(Partners partners, Pageable pageable);
 

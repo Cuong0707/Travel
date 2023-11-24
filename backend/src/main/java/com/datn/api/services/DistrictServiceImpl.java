@@ -40,8 +40,10 @@ public class DistrictServiceImpl implements DistrictService {
 
 	@Override
 	public List<DistrictDto> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Districts> districts = this.districtRepository.findAll();
+		List<DistrictDto> districtDtos = districts.stream().map(district -> this.districtDto(district))
+				.collect(Collectors.toList());
+		return districtDtos;
 	}
 
 	@Override
@@ -55,6 +57,14 @@ public class DistrictServiceImpl implements DistrictService {
 		List<Districts> districts = this.districtRepository.findByProvinces(provinceID);
 		List<DistrictDto> districtDtos = districts.stream()
 				.map(district -> this.districtDto(district)).collect(Collectors.toList());
+		return districtDtos;
+	}
+
+	@Override
+	public List<DistrictDto> findByProvinceName(String provinceID) {
+		List<Districts> districts = this.districtRepository.findByProvinceName(provinceID);
+		List<DistrictDto> districtDtos = districts.stream().map(district -> this.districtDto(district))
+				.collect(Collectors.toList());
 		return districtDtos;
 	}
 

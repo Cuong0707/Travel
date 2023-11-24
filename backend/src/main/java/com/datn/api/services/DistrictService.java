@@ -10,5 +10,7 @@ import com.datn.api.entity.dto.DistrictDto;
 public interface DistrictService extends IService<DistrictDto, Long> {
 	// List<DistrictDto> findByProvince(String nameOfProvince);
 
-	List<DistrictDto> findByProvince(Long nameOfProvince);
+	List<DistrictDto> findByProvince(Long provinceid);
+
+	List<DistrictDto> findByProvinceName(String nameOfProVince);
 }

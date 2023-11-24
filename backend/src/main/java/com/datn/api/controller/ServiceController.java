@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.datn.api.exceptions.ApiResponse;
 import com.datn.api.repository.ServicesRepository;
 
+
+
 @RestController
 @RequestMapping("/api/v1/services")
 public class ServiceController {
@@ -20,5 +22,4 @@ public class ServiceController {
     public ApiResponse<?> getAll(){
         return ApiResponse.success(HttpStatus.OK,"success",servicesRepository.findAll());
     }
-
 }

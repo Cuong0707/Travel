@@ -84,11 +84,11 @@ public class HotelController {
 			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
 	) {
 
+
 		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByKeywords(pageNumber, pageSize, keywords));
 	}
 	@GetMapping("/provinces/{id}")
 	public ApiResponse<HotelResponseDto> getHotelsProvince(
-
 			@PathVariable Long id,
 			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize

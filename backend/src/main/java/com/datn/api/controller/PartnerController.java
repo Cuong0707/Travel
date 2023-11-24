@@ -29,12 +29,6 @@ public class PartnerController {
         return ApiResponse.success(HttpStatus.OK, "Success", partnerRepository.findById(id));
     }
 
-//Hello
-   @GetMapping("users/{id}")
-   public ApiResponse<?> getListPartnerOfUser(@PathVariable("id")String id){
-        return null;
-	}
-
    @GetMapping("users/{id}")
    public ApiResponse<?> getListPartnerOfUser(@PathVariable("id")String id,
                                               @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,

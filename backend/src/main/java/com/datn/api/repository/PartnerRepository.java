@@ -2,6 +2,7 @@ package com.datn.api.repository;
 
 
 
+
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ public interface PartnerRepository extends JpaRepository<Partners, String> {
 
 	@Query("select p from Partners p where p.user.userID=?1")
 	Optional<Partners> findPartnerByUserID(String userID);
+
 
     @Query("select o from  Partners o where  o.user=?1")
     Page<Partners> findByUser(Users users, Pageable pageable);
