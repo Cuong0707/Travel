@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState,useEffect } from 'react';
 import '../../style/Login.scss'
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../context/auth-context';
@@ -8,18 +8,25 @@ function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { signIn } = useContext(AuthContext);
+  const { signIn,user } = useContext(AuthContext);
   const navigate = useNavigate();
+  useEffect(() => {
+    // If user data exists, redirect to home page
+    if (user) {
+      navigate('/');
+      alert("Bạn đã đăng nhập rồi !!!");
+    }
+  }, [user, navigate]);
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      await signIn(email, password);
-      navigate('/');
-      // window.location.href = '/';
-    } catch (error) {
-      console.error(error);
-      setError("Sai tên đăng nhập hoặc mật khẩu. Vui lòng thử lại.");
-    }
+        try {   
+        await signIn(email, password);
+        navigate('/');
+        // window.location.href = '/';
+      } catch (error) {
+        console.error(error);
+        setError("Sai tên đăng nhập hoặc mật khẩu. Vui lòng thử lại.");
+      }
   };
 
   return (

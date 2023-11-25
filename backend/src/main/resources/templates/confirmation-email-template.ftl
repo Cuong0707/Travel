@@ -30,7 +30,7 @@
                 <tr>
                     <td style="text-align: center;">
                         <a href="http://localhost:3000" title="logo" target="_blank">
-                            <img width="60" src="https://res.cloudinary.com/dusmue7d9/image/upload/v1698827611/images/cnfx4fbgsz12fuqga0rf.png" title="logo" alt="logo" />
+                            <img width="150" height="150" src="logo.png" title="logo" alt="logo" />
                         </a>
                     </td>
                 </tr>
@@ -63,12 +63,12 @@
                                     <h1 style="color: #1e1e2d; font-weight: 500; margin: 0; font-size: 32px; font-family: 'Rubik', sans-serif;">Chào ${display}</h1>
                                     <span style="display: inline-block; vertical-align: middle; margin: 29px 0 26px; border-bottom: 1px solid #cecece; width: 100px;"></span>
                                     <p style="color: #455056; font-size: 15px; line-height: 24px; margin: 0;">
-                                        Vui lòng xác nhận rằng bạn muốn sử dụng địa chỉ email <b>${email}</b> làm địa chỉ email tài khoản Zetavn của mình. Sau khi hoàn tất, bạn sẽ có thể bắt đầu sử dụng tài khoản của mình
+                                        Vui lòng xác nhận rằng bạn muốn sử dụng địa chỉ email <b>${email}</b> làm địa chỉ email tài khoản Saigontrip của mình. Sau khi hoàn tất, bạn sẽ có thể bắt đầu sử dụng tài khoản của mình
                                     </p>
                                     <a
                                             href="${link_confirm_email}"
                                             style="
-                                                    background: #496fad;
+                                                    background: #49ada3;
                                                     text-decoration: none !important;
                                                     font-weight: 500;
                                                     margin-top: 35px;
@@ -96,7 +96,7 @@
                 </tr>
                 <tr>
                     <td style="text-align: center;">
-                        <p style="font-size: 14px; color: rgba(69, 80, 86, 0.7411764705882353); line-height: 18px; margin: 0 0 0;">&copy; <strong>www.zetavn.com</strong></p>
+                        <p style="font-size: 14px; color: rgba(69, 80, 86, 0.7411764705882353); line-height: 18px; margin: 0 0 0;">&copy; <strong>www.saigontrip.vn</strong></p>
                     </td>
                 </tr>
                 <tr>
