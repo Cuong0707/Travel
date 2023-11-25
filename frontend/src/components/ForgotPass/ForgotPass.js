@@ -4,12 +4,12 @@ import '../../style/ForgotPass.scss'
 
 function ForgotPass() {
     return (
-        <div className='container-forgot'>
+        <div className='container-forgot w-50'>
             <div className="card text-center">
                 <div className="card-header h5 text-white bg-primary">Quên Mật Khẩu</div>
                 <div className="card-body px-5">
                     <p className="card-text py-2">
-                        Nhập địa chỉ email của bạn và chúng tôi sẽ cấp cho bạn mật khẩu mới theo email đã đăng ký.
+                        Nhập địa chỉ email của bạn.
                     </p>
                     <div className="form-outline">
                         <input type="email" id="typeEmail" placeholder='Email' className="form-control my-3" />

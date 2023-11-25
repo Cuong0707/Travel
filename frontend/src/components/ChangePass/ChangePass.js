@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import '../../style/ChangePass.scss'
 import { AuthContext } from '../../context/auth-context';
@@ -8,27 +8,27 @@ function ChangePass() {
     const [oldPassword, setOldPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const { changePassword,user } = useContext(AuthContext);
+    const { changePassword, user } = useContext(AuthContext);
 
     const handleSubmit = async (event) => {
-        const setError = () => {};
+        const setError = () => { };
         event.preventDefault();
         if (newPassword !== confirmPassword) {
-          setError('New password and confirm password do not match.');
-          return;
+            setError('New password and confirm password do not match.');
+            return;
         }
         try {
             const { email } = user || {}; // Extract email from user object
-      if (!email) {
-        throw new Error('User email not found.');
-      }
-          await changePassword(email, oldPassword, newPassword);
-          console.log('Password changed successfully');
+            if (!email) {
+                throw new Error('User email not found.');
+            }
+            await changePassword(email, oldPassword, newPassword);
+            console.log('Password changed successfully');
         } catch (error) {
-          console.error(error);
-          setError('Failed to change password. Please try again.');
+            console.error(error);
+            setError('Failed to change password. Please try again.');
         }
-      };
+    };
     return (
         <div className='container-forgot'>
             <form onSubmit={handleSubmit}>
@@ -36,14 +36,14 @@ function ChangePass() {
                     <div className="card-header h5 text-white bg-primary">Đổi Mật Khẩu</div>
                     <div className="card-body px-5">
                         <p className="card-text py-2">
-                            Nhập Các Thông Tin Của Bạn Để Thay Đổi Mật Khẩu Mới
+                            Nhập Các Thông Tin Để Thay Đổi Mật Khẩu Mới
                         </p>
                         <div className="form-outline">
                             {/* <input type="email" id="typeEmail" placeholder='Email' className="form-control my-3" /> */}
 
                             <input type="password" value={oldPassword}
-          onChange={(e) => setOldPassword(e.target.value)} id="typePass1" placeholder='Mật Khẩu Cũ' className="form-control my-3" />
-                            
+                                onChange={(e) => setOldPassword(e.target.value)} id="typePass1" placeholder='Mật Khẩu Cũ' className="form-control my-3" />
+
                             <input
                                 type="password" // Sử dụng conditional (ternary) operator để thay đổi kiểu input
                                 id="password"
@@ -68,14 +68,11 @@ function ChangePass() {
                             <input type="password"
                                 id="confirmPassword"
                                 value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)} placeholder='Xác Nhận Mật Khẩu Mới' className="form-control my-3" />
+                                onChange={(e) => setConfirmPassword(e.target.value)} placeholder='Xác Nhận Mật Khẩu Mới' className="form-control my-3" />
                             {newPassword !== confirmPassword && <p style={{ color: 'red' }}>Mật Khẩu Không Trùng Kìa Ba</p>} {/* Hiển thị thông báo nếu mật khẩu không khớp */}
                         </div>
                         <button type="submit" className="btn btn-primary w-100">Xác Nhận</button>
-                        <div className="d-flex justify-content-between mt-4">
-                            <Link to="/login">Đăng Nhập</Link>
-                            <Link to="/register">Đăng Ký</Link>
-                        </div>
+
                     </div>
                 </div>
             </form>

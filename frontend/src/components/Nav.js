@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ScrollToTop from '../Services/ScrollToTop';
 import DarkModeToggle from "../Services/DarkModeToggle";
 
 
 const Nav = () => {
+    const [token, setToken] = useState(localStorage.getItem('token'));
+    const [isLoggedIn, setIsLoggedIn] = useState(!!token);
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+        if (storedToken) {
+            setIsLoggedIn(true);
+        }
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        setToken(null);
+        setIsLoggedIn(false);
+    };
 
     return (
         <div className="fixed-top shadow" style={{ backgroundColor: "var(--green-50)" }}>
@@ -354,15 +369,30 @@ const Nav = () => {
                             </li>
 
                             <li className="nav-item dropdown">
-                                <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="images/icon-login1.gif" alt="icon-login" /> Đăng Nhập
+                                <Link
+                                    to="#"
+                                    className="nav-link dropdown-toggle"
+                                    id="navbarDropdownMenuLink"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                >
+                                    <img src="images/icon-login1.gif" alt="icon-login" /> {isLoggedIn ? 'Tên người dùng' : 'Đăng Nhập'}
                                 </Link>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <ScrollToTop><li><Link className="dropdown-item" to="/login">Đăng Nhập</Link></li></ScrollToTop>
-                                    <ScrollToTop><li><Link className="dropdown-item" to="/register">Đăng Ký</Link></li></ScrollToTop>
-                                    {/* <li><Link className="dropdown-item" to="myaccount">Thông Tin Cá Nhân</Link></li> */}
-                                    <ScrollToTop><li><Link className="dropdown-item" to="/change-pass">Đổi Mật Khẩu</Link></li></ScrollToTop>
-                                    <ScrollToTop><li><Link className="dropdown-item" to="/forgot-pass">Quên Mật Khẩu</Link></li></ScrollToTop>
+                                    {isLoggedIn ? (
+                                        <>
+                                            <ScrollToTop><li><Link className="dropdown-item" to="/my-account">Thông Tin Cá Nhân</Link></li></ScrollToTop>
+                                            <ScrollToTop><li><Link className="dropdown-item" to="/change-password">Đổi Mật Khẩu</Link></li></ScrollToTop>
+                                            <ScrollToTop><li><Link className="dropdown-item" to="/" onClick={handleLogout}>Đăng Xuất</Link></li></ScrollToTop>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <ScrollToTop><li><Link className="dropdown-item" to="/login">Đăng Nhập</Link></li></ScrollToTop>
+                                            <ScrollToTop><li><Link className="dropdown-item" to="/register">Đăng Ký</Link></li></ScrollToTop>
+                                            <ScrollToTop><li><Link className="dropdown-item" to="/forgot-password">Quên Mật Khẩu</Link></li></ScrollToTop>
+                                        </>
+                                    )}
                                 </ul>
                             </li>
 

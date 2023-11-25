@@ -17,7 +17,7 @@ const ArticleMap = ({ setTooltipContent, setName }) => {
     const [position, setPosition] = useState({ coordinates: [104, 16], zoom: 1 });
 
     return (
-        <article className="col-7">
+        <article className="col-6">
             <div className="map">
                 <ComposableMap data-tip=""
                     projection="geoMercator"
