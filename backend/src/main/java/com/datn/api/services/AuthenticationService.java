@@ -2,16 +2,19 @@ package com.datn.api.services;
 
 import java.nio.ByteBuffer;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.datn.api.entity.Districts;
-import com.datn.api.repository.DistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import com.datn.api.entity.Users;
 import com.datn.api.entity.dto.AuthenticationRequest;
@@ -21,10 +24,14 @@ import com.datn.api.entity.dto.ProfileGoogle;
 import com.datn.api.entity.dto.RegisterRequest;
 import com.datn.api.enums.Role;
 import com.datn.api.enums.UserStatus;
+import com.datn.api.exceptions.ApiResponse;
 import com.datn.api.exceptions.DuplicateRecordException;
 import com.datn.api.exceptions.NotFoundException;
+import com.datn.api.repository.DistrictRepository;
 import com.datn.api.repository.UsersRepository;
 
+import freemarker.template.Configuration;
+import freemarker.template.Template;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -40,7 +47,19 @@ public class AuthenticationService {
 	UsersServiceImpl usersService;
 
 	@Autowired
+	private Configuration configFreemarker;
+
+	@Autowired
 	DistrictRepository districtRepository;
+
+	@Autowired
+	UsersRepository usersRepository;
+
+	@Value("${datn.domain}")
+	String domain;
+
+	@Autowired
+	MailerService mailerService;
 
 	public AuthenticationResponse register(RegisterRequest request) {
 		var user = repository.findByEmailAndPasswordNotNull(request.getEmail()).orElse(null);
@@ -58,6 +77,39 @@ public class AuthenticationService {
 		Users userSaved = repository.save(users);
 
 		return AuthenticationResponse.builder().infoUser(usersService.usersToDto(userSaved)).token(jwtToken).build();
+	}
+
+	public ApiResponse<?> forgotPassword(String email) {
+		Users userEntity = usersService.findUerByEmail(email)
+				.orElseThrow(() -> new NotFoundException("Không tìm thấy email"));
+		if (userEntity != null) {
+			String token = UUID.randomUUID().toString();
+			userEntity.setToken(token);
+			usersRepository.save(userEntity);
+			try {
+				Map<String, Object> model = new HashMap<>();
+				model.put("display", userEntity.getFullname());
+				model.put("link_reset_password", domain + "reset-password?t=" + token);
+
+				Template t = configFreemarker.getTemplate("email-template.ftl");
+				String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
+				mailerService.send(email, "Lấy lại mật khẩu", html);
+
+				return ApiResponse.success(HttpStatus.OK, "Success", null);
+			} catch (Exception e) {
+				System.out.println(e.getMessage());
+				return ApiResponse.success(HttpStatus.BAD_REQUEST, "Bad Request", e.getMessage());
+			}
+		}
+		return ApiResponse.success(HttpStatus.FAILED_DEPENDENCY, "Email not found", null);
+	}
+
+	public ApiResponse<?> resetPassword(String token, String password) {
+		Users users = usersRepository.getUsersByToken(token)
+				.orElseThrow(() -> new NotFoundException("Không đúng token"));
+		users.setPassword(passwordEncoder.encode(password));
+		repository.save(users);
+		return ApiResponse.success(HttpStatus.OK, "Reset password success", null);
 	}
 
 	// request.getEmail()
@@ -112,4 +164,6 @@ public class AuthenticationService {
 		}
 
 	}
+
+
 }

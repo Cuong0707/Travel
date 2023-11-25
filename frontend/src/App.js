@@ -3,10 +3,13 @@ import React from 'react';
 import Nav from '../src/components/Nav';
 import Footer from './components/Footer/Footer';
 import './style/Main/style.scss'
+import AuthProvider from './context/auth-context';
 
 import { Outlet } from 'react-router-dom';
+
 const App = () => {
   return (
+       <AuthProvider>
     <div className="App">
       <div className="App-header">
         <Nav />
@@ -18,6 +21,7 @@ const App = () => {
         <Footer />
       </div>
     </div >
+    </AuthProvider>
   );
 }
 

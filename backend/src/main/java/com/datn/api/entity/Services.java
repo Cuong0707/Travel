@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -28,7 +29,7 @@ public class Services {
 	@Column(name = "service", nullable = false, length = 255)
 	private String service;
 
-	@OneToMany(mappedBy = "services")
+	@OneToMany(mappedBy = "services", fetch = FetchType.LAZY)
 	@JsonManagedReference
 	List<Partners> partners;
 
