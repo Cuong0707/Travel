@@ -164,4 +164,18 @@ public class AuthenticationService {
 		}
 
 	}
+
+	public AuthenticationResponse logined(String token) {
+		try {
+			var users = repository.getUsersByToken(token)
+					.orElseThrow(() -> new NotFoundException("Email không tồn tại"));
+			if (!jwtService.isToKenExpired(token)) {
+				return null;
+			}
+			return AuthenticationResponse.builder().infoUser(usersService.usersToDto(users)).token(token).build();
+		} catch (NotFoundException ex) {
+			throw new NotFoundException("TOKEN EXPIRED OR WRONG");
+		}
+
+	}
 }
