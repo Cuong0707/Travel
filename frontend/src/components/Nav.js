@@ -6,7 +6,7 @@ import { AuthContext } from '../context/auth-context';
 
 const Nav = () => {
     // const [token, setToken] = useState(localStorage.getItem('token')); 
-    const { user } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
     const token = user ? user.token : null;
     const [isLoggedIn, setIsLoggedIn] = useState(!!token);
     const navigate = useNavigate();
@@ -28,7 +28,8 @@ const Nav = () => {
     }, [user]);
 
     const handleLogout = () => {
-        localStorage.removeItem('userData');
+        // localStorage.removeItem('userData');
+        logout();
         setIsLoggedIn(false);
     };
 
