@@ -22,7 +22,7 @@ import Restaurant from './components/Page404/Restaurant';
 import VistLocation from './components/Page404/VistLocation';
 import Transport from './components/Page404/Transport';
 import Search from './components/Search';
-
+import ConfirmPassword from './components/ForgotPass/ConfirmPassword';
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -36,7 +36,6 @@ root.render(
           <Route path='/contact' element={<ContactUs />}></Route>
           <Route path='/login' element={<Login />}></Route>
           <Route path='/register' element={<SignUp />}></Route>
-
           {/* <Route path='/myaccount' element={<MyAccount />}>
             <Route path='account-general' element={<account-general />}></Route>
             <Route path='account-change-password' element={<account-change-password />}></Route>
@@ -51,9 +50,9 @@ root.render(
           <Route path='partner' element={<StepperForm />}></Route>
           <Route path='/forgot-pass' element={<ForgotPass />}></Route>
           <Route path='/change-pass' element={<ChangePass />}></Route>
-
+          <Route path='/reset-password' element={<ConfirmPassword />}></Route>
           <Route path='/search' element={<Search />}></Route>
-
+          
         </Route>
       </Routes>
 
