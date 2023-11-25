@@ -89,7 +89,7 @@ public class AuthenticationService {
 			try {
 				Map<String, Object> model = new HashMap<>();
 				model.put("display", userEntity.getFullname());
-				model.put("link_reset_password", domain + "/reset-password?t=" + token);
+				model.put("link_reset_password", domain + "reset-password?t=" + token);
 
 				Template t = configFreemarker.getTemplate("email-template.ftl");
 				String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);

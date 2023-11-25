@@ -5,7 +5,7 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-
+  
     const signIn = async (email, password) => {
         try {
             const response = await axios.post('http://localhost:8080/api/v1/auth/login', {
@@ -16,8 +16,10 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem('token', response.data.token);
       // Save user data to context
       const userData = { email, token: response.data.token };
+      const infoUser = {infoUser: response.data.infoUser};
       setUser(userData);
       console.log('User Data:', userData); // Log user data to console
+      console.log('Info User:', infoUser); // Log user data to console
         } catch (error) {
             console.error(error);
             throw new Error("Failed to sign in");
