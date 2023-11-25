@@ -24,6 +24,10 @@ import Transport from './components/Page404/Transport';
 import Search from './components/Search';
 import ConfirmPassword from './components/ForgotPass/ConfirmPassword';
 
+import MyAccount from './components/MyAccount/MyAccount';
+import HistoryOrder from './components/MyAccount/HistoryOrder';
+import Information from './components/MyAccount/Information';
+import Message from './components/MyAccount/Message';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -36,10 +40,7 @@ root.render(
           <Route path='/contact' element={<ContactUs />}></Route>
           <Route path='/login' element={<Login />}></Route>
           <Route path='/register' element={<SignUp />}></Route>
-          {/* <Route path='/myaccount' element={<MyAccount />}>
-            <Route path='account-general' element={<account-general />}></Route>
-            <Route path='account-change-password' element={<account-change-password />}></Route>
-          </Route> */}
+         
           <Route path='/HotelList' element={<HotelList />} />
           <Route path='/HotelList/HamRong' element={<HotelDetail />} />
           <Route path='/blog' element={<Blog />} />
@@ -48,12 +49,18 @@ root.render(
           <Route path='/transport' element={<Transport />} />
 
           <Route path='partner' element={<StepperForm />}></Route>
-          <Route path='/forgot-pass' element={<ForgotPass />}></Route>
-          <Route path='/change-pass' element={<ChangePass />}></Route>
-          <Route path='/reset-password' element={<ConfirmPassword />}></Route>
+          <Route path='/forgot-password' element={<ForgotPass />}></Route>
+          <Route path='/change-password' element={<ChangePass />}></Route>
           <Route path='/search' element={<Search />}></Route>
-          
+          <Route path='/reset-password' element={<ConfirmPassword />}></Route>
+
         </Route>
+      </Routes>
+
+      <Routes>
+        <Route path='/my-account' exact element={<Information />}></Route>
+        <Route path='/order-history' exact element={<HistoryOrder />}></Route>
+        <Route path='/message' exact element={<Message />}></Route>
       </Routes>
 
     </BrowserRouter>

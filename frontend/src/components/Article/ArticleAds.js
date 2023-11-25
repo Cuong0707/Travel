@@ -7,8 +7,8 @@ function ArticleAds() {
         Aos.init()
     }, [])
     return (
-        <article className="col-3">
-            <div className="card border-3 cardads">
+        <article className="col-3 home-ads">
+            <div className="card border-3 cardads ">
                 <img src="http://cafefcdn.com/thumb_w/640/2017/2-1483951483654.jpg" className="card-img-top" alt="..." />
                 <span className="badge bg-danger text-animation"> HOT</span>
                 <div className="card-body row bg-light">
