@@ -63,9 +63,7 @@ const ArticleMap = ({ setTooltipContent, setName }) => {
                                             },
                                         }}
                                     />
-
                                 ))
-
                             }
                         </Geographies>
 

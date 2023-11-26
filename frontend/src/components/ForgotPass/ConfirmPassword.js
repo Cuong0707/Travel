@@ -39,8 +39,8 @@ function ConfirmPassword() {
     };
     return (
         <div className='container-forgot'>
-            <div className="card text-center">
-                <div className="card-header h5 text-white bg-primary">Xác Nhận Mật Khẩu Mới</div>
+            <div className="card">
+                <div className="card-header h5 text-white bg-primary text-center">Xác Nhận Mật Khẩu Mới</div>
                 <div className="card-body px-5">
                     <form onSubmit={handleSubmit}>
                         <p className="card-text">
