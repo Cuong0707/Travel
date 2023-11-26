@@ -1,27 +1,70 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import ScrollToTop from '../Services/ScrollToTop';
 import DarkModeToggle from "../Services/DarkModeToggle";
 import { AuthContext } from '../context/auth-context';
-
+import { LoadListProvince } from "./LoadData/LoadListProvince";
+import { LoadListHotel } from "./LoadData/LoadListHotel";
 const Nav = () => {
     const { user, logout } = useContext(AuthContext);
     const token = user ? user.token : null;
     const [isLoggedIn, setIsLoggedIn] = useState(!!token);
     const navigate = useNavigate();
 
+    const [inputValue, setInputValue] = useState('');
+    const [provinceList, setProvinceList] = useState([]);
+    const [selectedProvince, setSelectedProvince] = useState('');
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        try {
+            const data = await LoadListProvince();
+            setProvinceList(data || []);
+        }
+        catch (error) {
+            console.error('Error fetching hotel list:', error);
+        }
+    };
     useEffect(() => {
         if (user) {
             setIsLoggedIn(true);
         }
     }, [user]);
+    const handleInputChange = (event) => {
+        const value = event.target.value;
+        setInputValue(value);
 
+        const selected = provinceList.find(
+            (province) => province.nameOfProvince === value
+        );
+
+        if (selected) {
+
+            setSelectedProvince(selected.provinceID);
+        } else {
+            setSelectedProvince('');
+        }
+    };
     const handleLogout = () => {
         logout();
         setIsLoggedIn(false);
         navigate('/');
     };
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+            try {
+            console.log(selectedProvince);   
+            const datahotel = await LoadListHotel(selectedProvince);
+            console.log(datahotel.data.content);
+            navigate('/search', { state: { searchResults: datahotel.data.content } });
+            // window.location.href = '/';
+          } catch (error) {
+            console.error("fill list hotel fail :" + error);
+          }
+      };
     return (
         <div className="fixed-top shadow" style={{ backgroundColor: "var(--green-50)" }}>
             <nav className="navbar navbar-expand-lg">
@@ -349,19 +392,15 @@ const Nav = () => {
                             <li className="nav-item">
                                 <ScrollToTop><Link className="nav-link" to="/blog"> <img src="images/icon-blog1.gif" alt="icon-blog" /> Blog</Link></ScrollToTop>
                             </li>
-                            <form className="d-flex">
+                            <form className="d-flex" onSubmit={handleSubmit}>
                                 {/* <input class="form-control me-2 col-ms-12" type="search" placeholder="Search" aria-label="Search" style={{ width: "350px" }} /> */}
 
-                                <input className="form-control me-2 col-ms-12" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." style={{ width: "350px" }} />
+                                <input value={inputValue} onChange={handleInputChange} className="form-control me-2 col-ms-12" list="datalistOptions" id="exampleDataList" placeholder="Chọn Tỉnh, TP Muốn Tìm.." style={{ width: "350px" }} />
                                 <datalist id="datalistOptions">
-                                    <option value="Thành Phố Hồ Chí Minh" />
-                                    <option value="Hà Nội" />
-                                    <option value="Bình Thuận" />
-                                    <option value="An Giang" />
-                                    <option value="Đắk Lắk" />
-                                    <option value="Long An" />
-                                    <option value="Lâm Đồng" />
-                                    <option value="Bình Dương" />
+                                    {provinceList.map((province, index) => (
+                                        <option key={index} value={province.nameOfProvince}>
+                                        </option>
+                                    ))}
                                 </datalist>
                                 <button className="btn btn-success" type="submit"><i className="bi bi-search"></i></button>
                             </form>

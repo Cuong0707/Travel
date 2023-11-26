@@ -1,6 +1,8 @@
 package com.datn.api.controller;
 
 
+import java.io.Console;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -89,12 +91,17 @@ public class HotelController {
 	}
 	@GetMapping("/provinces/{id}")
 	public ApiResponse<HotelResponseDto> getHotelsProvince(
-			@PathVariable Long id,
+			@PathVariable String id ,
 			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
 	) {
-
-		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByProvinces(id,pageNumber, pageSize));
+		Long parsedId = null;
+	    try {
+	        parsedId = Long.parseLong(id);
+	    } catch (NumberFormatException e) {
+	        System.out.println("error");
+	    }
+		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByProvinces(parsedId,pageNumber, pageSize));
 	}
 	@GetMapping("/partners/{id}")
 	public ApiResponse<HotelResponseDto> listHostelOfPartner(@PathVariable String id,
