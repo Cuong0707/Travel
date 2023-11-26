@@ -5,32 +5,21 @@ import DarkModeToggle from "../Services/DarkModeToggle";
 import { AuthContext } from '../context/auth-context';
 
 const Nav = () => {
-    // const [token, setToken] = useState(localStorage.getItem('token')); 
     const { user, logout } = useContext(AuthContext);
     const token = user ? user.token : null;
     const [isLoggedIn, setIsLoggedIn] = useState(!!token);
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     const storedToken = localStorage.getItem('token');
-    //     if (storedToken) {
-    //         setIsLoggedIn(true);
-    //     }
-    // }, []);
-
     useEffect(() => {
-        // If user data exists, redirect to home page
         if (user) {
-            // navigate('/');
-            // alert("Bạn đã đăng nhập rồi !!!");
             setIsLoggedIn(true);
         }
     }, [user]);
 
     const handleLogout = () => {
-        // localStorage.removeItem('userData');
         logout();
         setIsLoggedIn(false);
+        navigate('/');
     };
 
     return (

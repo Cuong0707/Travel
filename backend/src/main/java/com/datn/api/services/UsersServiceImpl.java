@@ -246,14 +246,17 @@ public class UsersServiceImpl implements UsersService {
 		return usersRepository.countUsersForDate(startDate.atStartOfDay(), startDate.atTime(23, 59, 59));
 	}
 
-	public PartnersDto updateForUser(PartnersDto partnersDto, String id) {
+	public UsersDto updateForUser(UsersDto usersDto, String id) {
 		Users user = this.usersRepository.findById(id)
 				.orElseThrow(() -> new NotFoundException("Không tìm thấy User Id: " + id));
-		user.setEmail(partnersDto.getEmail());
-		user.setAvatar(partnersDto.getAvatar());
-		;
+		user.setAvatar(usersDto.getAvatar());
+		user.setBirthday(usersDto.getBirthday());
+		user.setFullname(usersDto.getFullname());
+		user.setAvatar(usersDto.getAvatar());
+		user.setAddress(usersDto.getAddress());
+		user.setPhone_number(usersDto.getPhone_number());
 		Users updateUser = usersRepository.save(user);
-		return this.modelMapper.map(updateUser, PartnersDto.class);
+		return this.modelMapper.map(updateUser, UsersDto.class);
 	}
 
 	@Override
