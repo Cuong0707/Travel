@@ -80,7 +80,17 @@ const AuthProvider = ({ children }) => {
       throw new Error('Failed to change password');
     }
   };
-
+  const forgotPassword = async (email) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/api/v1/auth/forgot-password?email=${email}`
+      );
+      console.log('Password changed successfully:', response.data);
+    } catch (error) {
+      console.error('Failed to forgot password:', error);
+      throw new Error('Failed to forgot password');
+    }
+  };
   const resetPassword = async (token, password) => {
     try {
       const response = await axios.post(
@@ -104,7 +114,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, signIn, changePassword, resetPassword, logout }}>
+    <AuthContext.Provider value={{ user, signIn, changePassword, resetPassword, logout, forgotPassword }}>
       {children}
     </AuthContext.Provider>
   );
