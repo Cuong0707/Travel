@@ -5,36 +5,61 @@ export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+
   useEffect(() => {
-    const storedUserData = localStorage.getItem('userData');
-    if (storedUserData) {
-      const userData = JSON.parse(storedUserData);
-      setUser(userData);
+    const token = localStorage.getItem('token');
+    if (token) {
+      fetchUserData(token);
     }
   }, []);
+
+  const fetchUserData = async (token) => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/v1/users/token/${token}`);
+      const userData = response.data.data;
+      setUser(userData);
+      console.log('User data fetched:', userData);
+      if (userData !== null) {
+        localStorage.setItem('infoUser', JSON.stringify(userData));
+      } else {
+        localStorage.removeItem('infoUser');
+        localStorage.removeItem('token');
+      }
+    } catch (error) {
+      console.error('Failed to fetch user data:', error);
+      setUser(null);
+      localStorage.removeItem('token');
+      localStorage.removeItem('infoUser'); // Remove infoUser from localStorage if fetching fails
+    }
+  };
+
   const signIn = async (email, password) => {
     try {
       const response = await axios.post('http://localhost:8080/api/v1/auth/login', {
         email,
         password,
       });
-      const userData = {
-        email,
-        infoUser: response.data.infoUser,
-        token: response.data.token
-      };
-
-      setUser(userData);
-      localStorage.setItem('userData', JSON.stringify(userData));
-      console.log('User Data:', userData);
+      
+      const token = response.data.token;
+      localStorage.setItem('token', token);
+      fetchUserData(token);
     } catch (error) {
-      console.error(error);
+      console.error('Failed to sign in:', error);
       throw new Error("Failed to sign in");
     }
   };
 
-  const changePassword = async (email, oldPassword, newPassword) => {
+  const changePassword = async (oldPassword, newPassword) => {
     try {
+      const infoUser = JSON.parse(localStorage.getItem('infoUser'));
+      let email = null;
+
+      if (infoUser && infoUser.email) {
+        email = infoUser.email;
+      } else {
+        // Handle the case when email is not available in infoUser
+        throw new Error('Email not found in infoUser');
+      }
       const token = localStorage.getItem('token');
       const response = await axios.put(
         'http://localhost:8080/api/v1/auth/change-password',
@@ -50,9 +75,8 @@ const AuthProvider = ({ children }) => {
         }
       );
       console.log('Password changed successfully:', response.data);
-      // You may update the user information or perform other actions after changing the password
     } catch (error) {
-      console.error(error);
+      console.error('Failed to change password:', error);
       throw new Error('Failed to change password');
     }
   };
@@ -68,14 +92,15 @@ const AuthProvider = ({ children }) => {
       );
       console.log('Password changed successfully:', response.data);
     } catch (error) {
-      console.error(error);
-      throw new Error('Failed to change password');
+      console.error('Failed to reset password:', error);
+      throw new Error('Failed to reset password');
     }
   };
 
   const logout = () => {
     setUser(null); // Clear user state
-    localStorage.removeItem('userData'); // Remove user data from localStorage
+    localStorage.removeItem('token'); // Remove token from localStorage
+    localStorage.removeItem('infoUser'); // Remove infoUser from localStorage
   };
 
   return (
@@ -84,7 +109,5 @@ const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-
 
 export default AuthProvider;

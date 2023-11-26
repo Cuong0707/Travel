@@ -22,8 +22,9 @@ public class UsersDto {
 	private String email;
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate birthday;
-	private String phoneNumber;
+	private String phone_number;
 	private String avatar;
+	private String address;
 	private UserStatus status;
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private LocalDateTime registrationDate;
