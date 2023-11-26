@@ -400,7 +400,9 @@ const Nav = () => {
                                 {/* <input class="form-control me-2 col-ms-12" type="search" placeholder="Search" aria-label="Search" style={{ width: "350px" }} /> */}
 
 
+
                                 <input className="form-control me-2 col-ms-12" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." style={{ width: "320px" }} />
+
 
                                 <datalist id="datalistOptions">
                                     {provinceList.map((province, index) => (
