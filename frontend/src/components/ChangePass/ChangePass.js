@@ -1,5 +1,5 @@
 import React, { useState, useContext,useEffect } from 'react';
-import { Link,Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../../style/ChangePass.scss'
 import { AuthContext } from '../../context/auth-context';
 // import { EyeFill } from 'react-bootstrap-icons';
