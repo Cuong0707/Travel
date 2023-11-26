@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import ScrollToTop from '../Services/ScrollToTop';
 import DarkModeToggle from "../Services/DarkModeToggle";
 import { AuthContext } from '../context/auth-context';
@@ -10,7 +10,6 @@ const Nav = () => {
     const token = user ? user.token : null;
     const [isLoggedIn, setIsLoggedIn] = useState(!!token);
     const navigate = useNavigate();
-    
 
     const [inputValue, setInputValue] = useState('');
     const [provinceList, setProvinceList] = useState([]);
@@ -60,6 +59,7 @@ const Nav = () => {
             console.log(selectedProvince);   
             const datahotel = await LoadListHotel(selectedProvince);
             console.log(datahotel.data.content);
+            navigate('/search', { state: { searchResults: datahotel.data.content } });
             // window.location.href = '/';
           } catch (error) {
             console.error("fill list hotel fail :" + error);
