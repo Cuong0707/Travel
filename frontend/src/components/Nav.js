@@ -9,10 +9,14 @@ const Nav = () => {
     const token = user ? user.token : null;
     const [isLoggedIn, setIsLoggedIn] = useState(!!token);
     const navigate = useNavigate();
+    const [fullname, setFullname] = useState('');
 
     useEffect(() => {
         if (user) {
             setIsLoggedIn(true);
+            // Lấy dữ liệu từ local storage
+            const userInfo = JSON.parse(localStorage.getItem('infoUser'));
+            setFullname(userInfo.fullname);
         }
     }, [user]);
 
@@ -352,7 +356,7 @@ const Nav = () => {
                             <form className="d-flex">
                                 {/* <input class="form-control me-2 col-ms-12" type="search" placeholder="Search" aria-label="Search" style={{ width: "350px" }} /> */}
 
-                                <input className="form-control me-2 col-ms-12" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." style={{ width: "350px" }} />
+                                <input className="form-control me-2 col-ms-12" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." style={{ width: "320px" }} />
                                 <datalist id="datalistOptions">
                                     <option value="Thành Phố Hồ Chí Minh" />
                                     <option value="Hà Nội" />
@@ -368,7 +372,18 @@ const Nav = () => {
                             <li className="nav-item">
                                 <ScrollToTop><Link className="nav-link" to="contact"> <img src="images/icon-contact.gif" alt="icon-contact" /> Liên Hệ</Link></ScrollToTop>
                             </li>
-
+                            {isLoggedIn ? (
+                                <>
+                                    <li className="nav-item">
+                                        <Link className="nav-link" to="partner">
+                                            <img src="images/icon-partner.gif" alt="icon-partner"></img> Trở Thành Đối Tác
+                                        </Link>
+                                    </li>
+                                </>
+                            ) : (
+                                <>
+                                </>
+                            )}
                             <li className="nav-item dropdown">
                                 <Link
                                     to="#"
@@ -378,7 +393,7 @@ const Nav = () => {
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
                                 >
-                                    <img src="images/icon-login1.gif" alt="icon-login" /> {isLoggedIn ? 'Tên người dùng' : 'Đăng Nhập'}
+                                    <img src="images/icon-login1.gif" alt="icon-login" /> {isLoggedIn ? <span>{fullname}</span> : 'Đăng Nhập'}
                                 </Link>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     {isLoggedIn ? (
@@ -398,11 +413,7 @@ const Nav = () => {
                             </li>
 
                             {/* <button className="button-partner btn btn-success d-table ms-5" type="button" data-bs-toggle="modal" data-bs-target="#ModalForm"><i class="bi bi-people-fill"></i>Become our partner</button> */}
-                            <li className="nav-item">
-                                <Link className="nav-link" to="partner">
-                                    <img src="images/icon-partner.gif" alt="icon-partner"></img> Trở Thành Đối Tác
-                                </Link>
-                            </li>
+
 
                             <li className="nav-item dropdown">
                                 <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
