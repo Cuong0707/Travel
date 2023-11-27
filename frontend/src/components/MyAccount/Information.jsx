@@ -1,20 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import MyAccount from "./MyAccount";
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import '../../style/MyAccount/Info.scss'
+import { AuthContext } from '../../context/auth-context'
+import { stat } from "fs";
 
 const drawerWidth = 240;
 
 export default function Information() {
+    const authContext = useContext(AuthContext);
+    const user = localStorage.getItem('infoUser');
     const [formData, setFormData] = useState({
-        fullName: '',
+        fullname: '',
         email: '',
         address: '',
-        phone: '',
-        role: '',
-        birthday: '',
-        registrationDate: ''
+        phone_number: '',
+        role:  '',
+        birthday:  '',
+        registrationDate: '',
     });
 
     const handleInputChange = (e) => {
@@ -22,10 +26,23 @@ export default function Information() {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Xử lý dữ liệu khi form được submit
-        console.log(formData);
+    const handleSubmit = async(formData) => {
+        try {
+            const updatedInfo = {
+                userID:formData.userID,
+                fullname:formData.fullname,
+                email: formData.email,
+                address: formData.address,
+                phone_number: formData.phone_number,
+                role: formData.role,
+                birthday: formData.birthday,
+                registrationDate: formData.registrationDate,
+            };
+            await authContext.updateUserInfo(updatedInfo);
+            alert("Cập nhật thành công");
+        }   catch (error) { 
+            console.error('Failed to update user information:', error);
+        }
     };
 
     useEffect(() => {
@@ -33,10 +50,10 @@ export default function Information() {
         if (userData) {
             const parsedUserData = JSON.parse(userData);
             setFormData({
-                fullName: parsedUserData.fullname,
+                fullname: parsedUserData.fullname,
                 email: parsedUserData.email,
                 address: parsedUserData.address,
-                phone: parsedUserData.phone_number,
+                phone_number: parsedUserData.phone_number,
                 gender: parsedUserData.gender,
                 role: parsedUserData.role,
                 birthday: parsedUserData.birthday,
@@ -93,7 +110,7 @@ export default function Information() {
                                     <div className="form-group row">
                                         <label htmlFor="regisDay" className="col-7 col-form-label">Ngày Đăng Ký</label>
                                         <div className="col-5">
-                                            <input type="text" readonly className="form-control-plaintext" id="regisDay" value={formData.registrationDate} disabled />
+                                            <input type="text" className="form-control-plaintext" id="regisDay" value={formData.registrationDate} disabled />
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +119,7 @@ export default function Information() {
                                     <div className="form-group row">
                                         <label htmlFor="lastLogin" className="col-7 col-form-label">Lần Cuối Đăng Nhập</label>
                                         <div className="col-5">
-                                            <input type="text" readonly className="form-control-plaintext" id="lastLogin" value="25/11/2023" disabled />
+                                            <input type="text" className="form-control-plaintext" id="lastLogin" value="25/11/2023" disabled />
                                         </div>
                                     </div>
                                 </div>
@@ -113,8 +130,8 @@ export default function Information() {
                                         <form onSubmit={handleSubmit}>
                                             <div className="row">
                                                 <div className="mb-3 col-md-6">
-                                                    <label htmlFor="fullName" className="form-label">Họ và tên</label>
-                                                    <input type="text" id="fullName" name="fullName" className="form-control" value={formData.fullName} onChange={handleInputChange} required />
+                                                    <label htmlFor="fullname" className="form-label">Họ và tên</label>
+                                                    <input type="text" id="fullname" name="fullname" className="form-control" value={formData.fullname} onChange={handleInputChange} required />
                                                 </div>
                                                 <div className="mb-3 col-md-6">
                                                     <label htmlFor="email" className="form-label">Email</label>
@@ -129,12 +146,12 @@ export default function Information() {
                                                     <input type="text" id="birthday" name="birthday" className="form-control" value={formData.birthday} onChange={handleInputChange} required />
                                                 </div>
                                                 <div className="mb-3 col-md-6">
-                                                    <label htmlFor="phone" className="form-label">Số điện thoại</label>
-                                                    <input type="number" id="phone" name="phone" className="form-control" value={formData.phone} onChange={handleInputChange} required />
+                                                    <label htmlFor="phone_number" className="form-label">Số điện thoại</label>
+                                                    <input type="number" id="phone_number" name="phone_number" className="form-control" value={formData.phone_number} onChange={handleInputChange} required />
                                                 </div>
                                                 <div className="mb-3 col-md-6">
-                                                    <label htmlFor="phone" className="form-label">Vai Trò</label>
-                                                    <input type="text" id="phone" name="phone" className="form-control" value={formData.role} onChange={handleInputChange} required disabled />
+                                                    <label htmlFor="phone_number" className="form-label">Vai Trò</label>
+                                                    <input type="text" id="phone_number" name="phone_number" className="form-control" value={formData.role} onChange={handleInputChange} required disabled />
                                                 </div>
                                             </div>
                                             <button className="btn btn-primary float-end" type="submit">

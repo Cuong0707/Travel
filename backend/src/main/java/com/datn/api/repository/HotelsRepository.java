@@ -51,7 +51,7 @@ public interface HotelsRepository extends JpaRepository<Hotels, Long> {
 	Page<Object[]> findTop10HotelsWithMostOrdersAndHighestView(Pageable pageable);
 
 
-	@Query("select o from  Hotels o where  o.isDelete=false and o.provinces=?1")
+	@Query("select o from  Hotels o where  o.isDelete=false and o.districts.provinces=?1")
 	Page<Hotels> findByProvinces(Provinces provinces, Pageable pageable);
 
 
