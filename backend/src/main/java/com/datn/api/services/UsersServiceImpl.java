@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +28,6 @@ import com.datn.api.entity.dto.PartnersDto;
 import com.datn.api.entity.dto.UserResponse;
 import com.datn.api.entity.dto.UsersDto;
 import com.datn.api.exceptions.ApiResponse;
-import com.datn.api.exceptions.DuplicateRecordException;
 import com.datn.api.exceptions.NotFoundException;
 import com.datn.api.repository.UsersRepository;
 
@@ -72,17 +70,17 @@ public class UsersServiceImpl implements UsersService {
 		return  null;
 	}
 
-	public UsersDto saveResp(UsersDto usersDto) {
-		try {
-			Users users = this.dtoToUsers(usersDto);
-			Users saveUsers = this.usersRepository.save(users);
-			return this.usersToDto(saveUsers);
-		} catch (DataIntegrityViolationException ex) {
-			ApiResponse<UsersDto> apiResponse = new ApiResponse<>(HttpStatus.CONFLICT,
-					"Duplicate record: " + ex.getMessage());
-			throw new DuplicateRecordException(apiResponse.getMessage());
-		}
-	}
+//	public UsersDto saveResp(UsersDto usersDto) {
+//		try {
+//			Users users = this.dtoToUsers(usersDto);
+//			Users saveUsers = this.usersRepository.save(users);
+//			return this.usersToDto(saveUsers);
+//		} catch (DataIntegrityViolationException ex) {
+//			ApiResponse<UsersDto> apiResponse = new ApiResponse<>(HttpStatus.CONFLICT,
+//					"Duplicate record: " + ex.getMessage());
+//			throw new DuplicateRecordException(apiResponse.getMessage());
+//		}
+//	}
 
 	@Override
 	public UsersDto update(UsersDto usersDto, String id) {
@@ -246,9 +244,9 @@ public class UsersServiceImpl implements UsersService {
 		return usersRepository.countUsersForDate(startDate.atStartOfDay(), startDate.atTime(23, 59, 59));
 	}
 
-	public UsersDto updateForUser(UsersDto usersDto, String id) {
-		Users user = this.usersRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException("Không tìm thấy User Id: " + id));
+	public UsersDto updateForUser(UsersDto usersDto) {
+		Users user = this.usersRepository.findById(usersDto.getUserID())
+				.orElseThrow(() -> new NotFoundException("Không tìm thấy User"));
 		user.setAvatar(usersDto.getAvatar());
 		user.setBirthday(usersDto.getBirthday());
 		user.setFullname(usersDto.getFullname());

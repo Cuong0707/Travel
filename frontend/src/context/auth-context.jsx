@@ -82,6 +82,36 @@ const AuthProvider = ({ children }) => {
       throw new Error('Failed to change password');
     }
   };
+
+  
+  const updateUserInfo = async (updatedInfo) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.put(
+        `http://localhost:8080/api/v1/users/update}`,
+        updatedInfo,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        // Update user data in context after successful update
+        setUser({ ...user, ...updatedInfo });
+        console.log('User information updated successfully:', response.data);
+      } else {
+        console.error('Failed to update user information:', response);
+        throw new Error('Failed to update user information');
+      }
+    } catch (error) {
+      console.error('Error occurred while updating user information:', error);
+      throw new Error('Error occurred while updating user information');
+    }
+  };
+
   const forgotPassword = async (email) => {
     try {
       const response = await axios.post(
@@ -116,7 +146,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, signIn, changePassword, resetPassword, logout, forgotPassword }}>
+    <AuthContext.Provider value={{ user, signIn, changePassword, resetPassword, logout, forgotPassword,updateUserInfo }}>
       {children}
     </AuthContext.Provider>
   );

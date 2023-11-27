@@ -399,11 +399,7 @@ const Nav = () => {
                             <form className="d-flex" onSubmit={handleSubmit}>
                                 {/* <input class="form-control me-2 col-ms-12" type="search" placeholder="Search" aria-label="Search" style={{ width: "350px" }} /> */}
 
-
-
-                                <input className="form-control me-2 col-ms-12" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." style={{ width: "320px" }} />
-
-
+                                <input value={inputValue} onChange={handleInputChange} className="form-control me-2 col-ms-12" list="datalistOptions" id="exampleDataList" placeholder="Chọn Tỉnh, TP Muốn Tìm.." style={{ width: "350px" }} />
                                 <datalist id="datalistOptions">
                                     {provinceList.map((province, index) => (
                                         <option key={index} value={province.nameOfProvince}>
