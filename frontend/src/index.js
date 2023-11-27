@@ -28,11 +28,12 @@ import MyAccount from './components/MyAccount/MyAccount';
 import HistoryOrder from './components/MyAccount/HistoryOrder';
 import Information from './components/MyAccount/Information';
 import Message from './components/MyAccount/Message';
-
+import AuthProvider from './context/auth-context';
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
+    <AuthProvider>
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<App />}>
@@ -64,6 +65,7 @@ root.render(
       </Routes>
 
     </BrowserRouter>
+    </AuthProvider>
   </React.StrictMode>
 );
 

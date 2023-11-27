@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { set } from 'date-fns';
+import { Alert } from '@mui/material';
 
 export const AuthContext = createContext();
 
@@ -19,7 +20,6 @@ const AuthProvider = ({ children }) => {
       const response = await axios.get(`http://localhost:8080/api/v1/users/token/${token}`);
       const userData = response.data.data;
       setUser(userData);
-      console.log('User data fetched:', userData);
       if (userData !== null) {
         localStorage.setItem('infoUser', JSON.stringify(userData));
       } else {
@@ -84,11 +84,12 @@ const AuthProvider = ({ children }) => {
   };
 
   
-  const updateUserInfo = async (updatedInfo) => {
+  const updateUserInfo =  async (updatedInfo) => {
+    console.log(updatedInfo);
     try {
       const token = localStorage.getItem('token');
       const response = await axios.put(
-        `http://localhost:8080/api/v1/users/update}`,
+        `http://localhost:8080/api/v1/users/update`,
         updatedInfo,
         {
           headers: {
@@ -97,13 +98,13 @@ const AuthProvider = ({ children }) => {
           },
         }
       );
-
+      console.log(response);
       if (response.status === 200) {
         // Update user data in context after successful update
         setUser({ ...user, ...updatedInfo });
         console.log('User information updated successfully:', response.data);
       } else {
-        console.error('Failed to update user information:', response);
+        console.log('Failed to update user information:', response);
         throw new Error('Failed to update user information');
       }
     } catch (error) {
@@ -146,7 +147,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, signIn, changePassword, resetPassword, logout, forgotPassword,updateUserInfo }}>
+    <AuthContext.Provider value={{ user, signIn, changePassword, resetPassword, logout, forgotPassword, updateUserInfo }}>
       {children}
     </AuthContext.Provider>
   );

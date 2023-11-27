@@ -2,6 +2,7 @@ package com.datn.api.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -42,4 +43,8 @@ public class Districts {
 	@OneToMany(mappedBy = "districts", fetch = FetchType.LAZY)
 	@JsonManagedReference
 	List<Users> users;
+	
+	@OneToMany(mappedBy = "districts")
+	@JsonBackReference
+	private List<Hotels> hotels;
 }

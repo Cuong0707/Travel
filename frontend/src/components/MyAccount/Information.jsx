@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import MyAccount from "./MyAccount";
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,8 +9,11 @@ import { stat } from "fs";
 const drawerWidth = 240;
 
 export default function Information() {
-    const authContext = useContext(AuthContext);
-    const user = localStorage.getItem('infoUser');
+    
+    const authContext =  useContext(AuthContext);
+    const userString = localStorage.getItem('infoUser');
+    const userObject = JSON.parse(userString);
+    const user = userObject;
     const [formData, setFormData] = useState({
         fullname: '',
         email: '',
@@ -23,25 +26,28 @@ export default function Information() {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        // setFormData({ ...formData, [name]: value });
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+          }));
     };
 
-    const handleSubmit = async(formData) => {
+    const handleSubmit = async(event) => {
+        event.preventDefault();
         try {
             const updatedInfo = {
-                userID:formData.userID,
-                fullname:formData.fullname,
-                email: formData.email,
-                address: formData.address,
-                phone_number: formData.phone_number,
-                role: formData.role,
-                birthday: formData.birthday,
-                registrationDate: formData.registrationDate,
+                'userID':user.userID,
+                'fullname':formData.fullname,
+                'email': formData.email,
+                'address': formData.address,
+                'phone_number': formData.phone_number,
+                'birthday': formData.birthday,
             };
             await authContext.updateUserInfo(updatedInfo);
             alert("Cập nhật thành công");
         }   catch (error) { 
-            console.error('Failed to update user information:', error);
+            alert('Failed to update user information:'+ error);
         }
     };
 
