@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { set } from 'date-fns';
 
 export const AuthContext = createContext();
 
@@ -24,6 +25,7 @@ const AuthProvider = ({ children }) => {
       } else {
         localStorage.removeItem('infoUser');
         localStorage.removeItem('token');
+        setUser(null);
       }
     } catch (error) {
       console.error('Failed to fetch user data:', error);
