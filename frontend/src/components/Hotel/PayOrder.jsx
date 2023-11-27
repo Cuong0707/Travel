@@ -40,6 +40,7 @@ const PayOrder = () => {
                             <div className="form-check col-md-3">
                                 <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
                                 <label className="form-check-label" htmlFor="flexRadioDefault2">
+
                                     Thanh Toán Tiền Mặt
                                 </label>
                             </div>
