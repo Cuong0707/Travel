@@ -8,7 +8,7 @@ const AsideHotel = () => {
                     <div className="">
                         <h5 className="fw-bold">Hạng Sao</h5>
                         <select className="form-select form-select-sm mb-2" aria-label="Small select example">
-                            <option selected>Đánh Giá</option>
+                            <option defaultValue>Đánh Giá</option>
                             <option value="1">1 Sao</option>
                             <option value="2">2 Sao</option>
                             <option value="3">3 Sao</option>

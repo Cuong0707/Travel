@@ -13,8 +13,8 @@ function SignUp() {
         fullname: '',
         password: '',
         email: '',
-        districtId:'',
-      });
+        districtId: '',
+    });
     // const handlePasswordChange = (event) => {
     //     setPassword(event.target.value);
     // };
@@ -30,12 +30,12 @@ function SignUp() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-          const response = await axios.post('http://localhost:8080/api/v1/auth/register', formData);
-          console.log(response.data);
+            const response = await axios.post('http://localhost:8080/api/v1/auth/register', formData);
+            console.log(response.data);
         } catch (error) {
-          console.error(error);
+            console.error(error);
         }
-      };
+    };
     return (
         <form onSubmit={handleSubmit}>
             <div className='container-login'>
@@ -63,7 +63,7 @@ function SignUp() {
                                         <div className="mb-3 row">
                                             <div className="col">
                                                 <label htmlFor="province" className="form-label">Tỉnh</label>
-                                                <select name="districtId" className="form-select" defaultValue='Choose...' value={formData.districtId} onChange={handleChange}> 
+                                                <select name="districtId" className="form-select" defaultValue='Choose...' value={formData.districtId} onChange={handleChange}>
                                                     <option>Choose...</option>
                                                     <option value="123">123</option>
                                                     <option value="1">1</option>
@@ -90,16 +90,19 @@ function SignUp() {
                                                 value={formData.password} onChange={handleChange} className="form-control" />
                                             {!passwordMatch && <p style={{ color: 'red' }}>Mật Khẩu Không Trùng Kìa Ba</p>} {/* Hiển thị thông báo nếu mật khẩu không khớp */}
                                         </div>
-                                        <div className="row mb-3">
-                                            <div className="col">
-                                                <div className="form-check">
-                                                    <input className="form-check-input" type="checkbox" id="agreeTerms" />
-                                                    <label className="form-check-label" htmlFor="agreeTerms">Đồng Ý Các Điều Khoản</label>
-                                                </div>
-                                            </div>
-                                            <div className="col text-end">
-                                                <p className="pb-lg-2 fw-bold">Đã Có Tài Khoản ? <Link to="/login" style={{ color: '#393f81' }}> <u>Đăng Nhập</u></Link></p>
-                                            </div>
+
+                                        <div className='row'>
+
+                                            <Link className=" fw-bold col-6" to="/forgot-password" >
+                                                Quên Mật Khẩu?
+                                            </Link>
+
+                                            <h6 className="col-6 mb-3 fw-bold">
+                                                Đã Có Tài Khoản ?{" "}
+                                                <Link className="" to="/login">
+                                                    <u>Đăng Nhập</u>
+                                                </Link>
+                                            </h6>
                                         </div>
                                     </form>
                                     <div className='row'>

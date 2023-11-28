@@ -53,7 +53,7 @@ function MyModal() {
                                 id="validationCustom05" required
                                 name="name" />
                         </div>
-                        
+
                         <div className="col-md-4 mb-3">
                             <label htmlFor="validationCustom05" className="form-label">Giá Phòng</label>
                             <input type="number" className="form-control"
@@ -66,8 +66,8 @@ function MyModal() {
                                 id="validationCustom05" required
                                 name="name" />
                         </div>
-                        <div class="mb-3 col-md-6">
-                            <label htmlFor="formFile" class="form-label">Hình Ảnh Phòng</label>
+                        <div className="mb-3 col-md-6">
+                            <label htmlFor="formFile" className="form-label">Hình Ảnh Phòng</label>
                             <input className="form-control" type="file" id="formFile" />
                         </div>
                     </div>

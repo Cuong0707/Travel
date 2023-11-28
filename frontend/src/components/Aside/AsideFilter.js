@@ -9,7 +9,7 @@ const Aside = () => {
                     <h5 className="card-title"><u className="fs-4 ms-5">BỘ LỌC TIỆN ÍCH</u></h5>
                     <label htmlFor="Location">Miền<span className="text-danger">*</span></label>
                     <select id="Location" name="Location" className="form-control mt-2">
-                        <option selected disabled>Chọn</option>
+                        <option defaultValue disabled>Chọn</option>
                         <option value="bac">Miền Bắc</option>
                         <option value="trung">Miền Trung</option>
                         <option value="nam">Miền Nam</option>
@@ -84,7 +84,7 @@ const Aside = () => {
                     </select>
                     <label className="mt-2" htmlFor="Location">Các Địa Điểm Nổi Bật<span className="text-danger">*</span></label>
                     <select id="Location" name="Location" className="form-control mt-2">
-                        <option selected disabled>Chọn</option>
+                        <option defaultValue disabled>Chọn</option>
                         <option value="Tp.Hà Nội">Hà Nội</option>
                         <option value="TP HCM">Hồ Chí Minh</option>
                         <option value="Tp.Cần Thơ">Cần Thơ</option>
@@ -95,25 +95,25 @@ const Aside = () => {
                         <label htmlFor="Location">Các Dịch Vụ<span className="text-danger">*</span></label>
                         <div className="form-check col-6 mt-2">
                             <input className="form-check-input" type="checkbox" id="defaultCheck1" />
-                            <label className="form-check-label" HtmlFor="defaultCheck1">
+                            <label className="form-check-label" htmlFor="defaultCheck1">
                                 Khách Sạn
                             </label>
                         </div>
                         <div className="form-check col-6 mt-2">
                             <input className="form-check-input" type="checkbox" id="defaultCheck2" />
-                            <label className="form-check-label" HtmlFor="defaultCheck2">
+                            <label className="form-check-label" htmlFor="defaultCheck2">
                                 Nhà Hàng
                             </label>
                         </div>
                         <div className="form-check col-6">
                             <input className="form-check-input" type="checkbox" id="defaultCheck3" />
-                            <label className="form-check-label" HtmlFor="defaultCheck3">
+                            <label className="form-check-label" htmlFor="defaultCheck3">
                                 Địa Điểm Tham Quan
                             </label>
                         </div>
                         <div className="form-check col-6">
                             <input className="form-check-input" type="checkbox" id="defaultCheck4" />
-                            <label className="form-check-label" HtmlFor="defaultCheck4">
+                            <label className="form-check-label" htmlFor="defaultCheck4">
                                 Phương Tiện Di Chuyển
                             </label>
                         </div>

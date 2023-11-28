@@ -156,7 +156,7 @@ const Nav = () => {
                                             </li>
                                             <li>
                                                 <Link className="dropdown-item">Đông Bắc Bộ &raquo; </Link>
-                                                <ul class="dropdown-menu dropdown-submenu">
+                                                <ul className="dropdown-menu dropdown-submenu">
                                                     <li>
                                                         <Link className="dropdown-item" to="#">Hà Giang</Link>
                                                     </li>
@@ -301,7 +301,7 @@ const Nav = () => {
                                         <ul className="dropdown-menu dropdown-submenu">
                                             <li>
                                                 <Link className="dropdown-item h6">Bắc Trung Bộ &raquo; </Link>
-                                                <ul class="dropdown-menu dropdown-submenu">
+                                                <ul className="dropdown-menu dropdown-submenu">
                                                     <li>
                                                         <Link className="dropdown-item" to="#">Thừa Thiên-Huế <span className="badge rounded-pill bg-danger">Hot</span></Link>
                                                     </li>
@@ -394,7 +394,7 @@ const Nav = () => {
                                 </ul>
                             </li>
                             <li className="nav-item">
-                                <ScrollToTop><Link className="nav-link" to="/blog"> <img src="images/icon-blog1.gif" alt="icon-blog" /> Blog</Link></ScrollToTop>
+                                <ScrollToTop><Link className="nav-link" to="/blog"> <img src="images/icon-blog1.gif" alt="icon-blog" /> Gợi Ý</Link></ScrollToTop>
                             </li>
                             <form className="d-flex" onSubmit={handleSubmit}>
                                 {/* <input class="form-control me-2 col-ms-12" type="search" placeholder="Search" aria-label="Search" style={{ width: "350px" }} /> */}
@@ -406,7 +406,7 @@ const Nav = () => {
                                         </option>
                                     ))}
                                 </datalist>
-                                <button className="btn btn-success" type="submit"><i className="bi bi-search"></i></button>
+                                <ScrollToTop><button className="btn btn-success" type="submit"><i className="bi bi-search"></i></button></ScrollToTop>
                             </form>
                             <li className="nav-item">
                                 <ScrollToTop><Link className="nav-link" to="contact"> <img src="images/icon-contact.gif" alt="icon-contact" /> Liên Hệ</Link></ScrollToTop>
