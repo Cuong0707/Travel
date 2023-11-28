@@ -12,9 +12,9 @@ const Search = () => {
 
         <div className="container">
             <div className="container-search">
-            {searchResults.length===0?
-            (<h2>Không có kết quả</h2>):
-            (<HotelInfo searchResults = {searchResults} ></HotelInfo>)}
+                {searchResults.length === 0 ?
+                    (<h3>Không có kết quả</h3>) :
+                    (<HotelInfo searchResults={searchResults} ></HotelInfo>)}
             </div>
         </div>
     )
