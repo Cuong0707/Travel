@@ -29,42 +29,47 @@ import HistoryOrder from './components/MyAccount/HistoryOrder';
 import Information from './components/MyAccount/Information';
 import Message from './components/MyAccount/Message';
 import AuthProvider from './context/auth-context';
+import Booking from './components/Hotel/Booking';
+import PayOrder from './components/Hotel/PayOrder';
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
     <AuthProvider>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<App />}>
-          <Route path='/' element={<Home />}></Route>
-          <Route path='/contact' element={<ContactUs />}></Route>
-          <Route path='/login' element={<Login />}></Route>
-          <Route path='/register' element={<SignUp />}></Route>
-         
-          <Route path='/HotelList' element={<HotelList />} />
-          <Route path='/HotelList/HamRong' element={<HotelDetail />} />
-          <Route path='/blog' element={<Blog />} />
-          <Route path='/restaurant' element={<Restaurant />} />
-          <Route path='/vist-location' element={<VistLocation />} />
-          <Route path='/transport' element={<Transport />} />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<App />}>
+            <Route path='/' element={<Home />}></Route>
+            <Route path='/contact' element={<ContactUs />}></Route>
+            <Route path='/login' element={<Login />}></Route>
+            <Route path='/register' element={<SignUp />}></Route>
 
-          <Route path='partner' element={<StepperForm />}></Route>
-          <Route path='/forgot-password' element={<ForgotPass />}></Route>
-          <Route path='/change-password' element={<ChangePass />}></Route>
-          <Route path='/search' element={<Search />}></Route>
-          <Route path='/reset-password' element={<ConfirmPassword />}></Route>
+            <Route path='/HotelList' element={<HotelList />} />
+            <Route path='/HotelList/HamRong' element={<HotelDetail />} />
+            <Route path='/order' element={<Booking />} />
+            <Route path='/pay' element={<PayOrder />}></Route>
+            <Route path='/blog' element={<Blog />} />
+            <Route path='/restaurant' element={<Restaurant />} />
+            <Route path='/vist-location' element={<VistLocation />} />
+            <Route path='/transport' element={<Transport />} />
 
-        </Route>
-      </Routes>
+            <Route path='partner' element={<StepperForm />}></Route>
+            <Route path='/forgot-password' element={<ForgotPass />}></Route>
+            <Route path='/change-password' element={<ChangePass />}></Route>
+            <Route path='/search' element={<Search />}></Route>
+            <Route path='/reset-password' element={<ConfirmPassword />}></Route>
 
-      <Routes>
-        <Route path='/my-account' exact element={<Information />}></Route>
-        <Route path='/order-history' exact element={<HistoryOrder />}></Route>
-        <Route path='/message' exact element={<Message />}></Route>
-      </Routes>
+          </Route>
+        </Routes>
 
-    </BrowserRouter>
+        <Routes>
+          <Route path='/my-account' exact element={<Information />}></Route>
+          <Route path='/order-history' exact element={<HistoryOrder />}></Route>
+          <Route path='/message' exact element={<Message />}></Route>
+        </Routes>
+
+      </BrowserRouter>
     </AuthProvider>
   </React.StrictMode>
 );

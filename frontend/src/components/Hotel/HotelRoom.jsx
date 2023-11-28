@@ -5,6 +5,7 @@ import { InboxFill } from 'react-bootstrap-icons';
 import { PatchQuestionFill } from 'react-bootstrap-icons';
 import { Tooltip } from 'react-bootstrap'
 import { OverlayTrigger } from 'react-bootstrap'
+import { Link } from "react-router-dom";
 
 
 
@@ -56,7 +57,7 @@ const HotelRoom = () => {
                         <div className="">
                             <p className="card-text fw-bold text-danger h5 text-end">700.000 VNĐ</p>
                             <div className="text-end">
-                                <button className="btn btn-danger fw-bold col-2 blink-button">Đặt Phòng</button>
+                                <Link to="/order" ><button className="btn btn-danger fw-bold col-2 blink-button">Đặt Phòng</button></Link>
                             </div>
                         </div>
                     </div>
