@@ -24,10 +24,10 @@ public class UserController {
 		return ApiResponse.success(HttpStatus.OK, "success", usersService.getUserWithToken(token));
 	}
 
-	@PutMapping("/{id}")
-	public ApiResponse<?> update(@RequestBody UsersDto usersDto, @PathVariable String id) {
+	@PutMapping("/update")
+	public ApiResponse<?> update(@RequestBody UsersDto usersDto) {
 		try {
-			UsersDto user = usersService.updateForUser(usersDto, id);
+			UsersDto user = usersService.updateForUser(usersDto);
 			return ApiResponse.success(HttpStatus.OK, "Update success", user);
 		} catch (Exception e) {
 			return ApiResponse.error(HttpStatus.BAD_REQUEST, e.getMessage());

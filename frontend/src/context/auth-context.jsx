@@ -1,5 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
+import { set } from 'date-fns';
+import { Alert } from '@mui/material';
 
 export const AuthContext = createContext();
 
@@ -18,12 +20,12 @@ const AuthProvider = ({ children }) => {
       const response = await axios.get(`http://localhost:8080/api/v1/users/token/${token}`);
       const userData = response.data.data;
       setUser(userData);
-      console.log('User data fetched:', userData);
       if (userData !== null) {
         localStorage.setItem('infoUser', JSON.stringify(userData));
       } else {
         localStorage.removeItem('infoUser');
         localStorage.removeItem('token');
+        setUser(null);
       }
     } catch (error) {
       console.error('Failed to fetch user data:', error);
@@ -80,6 +82,37 @@ const AuthProvider = ({ children }) => {
       throw new Error('Failed to change password');
     }
   };
+
+  
+  const updateUserInfo =  async (updatedInfo) => {
+    console.log(updatedInfo);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.put(
+        `http://localhost:8080/api/v1/users/update`,
+        updatedInfo,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response);
+      if (response.status === 200) {
+        // Update user data in context after successful update
+        setUser({ ...user, ...updatedInfo });
+        console.log('User information updated successfully:', response.data);
+      } else {
+        console.log('Failed to update user information:', response);
+        throw new Error('Failed to update user information');
+      }
+    } catch (error) {
+      console.error('Error occurred while updating user information:', error);
+      throw new Error('Error occurred while updating user information');
+    }
+  };
+
   const forgotPassword = async (email) => {
     try {
       const response = await axios.post(
@@ -114,7 +147,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, signIn, changePassword, resetPassword, logout, forgotPassword }}>
+    <AuthContext.Provider value={{ user, signIn, changePassword, resetPassword, logout, forgotPassword, updateUserInfo }}>
       {children}
     </AuthContext.Provider>
   );

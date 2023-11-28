@@ -18,15 +18,16 @@ import com.datn.api.entity.Hotels;
 import com.datn.api.entity.Partners;
 import com.datn.api.entity.PhotosOfHotel;
 import com.datn.api.entity.Provinces;
+import com.datn.api.entity.dto.DistrictDto;
 import com.datn.api.entity.dto.HotelDetailDto;
 import com.datn.api.entity.dto.HotelDto;
 import com.datn.api.entity.dto.HotelRequest;
 import com.datn.api.entity.dto.HotelResponseDto;
 import com.datn.api.entity.dto.PartnersDto;
 import com.datn.api.entity.dto.PhotosOfHotelsDto;
-import com.datn.api.entity.dto.ProvincesDto;
 import com.datn.api.enums.HotelStatus;
 import com.datn.api.exceptions.NotFoundException;
+import com.datn.api.repository.DistrictRepository;
 import com.datn.api.repository.HotelsRepository;
 import com.datn.api.repository.PartnerRepository;
 import com.datn.api.repository.PhotosOfHotelRepository;
@@ -47,6 +48,9 @@ public class HotelServiceImpl implements HotelService {
 
 	@Autowired
 	private HttpSession session;
+
+	@Autowired
+	private DistrictRepository districtRepository;
 
 	@Autowired
 	private ProvincesRepository provincesRepository;
@@ -121,8 +125,8 @@ public class HotelServiceImpl implements HotelService {
 	}
 	public Hotels create(HotelRequest hotelRequest) throws IOException {
 		Hotels hotels = new Hotels();
-		hotels.setProvinces(provincesRepository.findById(hotelRequest.getProvinceId()).orElseThrow());
-		hotels.setPartner(partnerRepository.findById(hotelRequest.getPartnerId()).orElseThrow());
+		hotels.setDistricts(districtRepository.findById(hotelRequest.getDistrictId()).orElseThrow());
+		hotels.setPartner(partnerRepository.findById(hotelRequest.getPartner_id()).orElseThrow());
 		hotels.setNameOfHotel(hotelRequest.getNameOfHotel());
 		hotels.setTypeOfHotel(hotelRequest.getTypeOfHotel());
 		hotels.setStandard(hotelRequest.getStandard());
@@ -296,7 +300,7 @@ public class HotelServiceImpl implements HotelService {
 	public HotelDto hotelDto(Hotels hotel) {
 		HotelDto hotelDto = modelMapper.map(hotel, HotelDto.class);
 		hotelDto.setPartner(modelMapper.map(hotel.getPartner(),PartnersDto.class));
-		hotelDto.setProvince(modelMapper.map(hotel.getProvinces(),ProvincesDto.class));
+		hotelDto.setDistrict(modelMapper.map(hotel.getDistricts(), DistrictDto.class));
 		List<HotelDetailDto> dtoListDetail = new ArrayList<>();
 		for (HotelDetails entity : hotel.getHotelDetails()) {
 			HotelDetailDto dto = modelMapper.map(entity,HotelDetailDto.class);

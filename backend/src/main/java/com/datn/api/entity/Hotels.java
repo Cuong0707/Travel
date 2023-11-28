@@ -42,9 +42,9 @@ public class Hotels {
 	private Partners partner;
 
 	@ManyToOne
-	@JoinColumn(name = "province_id")
+	@JoinColumn(name = "district_id")
 	@JsonBackReference
-	private Provinces provinces;
+	private Districts districts;
 
 	@Column(name = "name_of_hotel", nullable = false, length = 50)
 	private String nameOfHotel;
@@ -72,6 +72,9 @@ public class Hotels {
 	@Column(name = "check_out", nullable = true)
 	private LocalDateTime checkOut;
 
+	@Column(name = "address", nullable = false)
+	private String address;
+
 	@Column(name = "description", nullable = true)
 	private String description;
 
@@ -95,23 +98,5 @@ public class Hotels {
 	@JsonManagedReference
 	List<PhotosOfHotel> photosOfHotels;
 
-	public Hotels(long hotelID, Partners partner, Provinces province, String nameOfHotel, String standard,
-			HotelStatus status,
-			Breakfast breakfast, String serviceFee, LocalDateTime checkIn, LocalDateTime checkOut, String description,
-			String childrenPolicies, String termAndPolicies) {
-		this.hotel_ID = hotelID;
-		this.partner = partner;
-		this.provinces = province;
-		this.nameOfHotel = nameOfHotel;
-		this.standard = standard;
-		this.status = status;
-		this.breakfast = breakfast;
-		this.serviceFee = serviceFee;
-		this.checkIn = checkIn;
-		this.checkOut = checkOut;
-		this.description = description;
-		this.childrenPolicies = childrenPolicies;
-		this.termAndPolicies = termAndPolicies;
-	}
 
 }

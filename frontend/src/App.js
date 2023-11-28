@@ -9,18 +9,18 @@ import { Outlet } from 'react-router-dom';
 
 const App = () => {
   return (
-       <AuthProvider>
-    <div className="App">
-      <div className="App-header">
-        <Nav />
-      </div>
-      <div className="App-body">
-        <Outlet></Outlet>
+    <AuthProvider>
+      <div className="App">
+        <div className="App-header">
+          <Nav />
+        </div>
+        <div className="App-body">
+          <Outlet></Outlet>
+        </div >
+        <div className="App-footer">
+          <Footer />
+        </div>
       </div >
-      <div className="App-footer">
-        <Footer />
-      </div>
-    </div >
     </AuthProvider>
   );
 }

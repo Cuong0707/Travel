@@ -17,7 +17,7 @@ export default function HistoryOrder() {
                     <Toolbar />
                     <div className="container mt-4">
                         <div className="row justify-content-md-center">
-                            <div className="card border border-0">
+                            <div className="card">
                                 <div className="card-body">
                                     <div className="row">
                                         <label htmlFor="Location" className="h4">Các Dịch Vụ<span className="text-danger">*</span></label>

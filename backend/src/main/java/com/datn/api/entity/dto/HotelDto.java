@@ -18,7 +18,7 @@ import lombok.Setter;
 public class HotelDto {
 	private Long hotelId;
 	private PartnersDto partner;
-	private ProvincesDto province;
+	private DistrictDto district;
 	private String nameOfHotel;
 	private String typeOfHotel;
 	private String standard;
@@ -27,6 +27,7 @@ public class HotelDto {
 	private String serviceFee;
 	private LocalDateTime checkIn;
 	private LocalDateTime checkOut;
+	private String address;
 	private String description;
 	private String childrenPolicies;
 	private String termAndPolicies;

@@ -32,7 +32,4 @@ public class Provinces {
 	@JsonBackReference
 	private List<Districts> districts;
 
-	@OneToMany(mappedBy = "provinces")
-	@JsonBackReference
-	private List<Hotels> hotels;
 }
