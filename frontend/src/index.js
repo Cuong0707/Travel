@@ -28,7 +28,9 @@ import MyAccount from './components/MyAccount/MyAccount';
 import HistoryOrder from './components/MyAccount/HistoryOrder';
 import Information from './components/MyAccount/Information';
 import Message from './components/MyAccount/Message';
+
 import AuthProvider from './context/auth-context';
+
 import Booking from './components/Hotel/Booking';
 import PayOrder from './components/Hotel/PayOrder';
 
@@ -36,6 +38,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
+
     <AuthProvider>
   
     <BrowserRouter>
@@ -54,6 +57,7 @@ root.render(
           <Route path='/restaurant' element={<Restaurant />} />
           <Route path='/vist-location' element={<VistLocation />} />
           <Route path='/transport' element={<Transport />} />
+
 
             <Route path='/HotelList' element={<HotelList />} />
             <Route path='/HotelList/HamRong' element={<HotelDetail />} />
