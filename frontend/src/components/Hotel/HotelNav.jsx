@@ -26,7 +26,7 @@ const NavHotel = () => {
                 <input type="text" value={inputValue} onChange={handleInputChange} placeholder="Thành Phố" />
 
                 <select className="form-control" value={selectedOption2} onChange={handleSelectChange2}>
-                    <option selected>Loại Phòng</option>
+                    <option defaultValue>Loại Phòng</option>
                     <option value="suite-king">Suite King</option>
                     <option value="deluxe">Deluxe</option>
                     <option value="vip">VIP</option>
@@ -39,7 +39,7 @@ const NavHotel = () => {
                 </select>
 
                 <select className="form-control" value={selectedOption3} onChange={handleSelectChange3}>
-                    <option selected>Số Giờng</option>
+                    <option defaultValue>Số Giờng</option>
                     <option value="option1">1</option>
                     <option value="option2">2</option>
                     <option value="option3">3</option>

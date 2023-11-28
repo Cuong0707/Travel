@@ -5,6 +5,8 @@ import Toolbar from '@mui/material/Toolbar';
 import '../../style/MyAccount/Info.scss'
 import { AuthContext } from '../../context/auth-context'
 import { stat } from "fs";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const drawerWidth = 240;
 
@@ -45,9 +47,28 @@ export default function Information() {
                 'birthday': formData.birthday,
             };
             await authContext.updateUserInfo(updatedInfo);
-            alert("Cập nhật thành công");
+            toast.success('Cập Nhật Thành Công', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }   catch (error) { 
-            alert('Failed to update user information:'+ error);
+            // alert('Failed to update user information:'+ error);
+            toast.error('Vui Lòng Kiểm Tra Lại', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         }
     };
 
@@ -90,6 +111,8 @@ export default function Information() {
 
     return (
         <div>
+            <ToastContainer />
+
             <Box sx={{ display: "flex" }}>
                 <MyAccount />
                 <Box

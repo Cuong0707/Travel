@@ -40,7 +40,7 @@ function Home() {
                         {content && content !== "" ? (
                             <div style={{ textAlign: 'center' }}>
                                 <h2 style={{ margin: '0 auto' }}>{name}</h2>
-                                <img src={content} width="400px" height="300px" />
+                                <img src={content} width="400px" height="300px" alt="" />
                             </div>
                         ) : null}
                         {/* {filteredImages.map((image, index) => (

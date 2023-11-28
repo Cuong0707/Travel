@@ -61,7 +61,7 @@ export default function HistoryOrder() {
                                         <label htmlFor="province" className="h4 col-sm-2">Địa Điểm<span className="text-danger">*</span></label>
                                         <div className="col-sm-5">
                                             <select className="form-select" aria-label="Default select example">
-                                                <option selected>Tỉnh</option>
+                                                <option defaultValue>Tỉnh</option>
                                                 <option value="1">Hồ Chí Minh</option>
                                                 <option value="2">Hà Nội</option>
                                                 <option value="3">Bình Thuận</option>
@@ -69,7 +69,7 @@ export default function HistoryOrder() {
                                         </div>
                                         <div className="col-sm-5">
                                             <select className="form-select" aria-label="Default select example">
-                                                <option selected>Quận/Huyện</option>
+                                                <option defaultValue>Quận/Huyện</option>
                                                 <option value="1">Hồ Chí Minh</option>
                                                 <option value="2">Hà Nội</option>
                                                 <option value="3">Bình Thuận</option>
@@ -126,7 +126,6 @@ export default function HistoryOrder() {
                             </table>
                         </div>
                     </div>
-
                 </Box>
             </Box>
         </div>
