@@ -1,10 +1,11 @@
 package com.datn.api.services;
 
+import org.springframework.stereotype.Service;
+
 import com.datn.api.entity.HotelDetails;
 import com.datn.api.entity.dto.HotelDetailDto;
 import com.datn.api.entity.dto.HotelDetailResponse;
 import com.datn.api.entity.dto.HotelDetailsRequest;
-import org.springframework.stereotype.Service;
 
 @Service
 public interface HotelDetailService {
@@ -16,4 +17,6 @@ public interface HotelDetailService {
     HotelDetailResponse getAllHotelDetail(Integer pageNumber, Integer pageSize, String sortDir, String sortBy);
 
     HotelDetailDto getOneHotelDetail(Long id);
+
+	boolean deleteHotelDetail(Long id);
 }

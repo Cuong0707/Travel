@@ -1,8 +1,6 @@
 package com.datn.api.controller;
 
 
-import java.io.Console;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -53,6 +51,7 @@ public class HotelController {
 		return ApiResponse.success(HttpStatus.OK, successMessage, hotel);
 	}
 	@PostMapping()
+	@PreAuthorize("hasAnyAuthority('partner')")
 	public ApiResponse<?> createHotel(@RequestBody HotelRequest hotelRequest ){
 		try {
 			return ApiResponse.success(HttpStatus.OK,"create success hotel",hotelService.create(hotelRequest));
@@ -72,11 +71,10 @@ public class HotelController {
 	}
 
 	@DeleteMapping("/{hotelID}")
-	@PreAuthorize("hasAnyAuthority('partner','admin')")
-	public ApiResponse<HotelDto> deleteHotel(@PathVariable("hotelID") Long hotelID) {
-		hotelService.delete(hotelID);
+	@PreAuthorize("hasAnyAuthority('admin')")
+	public ApiResponse<?> deleteHotel(@PathVariable("hotelID") Long hotelID) {
 		String successMessage = "DELETED!";
-		return ApiResponse.success(HttpStatus.OK, successMessage, null);
+		return ApiResponse.success(HttpStatus.OK, successMessage, hotelService.deleteHotel(hotelID));
 	}
 
 	@GetMapping("/search")
@@ -109,4 +107,5 @@ public class HotelController {
 																   @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize){
 		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByPartner(id,pageNumber, pageSize));
 	}
+
 }

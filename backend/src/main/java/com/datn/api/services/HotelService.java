@@ -24,4 +24,6 @@ public interface HotelService extends IService<HotelDto, Long> {
 
 	HotelResponseDto findByKeywords(Integer pageNumber, Integer pageSize, String keywords);
 
+	boolean deleteHotel(Long id);
+
 }

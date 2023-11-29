@@ -46,8 +46,8 @@ public class HotelDetails {
 	@Column(name = "highlights", nullable = true, length = -1)
 	private String highlights;
 
-	@Column(name = "price_of_room", nullable = false, length = 255)
-	private String PriceOfRoom;
+	@Column(name = "price_of_room", nullable = false)
+	private double PriceOfRoom;
 
 	@Column(name = "photos_of_room", nullable = false, length = 255)
 	private String photosOfRoom;

@@ -1,6 +1,5 @@
 package com.datn.api.entity.dto;
 
-import jakarta.persistence.Column;
 import lombok.Data;
 
 @Data
@@ -16,13 +15,13 @@ public class HotelDetailsRequest {
 
     private int amountOfRoom;
 
-    private String TypeOfBed;
+	private String typeOfBed;
 
-    private String SizeOfBed;
+	private String sizeOfBed;
 
     private String highlights;
 
-    private String PriceOfRoom;
+	private double priceOfRoom;
 
     private String photosOfRoom;
 }

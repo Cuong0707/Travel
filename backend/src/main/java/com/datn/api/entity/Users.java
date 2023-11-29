@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -146,7 +145,7 @@ public class Users implements UserDetails {
 	@Override
 	// Tài khoản chưa bị khóa ?
 	public boolean isAccountNonLocked() {
-		return this.status!=UserStatus.inactive;
+		return this.status != UserStatus.banned;
 	}
 
 	@Override

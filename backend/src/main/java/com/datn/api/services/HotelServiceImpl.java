@@ -108,21 +108,7 @@ public class HotelServiceImpl implements HotelService {
 		return this.hotelDto(updatedUnavailableHotel);
 	}
 
-	public void deleteHotel(Long hotelId, String userId) {
-		// Kiểm tra nếu khách sạn không tồn tại thì không tiến hành xóa
-		Hotels existingHotel = hotelsRepository.findById(hotelId).orElseThrow(() -> {
-			throw new NotFoundException("Không tìm thấy khách sạn với ID: " + hotelId);
-		});
 
-		if (!existingHotel.getPartner().getUser().getUserID().equals(userId)) {
-			throw new RuntimeException("Bạn không có quyền xóa khách sạn này.");
-		}
-		// Xóa tất cả các liên kết giữa khách sạn và danh mục
-		// service, address?
-
-		// Xóa khách sạn
-		hotelsRepository.delete(existingHotel);
-	}
 	public Hotels create(HotelRequest hotelRequest) throws IOException {
 		Hotels hotels = new Hotels();
 		hotels.setDistricts(districtRepository.findById(hotelRequest.getDistrictId()).orElseThrow());
@@ -153,12 +139,7 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public void delete(Long id) {
-		Hotels existingHotel = hotelsRepository.findById(id).orElse(null);
-		if (existingHotel == null) {
-			throw new NotFoundException("Không tìm thấy bài đăng với ID: " + id);
-		}
-		// Xóa hotel
-		hotelsRepository.delete(existingHotel);
+//		
 	}
 
 	
@@ -169,17 +150,6 @@ public class HotelServiceImpl implements HotelService {
         return hotelDtos;
     }
 
-//	public List<HotelDto> findAllForAdmin() {
-//		List<Hotels> hotels = this.hotelsRepository.findAllForAdmin();
-//		List<HotelDto> hotelDtos = hotels.stream().map(hotel -> this.hotelDto(hotel)).collect(Collectors.toList());
-//		return hotelDtos;
-//	}
-
-//	public List<HotelDto> findHotelUnavailable() {
-//		List<Hotels> hotels = this.hotelsRepository.findByStatusUnavailable();
-//		List<HotelDto> hotelDtos = hotels.stream().map(hotel -> this.hotelDto(hotel)).collect(Collectors.toList());
-//		return hotelDtos;
-//	}
 
 	@Override
 	public HotelDto findById(Long id) {
@@ -232,44 +202,7 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	public HotelResponseDto findByType(Integer pageNumber, Integer pageSize, String type) {
-//		if (type.equals("topStandard")) {
-//			Pageable pageable = PageRequest.of(pageNumber, pageSize);
-//
-//			Page<Hotels> hotels = hotelsRepository.findHotelsHighStandard(pageable);
-//
-//			// get content for page object
-//			List<Hotels> listOfHotels = hotels.getContent();
-//
-//			List<HotelDto> content = listOfHotels.stream().map(hotel -> this.hotelDto(hotel))
-//					.collect(Collectors.toList());
-//			HotelResponseDto hotelResponse = new HotelResponseDto();
-//			hotelResponse.setContent(content);
-//			hotelResponse.setPageNumber(hotels.getNumber());
-//			hotelResponse.setPageSize(hotels.getSize());
-//			hotelResponse.setTotalElements(hotels.getTotalElements());
-//			hotelResponse.setTotalPages(hotels.getTotalPages());
-//			hotelResponse.setLastPage(hotels.isLast());
-//			return hotelResponse;
-//		} else if (type.equals("top10views")) {
-//			Pageable pageable = PageRequest.of(pageNumber, pageSize);
-//
-//			Page<Hotels> hotels = hotelsRepository.findHotelsPopular(pageable);
-//
-//			// get content for page object
-//			List<Hotels> listOfHotels = hotels.getContent();
-//
-//			List<HotelDto> content = listOfHotels.stream().map(hotel -> this.hotelDto(hotel))
-//					.collect(Collectors.toList());
-//
-//			HotelResponseDto hotelResponse = new HotelResponseDto();
-//			hotelResponse.setContent(content);
-//			hotelResponse.setPageNumber(hotels.getNumber());
-//			hotelResponse.setPageSize(hotels.getSize());
-//			hotelResponse.setTotalElements(hotels.getTotalElements());
-//			hotelResponse.setTotalPages(hotels.getTotalPages());
-//			hotelResponse.setLastPage(hotels.isLast());
-//			return hotelResponse;
-//		} else 
+
 			if (type.equals("")) {
 			Pageable pageable = PageRequest.of(pageNumber, pageSize);
 			Page<Object[]> list = hotelsRepository.findTop10HotelsWithMostOrdersAndHighestView(pageable);
@@ -316,13 +249,7 @@ public class HotelServiceImpl implements HotelService {
 		return hotelDto;
 	}
 
-//	public List<HotelDto> findAllHotelByUserId(String userId) {
-//		List<Hotels> hotels = this.hotelsRepository.findAllHotelByUserId(userId);
-//		List<HotelDto> hotelDtoList = hotels.stream().map(hotel -> this.hotelDto(hotel)).collect(Collectors.toList());
-//		return hotelDtoList;
-//	}
 
-	// save by address not yet
 
 	public void autoIncreaseViews(Long hotelID) {
 		List<Long> historyHotel = (List<Long>) session.getAttribute("historyHotel");
@@ -400,6 +327,14 @@ public class HotelServiceImpl implements HotelService {
 	public Integer numberOrderOfHotel(String id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean deleteHotel(Long id) {
+		Hotels hotels = hotelsRepository.findById(id).orElseThrow(() -> new NotFoundException("not found hotel"));
+		hotels.setDelete(true);
+		hotelsRepository.save(hotels);
+		return true;
 	}
 
 }

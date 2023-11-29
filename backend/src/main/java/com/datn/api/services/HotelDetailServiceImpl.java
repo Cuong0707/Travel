@@ -1,13 +1,8 @@
 package com.datn.api.services;
 
-import com.datn.api.entity.HotelDetails;
-import com.datn.api.entity.Hotels;
-import com.datn.api.entity.dto.HotelDetailDto;
-import com.datn.api.entity.dto.HotelDetailResponse;
-import com.datn.api.entity.dto.HotelDetailsRequest;
-import com.datn.api.exceptions.NotFoundException;
-import com.datn.api.repository.HotelsDetailsRepository;
-import com.datn.api.repository.HotelsRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,8 +11,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
+import com.datn.api.entity.HotelDetails;
+import com.datn.api.entity.Hotels;
+import com.datn.api.entity.dto.HotelDetailDto;
+import com.datn.api.entity.dto.HotelDetailResponse;
+import com.datn.api.entity.dto.HotelDetailsRequest;
+import com.datn.api.exceptions.NotFoundException;
+import com.datn.api.repository.HotelsDetailsRepository;
+import com.datn.api.repository.HotelsRepository;
 
 @Component
 public class HotelDetailServiceImpl implements HotelDetailService{
@@ -109,6 +110,15 @@ public class HotelDetailServiceImpl implements HotelDetailService{
         hotelDetailDto.setHotelId(hotelDetails.getHotels().getHotel_ID());
         return hotelDetailDto;
     }
+
+	@Override
+	public boolean deleteHotelDetail(Long id) {
+		HotelDetails hotelDetails = hotelsDetailsRepository.findById(id)
+				.orElseThrow(() -> new NotFoundException("not found"));
+		hotelDetails.setDelete(true);
+		hotelsDetailsRepository.save(hotelDetails);
+		return true;
+	}
 
 
 }

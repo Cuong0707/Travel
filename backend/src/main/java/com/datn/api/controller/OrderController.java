@@ -26,7 +26,7 @@ public class OrderController {
     OrdersService ordersService;
 
     @GetMapping()
-    @PreAuthorize("hasAnyAuthority('partner','admin')")
+	@PreAuthorize("hasAnyAuthority('admin')")
     public ApiResponse<?> getAll(@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
                                  @RequestParam(value = "pageSize", defaultValue = "8", required = false) Integer pageSize,
                                  @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
@@ -51,8 +51,8 @@ public class OrderController {
         return ApiResponse.success(HttpStatus.OK,"success",ordersService.getOrdersOfUser(id,pageNumber,pageSize,sortDir,sortBy));
     }
 
-
-	@GetMapping("/partner/{id}")
+	@PreAuthorize("hasAnyAuthority('partner','admin')")
+	@GetMapping("/users/{id}/partners")
 	public ApiResponse<?> getOrderOfPartner(@PathVariable String id,
 			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = "8", required = false) Integer pageSize,
