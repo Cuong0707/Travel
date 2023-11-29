@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../../style/Hotel/Booking.scss";
 import { Link } from "react-router-dom";
 import ScrollToTop from "../../Services/ScrollToTop";
 const Booking = () => {
+
+  const [userInfo, setUserInfo] = useState({});
+  useEffect(() => {
+    const infoUserString = localStorage.getItem('infoUser');
+    const infoUser = JSON.parse(infoUserString);
+    setUserInfo(infoUser);
+  }, []);
+
   return (
     <div className="container-booking">
       <div className="container mt-5 bp_pricedetails_holder bp_pricedetails_legibility">
@@ -10,24 +18,24 @@ const Booking = () => {
           <div className="bp_sidebar_content_block bp_sidebar_content_block--bookingdetails_summary">
             <div className="bp_sidebar_content_block__header">
               <div className="bp_sidebar_content_block__header_title">
-                Chi tiết đặt chỗ của bạn
+                Thông Tin Của Bạn
               </div>
             </div>
             <div className="bp_sidebar_content_block__section">
               <ul className="bp_sidebar_content_block__ul">
                 <li className="bp_sidebar_content_block__li">
                   <div className="bp_sidebar_content_block__li_title">
-                    Check-in: <input type="date" className="w-50 ms-2" name="checkIn" />
+                    Họ Tên: <span className="text-danger">{userInfo.fullname}</span>
                   </div>
                 </li>
                 <li className="bp_sidebar_content_block__li">
                   <div className="bp_sidebar_content_block__li_title">
-                    Check-out: <input type="date" className="w-50" name="checkOut" />
+                    Số Điện Thoại: <span className="text-danger">{userInfo.phone_number}</span>
                   </div>
                 </li>
                 <li className="bp_sidebar_content_block__li bp_sidebar_content_block__li--last">
                   <div className="bp_sidebar_content_block__li_title ">
-                    Tổng thời gian lưu trú:  1 ngày
+                    Địa Chỉ Email: <span className="text-danger">{userInfo.email}</span>
                   </div>
                 </li>
               </ul>{" "}
@@ -216,17 +224,6 @@ const Booking = () => {
                 <div className="mt-2 row">
                   <div className="col-5">
                     <label htmlFor="booker_title" className="tpi-form__label">
-                      <span>Danh Xưng</span>
-                    </label>
-                    <select
-                      className="ms-2">
-                      <option></option>
-                      <option value="mr">Anh</option>
-                      <option value="ms">Chị</option>
-                    </select>
-                  </div>
-                  <div className="col-5">
-                    <label htmlFor="booker_title" className="tpi-form__label">
                       <span>Số Lượng Phòng</span>
                       <abbr className="mandatory-asterisk" title="Required">
                         {" "}
@@ -248,46 +245,8 @@ const Booking = () => {
                     </select>
                   </div>
                 </div>
-                <div className="row tpi-form__flexible-fields__name-wrapper">
-                  <div className="col-md-4">
-                    <label htmlFor="fullname" className="tpi-form__label">
-                      <span className="tpi-form__label-text">Họ Và Tên</span>
-                      <abbr className="mandatory-asterisk" title="Required">
-                        {" "}
-                        *
-                      </abbr>
-                    </label>
-                    <div className="">
-                      <input type="text" className="form-control mb-2" />
-                    </div>
-                  </div>
-                  <div className="col-md-4">
-                    <label htmlFor="email" className="tpi-form__label">
-                      <span className="tpi-form__label-text">Địa Chỉ Email</span>
-                      <abbr className="mandatory-asterisk" title="Required">
-                        {" "}
-                        *
-                      </abbr>
-                    </label>
-                    <div className="">
-                      <input type="email" className="form-control mb-2" />
-                    </div>
-                  </div>
-                  <div className="col-md-4">
-                    <label htmlFor="phone" className="tpi-form__label">
-                      <span className="tpi-form__label-text">Số Điện Thoại</span>
-                      <abbr className="mandatory-asterisk" title="Required">
-                        {" "}
-                        *
-                      </abbr>
-                    </label>
-                    <div className="">
-                      <input type="text" className="form-control mb-2" />
-                    </div>
-                  </div>
-                </div>
               </div>
-              <div className="row">
+              <div className="mt-3 row">
                 <div className="col-md-6">
                   <label htmlFor="NumberChildren" className="tpi-form__label">
                     <span className="tpi-form__label-text">Số Lượng Trẻ Em</span>
@@ -316,6 +275,38 @@ const Booking = () => {
                     <input
                       type="number"
                       id="NumberChildren"
+                      className="form-control mb-2"
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <label htmlFor="CheckIn" className="tpi-form__label">
+                    <span className="tpi-form__label-text">Ngày Check-In</span>
+                    <abbr className="mandatory-asterisk" title="Required">
+                      {" "}
+                      *
+                    </abbr>
+                  </label>
+                  <div className="tpi-form__field-validation-container">
+                    <input
+                      type="date"
+                      id="CheckIn"
+                      className="form-control mb-2"
+                    />
+                  </div>
+                </div>
+                <div className="col-md-6">
+                  <label htmlFor="lengthOfStay" className="tpi-form__label">
+                    <span className="tpi-form__label-text">Thời Gian Lưu Trú</span>
+                    <abbr className="mandatory-asterisk" title="Required">
+                      {" "}
+                      *
+                    </abbr>
+                  </label>
+                  <div className="tpi-form__field-validation-container">
+                    <input
+                      type="number"
+                      id="CheckIn"
                       className="form-control mb-2"
                     />
                   </div>

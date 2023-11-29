@@ -69,8 +69,13 @@ const PayOrder = () => {
                             <p className="fw-bold h5 col-md-6">Tổng Tiền:</p>
                             <label className="fw-bold h5 col-md-6 text-success">2,500,000 VND</label>
                         </div>
-                        <div className="d-flex justify-content-md-end mt-2 mb-2">
-                            <button className="btn btn-primary fw-bold">Thanh Toán</button>
+                        <div className="d-flex justify-content-md-end">
+                            <div className="mt-2 mb-2">
+                                <button className="btn btn-secondary fw-bold">Hủy Hóa Đơn</button>
+                            </div>
+                            <div className="ms-2 mt-2 mb-2">
+                                <button className="btn btn-primary fw-bold">Thanh Toán</button>
+                            </div>
                         </div>
                     </div>
                 </div>
