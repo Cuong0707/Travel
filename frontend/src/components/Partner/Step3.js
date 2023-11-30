@@ -44,10 +44,15 @@ const FormFields = () => {
                 value={field.roomType}
                 onChange={(event) => handleChange(index + startIndex, event)}
               >
-                <option value="">Chọn loại phòng</option>
-                <option value="Phòng đơn">Phòng đơn</option>
-                <option value="Phòng đôi">Phòng đôi</option>
-                <option value="Phòng gia đình">Phòng gia đình</option>
+                <option defaultValue disabled>Chọn loại phòng</option>
+                <option value="phongDon">Phòng đơn</option>
+                <option value="phongDoi">Phòng đôi</option>
+                <option value="phongGiaDinh">Phòng gia đình</option>
+                <option value="suiteKing">Suite king</option>
+                <option value="deluxe">Deluxe</option>
+                <option value="phongTieuChuan">Phòng Tiêu Chuẩn</option>
+                <option value="phongCaoCap">Phòng Cao Cấp</option>
+                <option value="phongHangSang">Phòng Hạng Sang</option>
               </select>
             </div>
           </div>
@@ -93,7 +98,7 @@ const FormFields = () => {
     const pageNumbers = Array.from(Array(totalPages), (_, i) => i + 1);
 
     return (
-      <nav aria-label="Pagination">
+      <nav aria-label="Pagination" style={{ background: "white" }}>
         <ul className="pagination ">
           <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
             <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>
