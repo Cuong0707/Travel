@@ -10,7 +10,6 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -121,9 +120,9 @@ public class AuthenticationService {
 			var users = repository.findByEmailAndPasswordNotNull(request.getEmail())
 					.orElseThrow(() -> new NotFoundException("Email không tồn tại"));
 			users.setLastLogin(LocalDateTime.now());
-			if (users.getStatus().equals(UserStatus.banned)) {
-				throw new AccessDeniedException("banned account");
-			}
+//			if (users.getStatus().equals(UserStatus.banned)) {
+//				throw new AccessDeniedException("banned account");
+//			}
 			String jwtToken = jwtService.generateToken(users);
 			users.setToken(jwtToken);
 			Users userSaved = repository.save(users);
