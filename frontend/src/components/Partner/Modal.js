@@ -15,7 +15,7 @@ function MyModal() {
                 {/* <Button variant="primary w-75" onClick={handleShow}>
                     Chi Tiêt
                 </Button> */}
-                <button onClick={handleShow} className="custom-btn btn-12"><span>Click!</span><span>Chi Tiết</span></button>
+                <button onClick={handleShow} className="btn btn-warning w-75">Chi Tiết</button>
             </div>
             <Modal size='lg' show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
