@@ -53,7 +53,7 @@ function SignIn() {
                         <u>Đăng Ký</u>
                       </Link>
                     </h6>
-                    <Link className=" fw-bold col-6 text-end" to="/forgot-pass" >
+                    <Link className=" fw-bold col-6 text-end" to="/forgot-password" >
                       Quên Mật Khẩu?
                     </Link>
                   </div>

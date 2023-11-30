@@ -95,7 +95,7 @@ const One = (props) => {
             <div className="col-md-4 mb-3">
                 <label htmlFor="validationCustom03" className="form-label">Dịch Vụ</label>
                 <select className="form-select" id="validationCustom04" required>
-                    <option selected disabled value="">Chọn...</option>
+                    <option defaultValue disabled>Chọn...</option>
                     <option>Khách Sạn</option>
                     <option>Nhà Hàng</option>
                     <option>Phương Tiện Di Chuyển</option>
@@ -108,13 +108,13 @@ const One = (props) => {
                     id="validationCustom05" required
                     name="name" onChange={onInputChanged} />
             </div>
-            <div class="mb-3 col-md-6">
-                <label for="formFile" class="form-label">Hình Ảnh Doanh Nghiệp</label>
-                <input class="form-control" type="file" id="formFile" />
+            <div className="mb-3 col-md-6">
+                <label htmlFor="formFile" className="form-label">Hình Ảnh Doanh Nghiệp</label>
+                <input className="form-control" type="file" id="formFile" />
             </div>
-            <div class="mb-3 col-md-6">
-                <label for="formFile" class="form-label">Giấy Phép Kinh Doanh</label>
-                <input class="form-control" type="file" id="formFile" />
+            <div className="mb-3 col-md-6">
+                <label htmlFor="formFile" className="form-label">Giấy Phép Kinh Doanh</label>
+                <input className="form-control" type="file" id="formFile" />
             </div>
 
             <br />
@@ -159,7 +159,7 @@ const Two = (props) => {
             <div className="col-md-4">
                 <label htmlFor="validationCustom02" className="form-label">Loại Khách Sạn</label>
                 <select className="form-select" id="validationCustom04" required>
-                    <option selected disabled value="">Chọn...</option>
+                    <option defaultValue>Chọn...</option>
                     <option>Resort</option>
                     <option>Khách sạn thương mại</option>
                     <option>Nhà Sàn</option>
@@ -170,7 +170,7 @@ const Two = (props) => {
             <div className="col-md-4 mb-3">
                 <label htmlFor="validationCustom03" className="form-label">Tiêu Chuẩn</label>
                 <select className="form-select" id="validationCustom04" required>
-                    <option selected disabled value="">Chọn...</option>
+                    <option defaultValue disabled>Chọn...</option>
                     <option>1 Sao</option>
                     <option>2 Sao</option>
                     <option>3 Sao</option>
@@ -189,7 +189,7 @@ const Two = (props) => {
             <div className="col-md-4">
                 <label htmlFor="validationCustom06" className="form-label">Bữa Sáng</label>
                 <select className="form-select" id="validationCustom04" required>
-                    <option selected disabled value="">Chọn...</option>
+                    <option defaultValue disabled>Chọn...</option>
                     <option>Tô Ly</option>
                     <option>Buffet</option>
                     <option>Không Bao Gồm</option>
@@ -203,12 +203,12 @@ const Two = (props) => {
                 <label htmlFor="validationCustom08" className="form-label">Chính Sách Cho Trẻ Em</label>
                 <input type="text" className="form-control" name="age" onChange={onInputChanged} id="validationCustom01" required />
             </div>
-            <div class="mb-3 col-md-6">
-                <label htmlFor="validationCustom09" class="form-label">Mô Tả</label>
+            <div className="mb-3 col-md-6">
+                <label htmlFor="validationCustom09" className="form-label">Mô Tả</label>
                 <input type="text" className="form-control" name="age" onChange={onInputChanged} id="validationCustom01" required />
             </div>
-            <div class="mb-3 col-md-6">
-                <label htmlFor="validationCustom10" class="form-label">Chính Sách Và Điều Khoản</label>
+            <div className="mb-3 col-md-6">
+                <label htmlFor="validationCustom10" className="form-label">Chính Sách Và Điều Khoản</label>
                 <input type="text" className="form-control" name="age" onChange={onInputChanged} id="validationCustom01" required />
             </div>
 
@@ -251,7 +251,7 @@ const Four = (props) => {
 
     return (
         <div className="row d-flex ms-2 me-2">
-            <div class="thank-you-message">Cảm ơn bạn đã đăng ký trở thành đối tác của chúng tôi. Chúng tôi sẽ
+            <div className="thank-you-message">Cảm ơn bạn đã đăng ký trở thành đối tác của chúng tôi. Chúng tôi sẽ
                 liên hệ đến bạn sớm nhất có thể
             </div>
             <div className="d-flex justify-content-end mb-2 mt-3">

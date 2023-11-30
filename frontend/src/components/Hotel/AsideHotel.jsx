@@ -6,9 +6,9 @@ const AsideHotel = () => {
             <div className="card border-1 mb-2">
                 <div className="card-body">
                     <div className="">
-                        <h5 className="fw-bold">Hạng Sao</h5>
+                        <h5 className="fw-bold">Tiêu Chuẩn Đánh Giá</h5>
                         <select className="form-select form-select-sm mb-2" aria-label="Small select example">
-                            <option selected>Đánh Giá</option>
+                            <option defaultValue>Vui Lòng Chọn</option>
                             <option value="1">1 Sao</option>
                             <option value="2">2 Sao</option>
                             <option value="3">3 Sao</option>
