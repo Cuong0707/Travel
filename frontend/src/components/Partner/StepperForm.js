@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Stepper, Step } from "react-form-stepper";
 import { MdDescription } from "react-icons/md";
 import { MdMosque } from "react-icons/md";
@@ -165,7 +166,6 @@ const Three = (props) => {
     return (
         <div className="row d-flex ms-2 me-2">
             <span style={{ color: "red" }}>{error}</span>
-            <h4 className="text-center mb-3 h5 text-uppercase fw-bold">Thông Tin Doanh Nghiệp</h4>
             <div className="col-md-4 mb-3">
                 <label htmlFor="validationCustom01" className="form-label">Tên Khách Sạn</label>
                 <input type="text" className="form-control" name="age" onChange={onInputChanged} id="validationCustom01" required />
@@ -245,7 +245,6 @@ const Four = (props) => {
 
     return (
         <div className="row d-flex ms-2 me-2">
-            <h4 className="text-center h5 text-uppercase fw-bold">Thông Tin Chi Tiết Dịch Vụ</h4>
             <Step3 />
             <div className="d-flex justify-content-end mb-2 mt-3">
                 <ActionButtons {...props} lastStep={handleLastStep} />
@@ -279,6 +278,7 @@ const Sample = () => {
     const [stepWizard, setStepWizard] = useState(null);
     const [user, setUser] = useState({});
     const [activeStep, setActiveStep] = useState(0);
+    const navigate = new useNavigate();
 
     const assignStepWizard = (instance) => {
         setStepWizard(instance);
@@ -300,7 +300,7 @@ const Sample = () => {
     };
 
     const handleComplete = () => {
-        alert("Bạn Đã Đăng Ký Thành Công. Vui lòng đợi chúng tôi trong vòng 24h");
+        navigate('/');
     };
 
     return (
