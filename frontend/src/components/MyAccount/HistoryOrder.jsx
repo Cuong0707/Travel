@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import MyAccount from "./MyAccount";
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Link, Outlet } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 const drawerWidth = 240;
 
 export default function HistoryOrder() {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     return (
         <div>
             <Box sx={{ display: "flex" }}>
@@ -95,6 +103,7 @@ export default function HistoryOrder() {
                                         <th scope="col">Địa Chỉ</th>
                                         <th scope="col">Giá Tiền</th>
                                         <th scope="col">Thời Gian</th>
+                                        <th scope="col">Chi Tiết</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -105,6 +114,12 @@ export default function HistoryOrder() {
                                         <td>54 Huynh Thuc Khang, Mũi Né, Việt Nam</td>
                                         <td>1.000.000 VNĐ</td>
                                         <td>2/9/2023</td>
+                                        <td className="text-center">
+                                            <Link to="detail"><button className="btn text-info" onClick={handleShow}><ArrowForwardIcon /></button></Link>
+                                            <Modal size="xl" show={show} onHide={handleClose} style={{ backgroundolor: "rgba(255, 255, 255, 0.5)" }}>
+                                                <Outlet></Outlet>
+                                            </Modal>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <th scope="row">2</th>
@@ -113,6 +128,7 @@ export default function HistoryOrder() {
                                         <td>28 Le Lai, Quận 1, Hồ Chí Minh, Việt Nam</td>
                                         <td>800.000 VNĐ</td>
                                         <td>20/11/2023</td>
+                                        <td className="text-center"><button className="btn text-info"><ArrowForwardIcon /></button></td>
                                     </tr>
                                     <tr>
                                         <th scope="row">3</th>
@@ -121,6 +137,7 @@ export default function HistoryOrder() {
                                         <td>271 Lê Thánh Tôn, Quận 1, Hồ Chí Minh, Việt Nam</td>
                                         <td>1.200.000 VNĐ</td>
                                         <td>1/5/2023</td>
+                                        <td className="text-center"><button className="btn text-info"><ArrowForwardIcon /></button></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -128,6 +145,7 @@ export default function HistoryOrder() {
                     </div>
                 </Box>
             </Box>
+
         </div>
     )
 }
