@@ -27,7 +27,7 @@ function MyModal() {
                         {/* <input className="col-5 ms-2" type="text" name="name" placeholder="Họ Và Tên" onChange={onInputChanged} required/> */}
                         <div className="col-md-4 mb-3">
                             <label htmlFor="validationCustom01" className="form-label">Loại Phòng</label>
-                            <input type="text" className="form-control" name="name" id="validationCustom01" required />
+                            <input type="text" className="form-control" name="name" id="validationCustom01" required disabled />
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="validationCustom02" className="form-label">Diện Tích Phòng</label>
