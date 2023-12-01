@@ -33,6 +33,7 @@ import AuthProvider from './context/auth-context';
 
 import Booking from './components/Hotel/Booking';
 import PayOrder from './components/Hotel/PayOrder';
+import OrderDetail from './components/MyAccount/OrderDetail';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -40,23 +41,23 @@ root.render(
   <React.StrictMode>
 
     <AuthProvider>
-  
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<App />}>
-          <Route path='/' element={<Home />}></Route>
-          <Route path='/contact' element={<ContactUs />}></Route>
-          <Route path='/login' element={<Login />}></Route>
-          <Route path='/register' element={<SignUp />}></Route>
 
-          <Route path='/HotelList' element={<HotelList />} />
-          <Route path='/HotelList/HamRong' element={<HotelDetail />} />
-          <Route path='/order' element={<Booking />} />
-          <Route path='/pay' element={<PayOrder />}></Route>
-          <Route path='/blog' element={<Blog />} />
-          <Route path='/restaurant' element={<Restaurant />} />
-          <Route path='/vist-location' element={<VistLocation />} />
-          <Route path='/transport' element={<Transport />} />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<App />}>
+            <Route path='/' element={<Home />}></Route>
+            <Route path='/contact' element={<ContactUs />}></Route>
+            <Route path='/login' element={<Login />}></Route>
+            <Route path='/register' element={<SignUp />}></Route>
+
+            <Route path='/HotelList' element={<HotelList />} />
+            <Route path='/HotelList/HamRong' element={<HotelDetail />} />
+            <Route path='/order' element={<Booking />} />
+            <Route path='/pay' element={<PayOrder />}></Route>
+            <Route path='/blog' element={<Blog />} />
+            <Route path='/restaurant' element={<Restaurant />} />
+            <Route path='/vist-location' element={<VistLocation />} />
+            <Route path='/transport' element={<Transport />} />
 
 
             <Route path='/HotelList' element={<HotelList />} />
@@ -79,7 +80,9 @@ root.render(
 
         <Routes>
           <Route path='/my-account' exact element={<Information />}></Route>
-          <Route path='/order-history' exact element={<HistoryOrder />}></Route>
+          <Route path='/order-history' exact element={<HistoryOrder />}>
+            <Route path='detail' element={<OrderDetail />}></Route>
+          </Route>
           <Route path='/message' exact element={<Message />}></Route>
         </Routes>
 
