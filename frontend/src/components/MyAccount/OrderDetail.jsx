@@ -15,13 +15,13 @@ export default function OrderDetail() {
   return (
     <>
       <section
-        className="gradient-custom"
+        className="gradient-custom "
         style={{ backgroundColor: "#eee" }}
       >
-        <MDBContainer className="py-5 mt-3" style={{width:"1000px"}}>
+        <MDBContainer className="py-5 mt-3"  >
           <MDBRow className="justify-content-center align-items-center">
-            <MDBCol lg="12" xl="8">
-              <MDBCard style={{ borderRadius: "10px" }}>
+            <MDBCol lg="12">
+              <MDBCard className="border border-0" style={{ borderRadius: "10px" }}>
                 <MDBCardHeader className="px-3 py-4">
                   <MDBTypography tag="h5" className="text-muted mb-0">
                     Cảm ơn vì đã sử dụng dịch vụ,{" "}

@@ -116,7 +116,7 @@ export default function HistoryOrder() {
                                         <td>2/9/2023</td>
                                         <td className="text-center">
                                             <Link to="detail"><button className="btn text-info" onClick={handleShow}><ArrowForwardIcon /></button></Link>
-                                            <Modal size="xl" show={show} onHide={handleClose} style={{ backgroundolor: "rgba(255, 255, 255, 0.5)" }}>
+                                            <Modal size="lg" show={show} onHide={handleClose}>
                                                 <Outlet></Outlet>
                                             </Modal>
                                         </td>
