@@ -94,11 +94,12 @@ root.render(
         </Routes>
 
         <Routes>
-          <Route path='/listuser' element={<ListUser />}></Route>
-          <Route path='/listpartner' element={<ListPartner />}></Route>
-          <Route path='/listorder' element={<ListOrder />}></Route>
-          <Route path='/viewpage' element={<LineChart />}></Route>
-
+          <Route path='/admin'>
+            <Route path='listuser' element={<ListUser />}></Route>
+            <Route path='listpartner' element={<ListPartner />}></Route>
+            <Route path='listorder' element={<ListOrder />}></Route>
+            <Route path='viewpage' element={<LineChart />}></Route>
+          </Route>
         </Routes>
 
       </BrowserRouter>

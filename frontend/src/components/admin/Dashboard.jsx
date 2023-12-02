@@ -112,7 +112,7 @@ export default function MyAccount() {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" color="warning" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -152,7 +152,7 @@ export default function MyAccount() {
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              navigate("/listpartner");
+              navigate("/admin/listpartner");
             }}
           >
             <ListItemButton
@@ -184,7 +184,7 @@ export default function MyAccount() {
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              navigate("/listorder");
+              navigate("/admin/listorder");
             }}
           >
             <ListItemButton
@@ -215,7 +215,7 @@ export default function MyAccount() {
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              navigate("/listuser");
+              navigate("/admin/listuser");
             }}
           >
             <ListItemButton
@@ -246,7 +246,7 @@ export default function MyAccount() {
             disablePadding
             sx={{ display: "block" }}
             onClick={() => {
-              navigate("/viewpage");
+              navigate("/admin/viewpage");
             }}
           >
             <ListItemButton

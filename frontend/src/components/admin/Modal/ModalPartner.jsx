@@ -217,6 +217,12 @@ const ModalPartner = () => {
                             Cấm Hoạt Động
                         </button>
                         <button
+                            className="btn btn-success float-end"
+                            type="submit"
+                        >
+                            Chấp Nhận
+                        </button>
+                        <button
                             className="btn btn-primary float-end"
                             type="submit"
                         >

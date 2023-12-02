@@ -118,6 +118,7 @@ export default function ListPartner() {
   return (
     <div>
       <div className="container mt-4">
+        <ToastContainer />
         <Box sx={{ display: "flex" }}>
           <Dashboard />
           <Box
@@ -143,7 +144,6 @@ export default function ListPartner() {
                     <th scope="col">Service ID</th>
                     <th scope="col">Tên Doanh Nghiệp</th>
                     <th scope="col">Tax Code</th>
-                    <th scope="col">Hình Ảnh Doanh Nghiệp</th>
                     <th scope="col">Giấy Phép Kinh Doanh</th>
                     <th scope="col">Website</th>
                     <th scope="col">Email</th>
@@ -159,7 +159,6 @@ export default function ListPartner() {
                     <td>S01</td>
                     <td>CÔNG TY TNHH THƯƠNG MẠI VÀ DU LỊCH HVD LAO CAI</td>
                     <td>5300726546</td>
-                    <td>PN01.jpg</td>
                     <td>Có</td>
                     <td>http://redriverviewlaocai.com.vn</td>
                     <td>info@redriverviewlaocai.com.vn</td>
@@ -182,7 +181,6 @@ export default function ListPartner() {
                     <td>S01</td>
                     <td>CÔNG TY CỔ PHẦN DU LỊCH CAO SU HÀM RỒNG</td>
                     <td>5300233477</td>
-                    <td>PN02.jpg</td>
                     <td>Có</td>
                     <td> </td>
                     <td>info@vietdiscovery.com</td>
