@@ -35,6 +35,13 @@ import Booking from './components/Hotel/Booking';
 import PayOrder from './components/Hotel/PayOrder';
 import OrderDetail from './components/MyAccount/OrderDetail';
 
+import ListUser from './components/admin/ListUser';
+import ListPartner from './components/admin/ListPartner';
+import ListOrder from './components/admin/ListOrder';
+import LineChart from './components/admin/LineChart';
+// import DashBoard from './components/admin/Dashboard';
+
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
@@ -84,6 +91,14 @@ root.render(
             <Route path='detail' element={<OrderDetail />}></Route>
           </Route>
           <Route path='/message' exact element={<Message />}></Route>
+        </Routes>
+
+        <Routes>
+          <Route path='/listuser' element={<ListUser />}></Route>
+          <Route path='/listpartner' element={<ListPartner />}></Route>
+          <Route path='/listorder' element={<ListOrder />}></Route>
+          <Route path='/viewpage' element={<LineChart />}></Route>
+
         </Routes>
 
       </BrowserRouter>
