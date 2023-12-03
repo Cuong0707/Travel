@@ -39,7 +39,7 @@ const NavHotel = () => {
                 </select>
 
                 <select className="form-control" value={selectedOption3} onChange={handleSelectChange3}>
-                    <option defaultValue>Số Giờng</option>
+                    <option defaultValue>Số Giường</option>
                     <option value="option1">1</option>
                     <option value="option2">2</option>
                     <option value="option3">3</option>
