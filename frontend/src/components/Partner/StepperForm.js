@@ -4,8 +4,7 @@ import { Stepper, Step } from "react-form-stepper";
 import { MdDescription } from "react-icons/md";
 import { MdMosque } from "react-icons/md";
 import { MdPinDrop } from "react-icons/md";
-import { MdWeekend } from "react-icons/md";
-import { MdPending } from "react-icons/md";
+import { MdLockClock } from "react-icons/md";
 import StepWizard from "react-step-wizard";
 import { Row, Col, Button } from "reactstrap";
 
@@ -119,28 +118,8 @@ const One = (props) => {
         </div>
     );
 };
+
 const Two = (props) => {
-    console.log("step3 receive user object");
-    console.log(props.user);
-
-    const handleLastStep = () => {
-        props.lastStep();
-        props.completeCallback();
-    };
-
-    return (
-        <div className="row d-flex ms-2 me-2">
-            <div className="thank-you-message">Cảm ơn bạn đã đăng ký trở thành đối tác của chúng tôi. Chúng tôi sẽ
-                liên hệ đến bạn sớm nhất có thể
-            </div>
-            <div className="d-flex justify-content-end mb-2 mt-3">
-                <ActionButtons {...props} lastStep={handleLastStep} />
-            </div>
-        </div>
-    );
-};
-
-const Three = (props) => {
     const [info2, setInfo2] = useState({});
     const [error, setError] = useState("");
 
@@ -234,7 +213,7 @@ const Three = (props) => {
     );
 };
 
-const Four = (props) => {
+const Three = (props) => {
     console.log("step3 receive user object");
     console.log(props.user);
 
@@ -253,7 +232,7 @@ const Four = (props) => {
     );
 };
 
-const Five = (props) => {
+const Four = (props) => {
     console.log("step3 receive user object");
     console.log(props.user);
 
@@ -318,18 +297,16 @@ const Sample = () => {
                     <div className="mt-3 m-auto card w-75">
                         <Stepper className="fs-4" activeStep={activeStep}>
                             <Step label="Thông Tin Đối Tác" children={<MdDescription />} />
-                            <Step label="Đợi Xác Nhận" children={<MdPending />} />
                             <Step label="Thông Tin Doanh Nghiệp" children={<MdPinDrop />} />
                             <Step label="Thông Tin Các Dịch Vụ" children={<MdMosque />} />
-                            <Step label="Kết Thúc" children={<MdWeekend />} />
+                            <Step label="Kết Thúc" children={<MdLockClock />} />
                         </Stepper>
                         {/* NOTE: IMPORTANT !! StepWizard must contains at least 2 children components, else got error */}
                         <StepWizard instance={assignStepWizard} onStepChange={handleStepChange}>
                             <One userCallback={assignUser} />
-                            <Two user={user} completeCallback={handleComplete} />
-                            <Three user={user} userCallback={assignUser} />
+                            <Two user={user} userCallback={assignUser} />
+                            <Three user={user} completeCallback={handleComplete} />
                             <Four user={user} completeCallback={handleComplete} />
-                            <Five user={user} completeCallback={handleComplete} />
                         </StepWizard>
                     </div>
                 </div>

@@ -39,8 +39,11 @@ import ListUser from './components/admin/ListUser';
 import ListPartner from './components/admin/ListPartner';
 import ListOrder from './components/admin/ListOrder';
 import LineChart from './components/admin/LineChart';
-// import DashBoard from './components/admin/Dashboard';
 
+import InfoPartner from './components/PartnerManager/InfoPartner'
+import OrderPending from './components/PartnerManager/OrderPending'
+import ListOrder2 from './components/PartnerManager/ListOrder'
+import LineChart2 from './components/PartnerManager/LineChart';
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -102,9 +105,18 @@ root.render(
           </Route>
         </Routes>
 
+        <Routes>
+          <Route path='/partner'>
+            <Route path='info-partner' element={<InfoPartner />} />
+            <Route path='order-pending' element={<OrderPending />} />
+            <Route path='list-order' element={<ListOrder2 />} />
+            <Route path='viewpage' element={<LineChart2 />} />
+          </Route>
+        </Routes>
+
       </BrowserRouter>
     </AuthProvider>
-  </React.StrictMode>
+  </React.StrictMode >
 );
 
 // If you want to start measuring performance in your app, pass a function
