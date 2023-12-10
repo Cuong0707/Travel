@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 public class OrdersOfHotelDto {
@@ -13,7 +12,7 @@ public class OrdersOfHotelDto {
 	private int amountOfRoom;
 	private int numberOfPeople;
 	private int numberOfChildren;
-	@DateTimeFormat(pattern = "hh:mma dd/MM/yyyy")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy HH:mm:ss")
 	private LocalDateTime checkInDate;
 	private int lengthOfStay;
 	private double originalPrice;

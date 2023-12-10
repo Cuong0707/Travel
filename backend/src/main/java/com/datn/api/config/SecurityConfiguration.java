@@ -1,5 +1,6 @@
 package com.datn.api.config;
 
+import com.datn.api.exceptions.CustomExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -9,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -33,15 +35,20 @@ public class SecurityConfiguration {
 				.exceptionHandling(exception -> exception.authenticationEntryPoint(entryPointExceptionHandler))
 				.authorizeHttpRequests((request) -> request
 						.requestMatchers(HttpMethod.GET, "/api/v1/auth/**", "/api/v1/users/**", "/api/v1/services/**",
-								"/api/v1/hotels/**", "/api/v1/hotel/**", "/api/v1/user/**",
+								"/api/v1/hotels/**", "/api/v1/hotel/**", "/api/v1/user/**","/api/v1/hotels-detail/**",
 								"/oauth2/authorization/google", "/api/v1/fileUpload/**", "/api/v1/orders/**")
 						.permitAll()
 						.requestMatchers("/api/v1/districts/**", "/api/v1/provinces/**", "/api/v1/user/**",
-								"/api/v1/hotels/search?**")
+								"/api/v1/hotels/search?**","/api/v1/orders/**")
 						.permitAll()
 						.requestMatchers(HttpMethod.POST,"/api/v1/auth/**").permitAll()
-						.anyRequest().authenticated())
-				.oauth2Login(configurer -> configurer.defaultSuccessUrl("/api/v1/auth/login-google"))
+						.requestMatchers(
+								"/api/v1/users",
+								"/api/v1/users/avatar",
+								"/api/v1/orders/users"
+								).authenticated()
+						.anyRequest().permitAll()
+				)
 				.sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authenticationProvider(authenticationProvider)
 				.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);

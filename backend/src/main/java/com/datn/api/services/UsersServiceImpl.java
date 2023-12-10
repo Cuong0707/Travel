@@ -10,6 +10,10 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.datn.api.entity.dto.*;
+import com.datn.api.enums.UserStatus;
+import com.datn.api.exceptions.DuplicateRecordException;
+import com.datn.api.exceptions.Exception;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,14 +26,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.datn.api.entity.Users;
-import com.datn.api.entity.dto.CountNewUser;
-import com.datn.api.entity.dto.NumberRegister;
-import com.datn.api.entity.dto.PartnersDto;
-import com.datn.api.entity.dto.UserResponse;
-import com.datn.api.entity.dto.UsersDto;
 import com.datn.api.exceptions.ApiResponse;
 import com.datn.api.exceptions.NotFoundException;
 import com.datn.api.repository.UsersRepository;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -41,6 +41,9 @@ public class UsersServiceImpl implements UsersService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	@Autowired
+	private DistrictService districtService;
+	@Autowired ImageStorageService storageService;
 	@Autowired
 	private JwtService jwtService;
 
@@ -140,7 +143,7 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public UserResponse getAllUsers(Integer pageNumber, Integer pageSize, String sortBy, String sortDir) {
+	public UserResponse getAllUsers(Integer pageNumber, Integer pageSize,  String sortDir,String sortBy) {
 		Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
 				: Sort.by(sortBy).descending();
 
@@ -148,19 +151,17 @@ public class UsersServiceImpl implements UsersService {
 
 		Page<Users> users = usersRepository.findAll(pageable);
 
-		List<Users> listOfHotels = users.getContent();
+		List<Users> list = users.getContent();
 
-		List<PartnersDto> partners = listOfHotels.stream().map(user -> this.usersToPartnersDto(user))
+		List<UsersDto> list1 = list.stream().map(this::usersToDto)
 				.collect(Collectors.toList());
-
 		UserResponse userResponse = new UserResponse();
-		userResponse.setData(partners);
+		userResponse.setData(list1);
 		userResponse.setPageNumber(users.getNumber());
 		userResponse.setPageSize(users.getSize());
 		userResponse.setTotalElements(users.getTotalElements());
 		userResponse.setTotalPages(users.getTotalPages());
 		userResponse.setLastPage(users.isLast());
-
 		return userResponse;
 	}
 
@@ -179,7 +180,7 @@ public class UsersServiceImpl implements UsersService {
 		Users user = optional.orElseThrow(() -> new NotFoundException("Không tìm thấy"));
 		return this.usersToDto(user);
 	}
-
+	@Override
 	public List<PartnersDto> findByKeywords(String keywords) {
 		List<Users> users = usersRepository.findByKeywords(keywords);
 		if (users == null) {
@@ -191,6 +192,7 @@ public class UsersServiceImpl implements UsersService {
 		}
 	}
 
+	@Override
 	public Users findByIdUser(String id) { // nhận Users
 		return this.usersRepository.findById(id).orElseThrow(() -> new NotFoundException("Can't find user id: " + id));
 	}
@@ -206,11 +208,11 @@ public class UsersServiceImpl implements UsersService {
 		Optional<Users> user = usersRepository.findByEmail(email);
 		return user;
 	}
-
+	@Override
 	public Users dtoToUsers(UsersDto usersDto) {
 		return this.modelMapper.map(usersDto, Users.class);
 	}
-
+	@Override
 	public UsersDto usersToDto(Users users) {
 		return this.modelMapper.map(users, UsersDto.class);
 	}
@@ -244,15 +246,14 @@ public class UsersServiceImpl implements UsersService {
 		return usersRepository.countUsersForDate(startDate.atStartOfDay(), startDate.atTime(23, 59, 59));
 	}
 
-	public UsersDto updateForUser(UsersDto usersDto) {
-		Users user = this.usersRepository.findById(usersDto.getUserID())
-				.orElseThrow(() -> new NotFoundException("Không tìm thấy User"));
-		user.setAvatar(usersDto.getAvatar());
-		user.setBirthday(usersDto.getBirthday());
-		user.setFullname(usersDto.getFullname());
-		user.setAvatar(usersDto.getAvatar());
-		user.setAddress(usersDto.getAddress());
-		user.setPhone_number(usersDto.getPhone_number());
+	public UsersDto updateForUser(UpdateUserInfoRequest updateUserInfoRequest) {
+		Users user = UserCurrent.get();
+		user.setAvatar(updateUserInfoRequest.getAvatar());
+		user.setBirthday(updateUserInfoRequest.getBirthday());
+		user.setFullname(updateUserInfoRequest.getFullname());
+		user.setAddress(updateUserInfoRequest.getAddress());
+		user.setPhone_number(updateUserInfoRequest.getPhone_number());
+		user.setDistricts(districtService.findDistrictById(updateUserInfoRequest.getDistrict()));
 		Users updateUser = usersRepository.save(user);
 		return this.modelMapper.map(updateUser, UsersDto.class);
 	}
@@ -261,5 +262,42 @@ public class UsersServiceImpl implements UsersService {
 	public Users updateStatusAndRoleForAdmin(Users users){
 		usersRepository.findById(users.getUserID()).orElseThrow(() -> new NotFoundException("Không tìm thấy User Id: " + users.getUserID()));
 		return usersRepository.save(users);
+	}
+	@Override
+	public UsersDto updateStatusForAdmin(String id){
+		try {
+			Users users=findByIdUser(id);
+			if(users.getStatus().equals(UserStatus.active)){
+				users.setStatus(UserStatus.banned);
+			}else {
+				users.setStatus(UserStatus.active);
+			}
+			return usersToDto(usersRepository.save(users));
+		}catch (Exception e){
+			System.out.println(e.getMessage());
+			throw new Exception("Update error");
+		}
+	}
+	@Override
+	public Users updateAvatarForUser(MultipartFile file){
+		try {
+			Users users=UserCurrent.get();
+			users.setAvatar(storageService.storeFile(file));
+			return usersRepository.save(users);
+		}catch (Exception ex){
+			throw new DuplicateRecordException("Update error");
+		}
+	}
+	@Override
+	public Users updateAvatarForAdmin(String id,MultipartFile file){
+		try{
+			Users users =findByIdUser(id);
+			users.setAvatar(storageService.storeFile(file));
+			return usersRepository.save(users);
+		}
+		catch (Exception ex){
+			throw new DuplicateRecordException("Update error");
+		}
+
 	}
 }

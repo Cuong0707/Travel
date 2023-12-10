@@ -55,7 +55,7 @@ export default function ListUser() {
                   </div>
                   <div className="mt-2">
                     <div className="form-group row">
-                      <label htmlFor="regisDay" className="col-7 col-form-label">Ngày Đăng Ký</label>
+                      <label htmlFor="regisDay" className="col-7 col-form-label">Ngày đăng ký</label>
                       <div className="col-5">
                         <input type="text" className="form-control-plaintext" id="regisDay" disabled />
                       </div>
@@ -69,7 +69,7 @@ export default function ListUser() {
                       <form onSubmit={""}>
                         <div className="row">
                           <div className="mb-3 col-md-6">
-                            <label htmlFor="nameCompany" className="form-label">Tên Doanh Nghiệp</label>
+                            <label htmlFor="nameCompany" className="form-label">Tên doanh nghiệp</label>
                             <input type="text" id="fullname" name="fullname" className="form-control" required />
                           </div>
                           <div className="mb-3 col-md-6">
@@ -81,8 +81,8 @@ export default function ListUser() {
                             <input type="text" id="address" name="address" className="form-control" required />
                           </div>
                           <div className="mb-3 col-md-6">
-                            <label htmlFor="taxCode" className="form-label">Tax Code</label>
-                            <input type="number" id="number" name="number" className="form-control" required />
+                            <label htmlFor="taxCode" className="form-label">Tax code</label>
+                            <input disabled type="number" id="number" name="number" className="form-control" required />
                           </div>
                           <div className="mb-3 col-md-6">
                             <label htmlFor="phone_number" className="form-label">Số điện thoại</label>
@@ -93,12 +93,12 @@ export default function ListUser() {
                             <input type="text" id="website" name="website" className="form-control" required />
                           </div>
                           <div className="mb-3 col-md-6">
-                            <label htmlFor="business_license" className="form-label">Giấy Phép Kinh Doanh</label>
-                            <input type="text" id="business_license" name="business_license" className="form-control" required />
+                            <label htmlFor="business_license" className="form-label">Giấy phép kinh doanh</label>
+                            <input disabled type="text" id="business_license" name="business_license" className="form-control"  />
                           </div>
                         </div>
                         <button className="btn btn-primary float-end" type="submit">
-                          Cập Nhật
+                          Cập nhật
                         </button>
                       </form>
                     </div>

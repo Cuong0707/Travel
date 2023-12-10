@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+
 const ModalUser = () => {
     //Chosse Avatar
     const [avatar, setAvatar] = useState(
@@ -41,7 +42,7 @@ const ModalUser = () => {
                                         <div className="form-group row">
                                             <label htmlFor="regisDay" className="col-7 col-form-label">Registration Date:</label>
                                             <div className="col-5">
-                                                <input type="text" className="form-control-plaintext" id="regisDay" disabled />
+                                            <input type="text" className="form-control-plaintext" id="regisDay" disabled />
                                             </div>
                                         </div>
                                     </div>
@@ -49,7 +50,7 @@ const ModalUser = () => {
                                         <div className="form-group row">
                                             <label htmlFor="last_login" className="col-7 col-form-label">Last Login:</label>
                                             <div className="col-5">
-                                                <input type="text" id="last_login" className="form-control-plaintext" disabled />
+                                            <input type="text" id="last_login" className="form-control-plaintext" disabled />
                                             </div>
                                         </div>
                                     </div>
@@ -63,15 +64,13 @@ const ModalUser = () => {
                                                         <label htmlFor="fullname" className="form-label">
                                                             Fullname
                                                         </label>
-                                                        <input type="text" id="fullname" name="fullname" className="form-control" required
-                                                        />
+                                                        <input type="text" id="fullname" name="fullname" className="form-control" required/>
                                                     </div>
                                                     <div className="mb-3 col-md-6">
                                                         <label htmlFor="phone_number" className="form-label">
                                                             Phone Number
                                                         </label>
-                                                        <input type="number" id="phone_number" name="phone_number" className="form-control" required
-                                                        />
+                                                        <input type="number" id="phone_number" name="phone_number" className="form-control" required/>
                                                     </div>
                                                     <div className="mb-3 col-md-6">
                                                         <label htmlFor="email" className="form-label">
@@ -84,8 +83,7 @@ const ModalUser = () => {
                                                         <label htmlFor="birthday" className="form-label">
                                                             Birthday
                                                         </label>
-                                                        <input type="date" id="birthday" name="birthday" className="form-control" required
-                                                        />
+                                                        <input type="date" id="birthday" name="birthday" className="form-control" required/>
                                                     </div>
                                                     <div className="mb-3 col-md-6">
                                                         <label htmlFor="address" className="form-label">
@@ -112,6 +110,7 @@ const ModalUser = () => {
                                                         <label htmlFor="role" className="form-label">
                                                             Role
                                                         </label>
+                                                    
                                                         <select className="form-control" id="role" name="role">
                                                             <option>user</option>
                                                             <option>admin</option>
@@ -140,5 +139,4 @@ const ModalUser = () => {
         </div>
     )
 }
-
 export default ModalUser;

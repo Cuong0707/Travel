@@ -3,6 +3,9 @@ package com.datn.api.services;
 import java.util.List;
 import java.util.Optional;
 
+import com.datn.api.enums.HotelDetailStatus;
+import com.datn.api.exceptions.DuplicateRecordException;
+import com.datn.api.exceptions.Exception;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,23 +22,28 @@ import com.datn.api.entity.dto.HotelDetailsRequest;
 import com.datn.api.exceptions.NotFoundException;
 import com.datn.api.repository.HotelsDetailsRepository;
 import com.datn.api.repository.HotelsRepository;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public class HotelDetailServiceImpl implements HotelDetailService{
 
+
     @Autowired
-    HotelsRepository hotelsRepository;
+    private HotelsDetailsRepository hotelsDetailsRepository;
+
     @Autowired
-    HotelsDetailsRepository hotelsDetailsRepository;
+    private HotelService hotelService;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private  PartnerService partnerService;
+    @Autowired
+    private ImageStorageService storageService;
     @Override
     public HotelDetails createHotelsDetail(HotelDetailsRequest hotelDetailsRequest){
         try {
-            Hotels hotel = this.hotelsRepository.findById(hotelDetailsRequest.getHotelId())
-                    .orElseThrow(() -> new NotFoundException("Can't find hotel id: " + hotelDetailsRequest.getHotelId()));
+            Hotels hotel = hotelService.findHotelById(hotelDetailsRequest.getHotelId());
             HotelDetails hotelDetails = new HotelDetails();
-            hotelDetails.setHotelDetailID(hotelDetailsRequest.getHotelDetailID());
             hotelDetails.setHotels(hotel);
             hotelDetails.setHighlights(hotelDetailsRequest.getHighlights());
             hotelDetails.setAreaOfRoom(hotelDetailsRequest.getAreaOfRoom());
@@ -44,18 +52,20 @@ public class HotelDetailServiceImpl implements HotelDetailService{
             hotelDetails.setPriceOfRoom(hotelDetailsRequest.getPriceOfRoom());
             hotelDetails.setSizeOfBed(hotelDetailsRequest.getSizeOfBed());
             hotelDetails.setTypeOfBed(hotelDetailsRequest.getTypeOfBed());
+            hotelDetails.setStatus(HotelDetailStatus.Available);
             hotelDetails.setTypeOfRoom(hotelDetailsRequest.getTypeOfRoom());
             return hotelsDetailsRepository.save(hotelDetails);
         }catch (Exception e){
-            throw new RuntimeException("Thêm thất bại");
+            System.out.println(e.getMessage());
+            throw new Exception("Cập nhật thất bại");
         }
     }
     @Override
-    public HotelDetails updateHotelsDetail(HotelDetailsRequest hotelDetailsRequest){
+    public HotelDetails updateHotelsDetail(HotelDetailsRequest hotelDetailsRequest, Long id){
         try {
-            Hotels hotel = this.hotelsRepository.findById(hotelDetailsRequest.getHotelId())
-                    .orElseThrow(() -> new NotFoundException("Can't find hotel id: " + hotelDetailsRequest.getHotelId()));
-            HotelDetails hotelDetails = hotelsDetailsRepository.findById(hotelDetailsRequest.getHotelDetailID()).orElseThrow();
+            partnerService.checkPartner(hotelDetailsRequest.getHotelId());
+            Hotels hotel = hotelService.findHotelById(hotelDetailsRequest.getHotelId());
+            HotelDetails hotelDetails = findHotelDetailById(id);
             hotelDetails.setHotels(hotel);
             hotelDetails.setHighlights(hotelDetailsRequest.getHighlights());
             hotelDetails.setAreaOfRoom(hotelDetailsRequest.getAreaOfRoom());
@@ -64,12 +74,15 @@ public class HotelDetailServiceImpl implements HotelDetailService{
             hotelDetails.setPriceOfRoom(hotelDetailsRequest.getPriceOfRoom());
             hotelDetails.setSizeOfBed(hotelDetailsRequest.getSizeOfBed());
             hotelDetails.setTypeOfBed(hotelDetailsRequest.getTypeOfBed());
+            hotelDetails.setStatus(hotelDetailsRequest.getStatus());
             hotelDetails.setTypeOfRoom(hotelDetailsRequest.getTypeOfRoom());
             return hotelsDetailsRepository.save(hotelDetails);
         }catch (Exception e){
-            throw new RuntimeException("Cập nhật thất bại");
+            System.out.println(e.getMessage());
+            throw new Exception("Cập nhật thất bại");
         }
     }
+
     @Override
     public HotelDetailResponse getAllHotelDetail(Integer pageNumber, Integer pageSize, String sortDir, String sortBy){
         Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
@@ -94,10 +107,10 @@ public class HotelDetailServiceImpl implements HotelDetailService{
     }
 
     @Override
-    public HotelDetailDto getOneHotelDetail(Long id){
+    public HotelDetails findHotelDetailById(Long id){
         Optional<HotelDetails> hotelDetails = hotelsDetailsRepository.findById(id);
         if(hotelDetails.isPresent()){
-            return hotelDetailDto(hotelDetails.get());
+            return hotelDetails.get();
         }
         throw new NotFoundException("Not found hotelDetail with id"+id);
     }
@@ -113,12 +126,30 @@ public class HotelDetailServiceImpl implements HotelDetailService{
 
 	@Override
 	public boolean deleteHotelDetail(Long id) {
-		HotelDetails hotelDetails = hotelsDetailsRepository.findById(id)
-				.orElseThrow(() -> new NotFoundException("not found"));
-		hotelDetails.setDelete(true);
-		hotelsDetailsRepository.save(hotelDetails);
-		return true;
+		try {
+            HotelDetails hotelDetails = hotelsDetailsRepository.findById(id)
+                    .orElseThrow(() -> new NotFoundException("not found"));
+            hotelDetails.setDelete(true);
+            hotelsDetailsRepository.save(hotelDetails);
+            return true;
+        }catch (Exception ex){
+            System.out.println(ex.getMessage());
+            throw new DuplicateRecordException("Delete error");
+        }
 	}
+
+    @Override
+    public HotelDetails updatePhotoOfRoom(Long id, MultipartFile file) {
+        try {
+            HotelDetails hotelDetails=findHotelDetailById(id);
+            hotelDetails.setPhotosOfRoom(storageService.storeFile(file));
+            hotelsDetailsRepository.save(hotelDetails);
+            return hotelDetails;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            throw new DuplicateRecordException("Update error");
+        }
+    }
 
 
 }

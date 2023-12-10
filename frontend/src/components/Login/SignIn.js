@@ -1,32 +1,40 @@
-import React, { useContext, useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import '../../style/Login.scss'
-import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from '../../context/auth-context';
-//import axios from 'axios';
+import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { useMutation } from 'react-query';
+import authApi from '../../api/auth.api';
+import { setAccessTokenToLS, setProfileToLS } from '../../utils/auth.utils';
+import useAppContext from '../../hook/useAppContext';
+import useHttpErrorHandler from '../../hook/useHttpErrorHandler';
 
 function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const { signIn,user } = useContext(AuthContext);
-  const navigate = useNavigate();
-  useEffect(() => {
-    // If user data exists, redirect to home page
-    if (user) {
-      navigate('/');
-      alert("Bạn đã đăng nhập rồi !!!");
+  const { setIsAuthenticated, setProfile } = useAppContext()
+  const { handleError } = useHttpErrorHandler()
+  const { isLoading, mutate } = useMutation({
+    mutationFn: (body) => {
+      return authApi.login(body)
+    },
+    onSuccess: (res) => {
+      const { infoUser, token } = res;
+      if (token) {
+        setAccessTokenToLS(token);
+        setProfileToLS(infoUser)
+        setIsAuthenticated(true);
+        setProfile(infoUser);
+      }
+    },
+    onError: (error) => {
+      const resError = handleError(error)
     }
-  }, [user, navigate]);
+  })
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-        try {   
-        await signIn(email, password);
-        navigate('/');
-        // window.location.href = '/';
-      } catch (error) {
-        console.error(error);
-        setError("Sai tên đăng nhập hoặc mật khẩu. Vui lòng thử lại.");
-      }
+    mutate({ email, password })
   };
 
   return (
@@ -57,11 +65,13 @@ function SignIn() {
                       Quên Mật Khẩu?
                     </Link>
                   </div>
-                  <div class="col-md-12 text-center">
-                    <button className="btn btn-success col-5 mb-3" type='submit'>Xác Nhận</button>
+                  <div className="col-md-12 text-center">
+                    <button disabled={isLoading} className="btn btn-success col-5 mb-3" type='submit'>
+                      {isLoading ? <span>...Loading</span> : <span>Xác Nhận</span>}
+                    </button>
                   </div>
                 </form>
-                <div class="col-md-12 text-center">
+                <div className="col-md-12 text-center">
                   <hr style={{
                     width: "60%",
                     margin: "0 auto"

@@ -11,6 +11,8 @@ import com.datn.api.entity.Orders;
 import com.datn.api.entity.Partners;
 import com.datn.api.entity.Users;
 
+import java.util.Optional;
+
 public interface OrdersRepository extends JpaRepository<Orders, Long> {
     @Query("select o from Orders o where o.user = ?1")
     Page<Orders> getAllByUser(Users user, Pageable pageable);
@@ -22,4 +24,8 @@ public interface OrdersRepository extends JpaRepository<Orders, Long> {
 	@Query("SELECT o FROM Orders o where o.partner=?1 and o.status='completed'")
 	Page<Orders> getCompletedOrdersByPartner(Partners partners, Pageable pageable);
 
+    @Query("SELECT o from Orders o WHERE o.orderID=?1 and o.user=?2")
+    Optional<Orders> checkOrderOfUser(Long id,Users users);
+    @Query("SELECT o from Orders o WHERE o.orderID=?1 and o.partner=?2")
+    Optional<Orders> checkOrderOfPartner(Long id,Partners partners);
 }

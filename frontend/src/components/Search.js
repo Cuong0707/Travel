@@ -6,8 +6,6 @@ import HotelInfo from "./Card/hoteInfo";
 const Search = () => {
     const location = useLocation();
     const searchResults = location.state && location.state.searchResults;
-
-    console.log(searchResults);
     return (
 
         <div className="container">

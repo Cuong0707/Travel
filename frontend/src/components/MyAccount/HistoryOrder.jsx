@@ -101,7 +101,7 @@ export default function HistoryOrder() {
                                         <th scope="col">Loại Dịch Vụ</th>
                                         <th scope="col">Tên Dịch Vụ</th>
                                         <th scope="col">Địa Chỉ</th>
-                                        <th scope="col">Giá Tiền</th>
+                                        <th scope="col">Phương thức thanh toán</th>
                                         <th scope="col">Thời Gian</th>
                                         <th scope="col">Chi Tiết</th>
                                     </tr>
@@ -110,10 +110,10 @@ export default function HistoryOrder() {
                                     <tr>
                                         <th scope="row">1</th>
                                         <td>Khách Sạn</td>
-                                        <td>Muong Thanh Holiday Muine Hotel</td>
-                                        <td>54 Huynh Thuc Khang, Mũi Né, Việt Nam</td>
-                                        <td>1.000.000 VNĐ</td>
-                                        <td>2/9/2023</td>
+                                        <td>name_of_hotel</td>
+                                        <td>address</td>
+                                        <td>paymentMethod</td>
+                                        <td>check_in_date</td>
                                         <td className="text-center">
                                             <Link to="detail"><button className="btn text-info" onClick={handleShow}><ArrowForwardIcon /></button></Link>
                                             <Modal size="lg" show={show} onHide={handleClose}>
@@ -121,31 +121,12 @@ export default function HistoryOrder() {
                                             </Modal>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Khách Sạn</td>
-                                        <td>Winsuites Saigon</td>
-                                        <td>28 Le Lai, Quận 1, Hồ Chí Minh, Việt Nam</td>
-                                        <td>800.000 VNĐ</td>
-                                        <td>20/11/2023</td>
-                                        <td className="text-center"><button className="btn text-info"><ArrowForwardIcon /></button></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Khách Sạn</td>
-                                        <td>The Hotel NicecyOpens in new window</td>
-                                        <td>271 Lê Thánh Tôn, Quận 1, Hồ Chí Minh, Việt Nam</td>
-                                        <td>1.200.000 VNĐ</td>
-                                        <td>1/5/2023</td>
-                                        <td className="text-center"><button className="btn text-info"><ArrowForwardIcon /></button></td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </Box>
             </Box>
-
         </div>
     )
 }

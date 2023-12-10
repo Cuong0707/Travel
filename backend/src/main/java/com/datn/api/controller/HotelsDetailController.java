@@ -16,38 +16,45 @@ import org.springframework.web.bind.annotation.RestController;
 import com.datn.api.entity.dto.HotelDetailsRequest;
 import com.datn.api.exceptions.ApiResponse;
 import com.datn.api.services.HotelDetailService;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/v1/hotels-detail")
 public class HotelsDetailController {
     @Autowired
     HotelDetailService hotelDetailService;
-    @GetMapping()
+    //checked
+    @GetMapping("")
     public ApiResponse<?> getAll(@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
                                  @RequestParam(value = "pageSize", defaultValue = "8", required = false) Integer pageSize,
                                  @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
                                  @RequestParam(value = "sortBy", defaultValue = "typeOfRoom", required = false) String sortBy){
         return ApiResponse.success(HttpStatus.OK, "success",hotelDetailService.getAllHotelDetail(pageNumber,pageSize,sortDir,sortBy));
     }
-
-	@PreAuthorize("hasAnyAuthority('partner','admin')")
+    //checked
     @GetMapping("/{id}")
     public ApiResponse<?>getOne(@PathVariable Long id){
-        return ApiResponse.success(HttpStatus.OK,"success",hotelDetailService.getOneHotelDetail(id));
+        return ApiResponse.success(HttpStatus.OK,"success",hotelDetailService.findHotelDetailById(id));
     }
-
-	@PreAuthorize("hasAnyAuthority('partner')")
-    @PostMapping()
+    //checked
+    @PostMapping("")
+    @PreAuthorize("hasAnyAuthority('partner','admin')")
     public ApiResponse<?> create(@RequestBody HotelDetailsRequest hotelDetailsRequest){
         return ApiResponse.success(HttpStatus.OK,"create success",hotelDetailService.createHotelsDetail(hotelDetailsRequest));
     }
-
+    //checked
 	@PreAuthorize("hasAnyAuthority('partner','admin')")
-    @PutMapping()
-    public ApiResponse<?> update(@RequestBody HotelDetailsRequest hotelDetailsRequest){
-        return ApiResponse.success(HttpStatus.OK,"update success",hotelDetailService.updateHotelsDetail(hotelDetailsRequest));
+    @PutMapping("/{id}")
+    public ApiResponse<?> update( @PathVariable Long id,@RequestBody HotelDetailsRequest hotelDetailsRequest){
+        return ApiResponse.success(HttpStatus.OK,"update success",hotelDetailService.updateHotelsDetail(hotelDetailsRequest,id));
     }
-
+    //checked
+    @PreAuthorize("hasAnyAuthority('partner','admin')")
+    @PutMapping("/{id}/photo-of-room")
+    public ApiResponse<?> updatePhotoOfRoom(@PathVariable Long id, MultipartFile file){
+        return ApiResponse.success(HttpStatus.OK, "Update success", hotelDetailService.updatePhotoOfRoom(id,file));
+    }
+    //checked
 	@PreAuthorize("hasAnyAuthority('admin')")
 	@DeleteMapping("/{hotelDetailID}")
 	public ApiResponse<?> deleteHotelDetail(@PathVariable("hotelDetailID") Long hotelID) {

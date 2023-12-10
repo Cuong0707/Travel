@@ -27,22 +27,22 @@ public class DistrictController {
 	@GetMapping("/{provinceID}")
 	public ApiResponse<List<DistrictDto>> findDistrictByProvince(@PathVariable("provinceID") Long provinceID) {
 		List<DistrictDto> district = districtService.findByProvince(provinceID);
-		return ApiResponse.success(HttpStatus.OK, "sucesss", district);
+		return ApiResponse.success(HttpStatus.OK, "success", district);
 	}
 
 	@GetMapping("/search")
 	public ApiResponse<List<DistrictDto>> findDistrictByProvinceName(
 			@RequestParam(value = "q", defaultValue = "", required = false) String keywords) {
 		List<DistrictDto> district = districtService.findByProvinceName(keywords);
-		return ApiResponse.success(HttpStatus.OK, "sucesss", district);
+		return ApiResponse.success(HttpStatus.OK, "success", district);
 	}
 
 	@GetMapping("")
 	public ApiResponse<List<DistrictDto>> findDistrictByProvince()
 	{
 		List<DistrictDto> district = districtService.findAll();
-		System.out.println("Hello");
-		return ApiResponse.success(HttpStatus.OK, "sucesss", district);
+
+		return ApiResponse.success(HttpStatus.OK, "success", district);
 	}
 
 }

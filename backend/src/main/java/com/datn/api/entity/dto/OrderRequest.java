@@ -8,7 +8,6 @@ import lombok.Data;
 public class OrderRequest {
     private Long orderId;
     private String partnerId;
-    private String userId;
     private String paymentMethod;
     private String orderStatus;
     private List<OrdersOfHotelDto> ordersOfHotels;

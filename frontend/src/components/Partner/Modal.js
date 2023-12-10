@@ -26,58 +26,58 @@ function MyModal() {
                         {/* <input className="col-5" type="text" name="name" placeholder="Họ Và Tên" onChange={onInputChanged} /> */}
                         {/* <input className="col-5 ms-2" type="text" name="name" placeholder="Họ Và Tên" onChange={onInputChanged} required/> */}
                         <div className="col-md-4 mb-3">
-                            <label htmlFor="validationCustom01" className="form-label">Loại Phòng</label>
+                            <label htmlFor="validationCustom01" className="form-label">Loại phòng</label>
                             <input type="text" className="form-control" name="name" id="validationCustom01" required disabled />
                         </div>
                         <div className="col-md-4">
-                            <label htmlFor="validationCustom02" className="form-label">Diện Tích Phòng</label>
+                            <label htmlFor="validationCustom02" className="form-label">Diện tích phòng</label>
                             <input type="text" className="form-control"
                                 id="validationCustom02" required
                                 name="name" />
                         </div>
                         <div className="col-md-4 mb-3">
-                            <label htmlFor="validationCustom02" className="form-label">Số Lượng Phòng</label>
+                            <label htmlFor="validationCustom02" className="form-label">Số lượng phòng</label>
                             <input type="number" className="form-control"
                                 id="validationCustom02" required
                                 name="name" />
                         </div>
                         <div className="col-md-4">
-                            <label htmlFor="validationCustom02" className="form-label">Loại Giường</label>
+                            <label htmlFor="validationCustom02" className="form-label">Loại giường</label>
                             <input type="text" className="form-control"
                                 id="validationCustom02" required
                                 name="name" />
                         </div>
                         <div className="col-md-4">
-                            <label htmlFor="validationCustom05" className="form-label">Kích Thước Giường</label>
+                            <label htmlFor="validationCustom05" className="form-label">Kích thước giường</label>
                             <input type="number" className="form-control"
                                 id="validationCustom05" required
                                 name="name" />
                         </div>
 
                         <div className="col-md-4 mb-3">
-                            <label htmlFor="validationCustom05" className="form-label">Giá Phòng</label>
+                            <label htmlFor="validationCustom05" className="form-label">Giá phòng</label>
                             <input type="number" className="form-control"
                                 id="validationCustom05" required
                                 name="name" />
                         </div>
                         <div className="col-md-6">
-                            <label htmlFor="validationCustom05" className="form-label">Điểm Nổi Bật</label>
+                            <label htmlFor="validationCustom05" className="form-label">Điểm nổi bật</label>
                             <input type="text" className="form-control"
                                 id="validationCustom05" required
                                 name="name" />
                         </div>
                         <div className="mb-3 col-md-6">
-                            <label htmlFor="formFile" className="form-label">Hình Ảnh Phòng</label>
+                            <label htmlFor="formFile" className="form-label">Hình ảnh phòng</label>
                             <input className="form-control" type="file" id="formFile" />
                         </div>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Đóng
+                        Huỷ
                     </Button>
                     <Button variant="primary" onClick={handleClose}>
-                        Xác Nhận
+                        Xác nhận
                     </Button>
                 </Modal.Footer>
             </Modal>

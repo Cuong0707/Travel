@@ -1,6 +1,7 @@
 package com.datn.api.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,13 +20,13 @@ import jakarta.transaction.Transactional;
 public interface HotelsRepository extends JpaRepository<Hotels, Long> {
 
 	@Query("select o from  Hotels o where o.partner=?1 and o.isDelete=false ")
-	List<Hotels> findHotelsByPartner(Partners partners);
+	Optional<Hotels> findHotelsByPartner(Partners partners);
 
 	@Query("select h from Hotels h where h.status = 'Available' and h.isDelete = false and h.standard like %?1")
 	List<Hotels> findByStandard(String standard);
 
 	@Query("select h from Hotels h where h.status = 'Available' and h.isDelete = false and (h.nameOfHotel like %?1% or h.description like %?1%)")
-	Page<Hotels> findHotelByKeyword(String userID, Pageable pageable);
+	Page<Hotels> findHotelByKeyword(String keywords, Pageable pageable);
 
 	@Modifying
 	@Transactional
@@ -44,8 +45,9 @@ public interface HotelsRepository extends JpaRepository<Hotels, Long> {
 
 
 	@Query("select o from  Hotels o where  o.isDelete=false and o.partner=?1")
-	Page<Hotels> findByPartner(Partners partners, Pageable pageable);
+	Optional<Hotels> findByPartner(Partners partners);
 
-
+	@Query("select o from Hotels o where  o.isDelete=false and o.hotel_ID=?1 and o.partner=?2")
+	Hotels checkHotelOfPartner(Long id,Partners partners);
 
 }

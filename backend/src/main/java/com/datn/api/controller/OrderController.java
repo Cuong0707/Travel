@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.datn.api.entity.dto.OrderRequest;
+import com.datn.api.entity.dto.OrderResponse;
 import com.datn.api.entity.dto.UpdateOrderRequest;
 import com.datn.api.exceptions.ApiResponse;
 import com.datn.api.services.OrdersService;
@@ -24,58 +25,59 @@ public class OrderController {
 
     @Autowired
     OrdersService ordersService;
-
-    @GetMapping()
-	@PreAuthorize("hasAnyAuthority('admin')")
-    public ApiResponse<?> getAll(@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-                                 @RequestParam(value = "pageSize", defaultValue = "8", required = false) Integer pageSize,
-                                 @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
-                                 @RequestParam(value = "sortBy", defaultValue = "orderDate", required = false) String sortBy)
-    {
-
-        return ApiResponse.success(HttpStatus.OK,"success",ordersService.getAllOrder(pageNumber,pageSize,sortDir,sortBy));
-    }
+    //checked
     @GetMapping("/{id}")
     public ApiResponse<?> getOne(@PathVariable Long id)
     {
         return ApiResponse.success(HttpStatus.OK,"success",ordersService.getOneOrder(id));
     }
-    @GetMapping("/users/{id}")
-    public ApiResponse<?> getOrderOfUser(
-                                @PathVariable String id,
+    //checked
+    @GetMapping("/users")
+	public ApiResponse<OrderResponse> getOrderOfUser(
                                 @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-                                 @RequestParam(value = "pageSize", defaultValue = "8", required = false) Integer pageSize,
-                                 @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
-                                 @RequestParam(value = "sortBy", defaultValue = "orderDate", required = false) String sortBy)
+                                @RequestParam(value = "pageSize", defaultValue = "8", required = false) Integer pageSize,
+                                @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
+			@RequestParam(value = "sortBy", defaultValue = "orderDate", required = false) String sortBy)
+			throws Exception
     {
-        return ApiResponse.success(HttpStatus.OK,"success",ordersService.getOrdersOfUser(id,pageNumber,pageSize,sortDir,sortBy));
+        return ApiResponse.success(HttpStatus.OK,"success",ordersService.getOrdersOfUser(pageNumber,pageSize,sortDir,sortBy));
     }
-
-	@PreAuthorize("hasAnyAuthority('partner','admin')")
-	@GetMapping("/users/{id}/partners")
-	public ApiResponse<?> getOrderOfPartner(@PathVariable String id,
+    //checked
+	@PreAuthorize("hasAnyAuthority('admin')")
+	@GetMapping("/partners/{id}")
+	public ApiResponse<?> getOrderOfPartnerForAdmin(@PathVariable String id,
 			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = "8", required = false) Integer pageSize,
 			@RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
 			@RequestParam(value = "sortBy", defaultValue = "orderDate", required = false) String sortBy) {
 		return ApiResponse.success(HttpStatus.OK, "success",
-				ordersService.getOrdersOfPartner(id, pageNumber, pageSize, sortDir, sortBy));
+				ordersService.getOrdersOfPartnerForAdmin(id, pageNumber, pageSize, sortDir, sortBy));
 	}
-
-
-    @PostMapping()
+    //checked
+    @PreAuthorize("hasAnyAuthority('partner')")
+    @GetMapping("/partners")
+    public ApiResponse<?> getOrderOfPartner(@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+                                            @RequestParam(value = "pageSize", defaultValue = "8", required = false) Integer pageSize,
+                                            @RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
+                                            @RequestParam(value = "sortBy", defaultValue = "orderDate", required = false) String sortBy) {
+        return ApiResponse.success(HttpStatus.OK, "success",
+                ordersService.getOrdersOfPartner( pageNumber, pageSize, sortDir, sortBy));
+    }
+    //checked
+    @PostMapping("")
     public ApiResponse<?> create(@RequestBody OrderRequest orderRequest){
         return ApiResponse.success(HttpStatus.OK,"success",ordersService.create(orderRequest));
     }
-    @PutMapping("/users")
-    public ApiResponse<?> updateForUser(@RequestBody UpdateOrderRequest updateOrderRequest){
-        return ApiResponse.success(HttpStatus.OK,"success",ordersService.updateForUser(updateOrderRequest));
+    //checked
+    @PutMapping("/{id}/users")
+    public ApiResponse<?> updateForUser(@PathVariable Long id,@RequestBody UpdateOrderRequest updateOrderRequest){
+        return ApiResponse.success(HttpStatus.OK,"success",ordersService.updateForUser(id,updateOrderRequest));
     }
-
+    //checked
     @PreAuthorize("hasAnyAuthority('partner','admin')")
-    @PutMapping("/partners")
-    public ApiResponse<?> updateForPartner(@RequestBody UpdateOrderRequest updateOrderRequest){
-        return ApiResponse.success(HttpStatus.OK,"success",ordersService.updateForPartner(updateOrderRequest));
+    @PutMapping("/{id}/partners")
+    public ApiResponse<?> updateForPartner(@PathVariable Long id,@RequestBody 	UpdateOrderRequest updateOrderRequest){
+        return ApiResponse.success(HttpStatus.OK,"success",ordersService.updateForPartner(id,updateOrderRequest));
     }
 
 }

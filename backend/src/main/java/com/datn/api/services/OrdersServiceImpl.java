@@ -3,6 +3,7 @@ package com.datn.api.services;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,15 +15,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
+import com.datn.api.entity.HotelDetails;
 import com.datn.api.entity.Orders;
 import com.datn.api.entity.OrdersOfHotel;
 import com.datn.api.entity.Partners;
 import com.datn.api.entity.Users;
+import com.datn.api.entity.dto.HotelDto;
 import com.datn.api.entity.dto.OrderDto;
 import com.datn.api.entity.dto.OrderRequest;
 import com.datn.api.entity.dto.OrderResponse;
+import com.datn.api.entity.dto.OrdersOfUserResponse;
 import com.datn.api.entity.dto.UpdateOrderRequest;
 import com.datn.api.enums.OrderStatus;
+import com.datn.api.exceptions.DuplicateRecordException;
+import com.datn.api.exceptions.NotFoundException;
 import com.datn.api.repository.HotelsDetailsRepository;
 import com.datn.api.repository.HotelsRepository;
 import com.datn.api.repository.OrdersOfHotelRepository;
@@ -42,14 +48,19 @@ public class OrdersServiceImpl implements OrdersService{
 
     @Autowired
     PartnerRepository partnerRepository;
+    @Autowired
+    PartnerService partnerService;
 
     @Autowired
     OrdersOfHotelRepository ordersOfHotelRepository;
-
+    @Autowired
+    HotelDetailService hotelDetailService;
 
     @Autowired
     HotelsRepository hotelsRepository;
 
+	@Autowired
+	HotelService hotelService;
     private Double sum=0D;
     @Autowired
     private HotelsDetailsRepository hotelsDetailsRepository;
@@ -58,59 +69,55 @@ public class OrdersServiceImpl implements OrdersService{
     public Orders create(OrderRequest orderRequest){
         try{
             Orders orders = new Orders();
-            System.out.println(orderRequest.getPartnerId());
-            System.out.println(orderRequest.getUserId());
-            Partners partners=partnerRepository.findById(orderRequest.getPartnerId()).get();
-            Users users = usersRepository.findById(orderRequest.getUserId()).get();
+            Partners partners=partnerService.findPartnerById(orderRequest.getPartnerId());
+            Users users = UserCurrent.get();
             orders.setUser(users);
             orders.setPartner(partners);
             orders.setPaymentMethod(orderRequest.getPaymentMethod());
             orders.setOrderDate(LocalDateTime.now());
             orders.setStatus(OrderStatus.pending);
-            System.out.println(orders.toString());
             Orders ordersSaved = ordersRepository.save(orders);
             System.out.println(ordersSaved.getOrderID());
             OrdersOfHotel ordersOfHotel = new OrdersOfHotel();
             orderRequest.getOrdersOfHotels().forEach(item->{
+                HotelDetails hotelDetails= hotelDetailService.findHotelDetailById(item.getHotelDetailId());
                 ordersOfHotel.setAmountOfRoom(item.getAmountOfRoom());
                 ordersOfHotel.setCheckInDate(item.getCheckInDate());
                 ordersOfHotel.setLengthOfStay(item.getLengthOfStay());
                 ordersOfHotel.setNumberOfChildren(item.getNumberOfChildren());
                 ordersOfHotel.setNumberOfPeople(item.getNumberOfPeople());
-                ordersOfHotel.setOriginalPrice(item.getOriginalPrice());
-                ordersOfHotel.setPromotionPrice(item.getPromotionPrice());
+                ordersOfHotel.setOriginalPrice(hotelDetails.getPriceOfRoom());
+
                 ordersOfHotel.setOrders(ordersSaved);
-                ordersOfHotel.setHotelDetails(hotelsDetailsRepository.findById(item.getHotelDetailId()).get());
+                ordersOfHotel.setHotelDetails(hotelDetails);
                 ordersOfHotelRepository.save(ordersOfHotel);
 
             });
             return ordersRepository.findById(ordersSaved.getOrderID()).get();
         }catch (Exception e){
-            throw new RuntimeException(e.getMessage());
+            System.out.println(e.getMessage());
+            throw new DuplicateRecordException("Creat error");
         }
 
     }
 
 
     @Override
-    public Orders updateForUser(UpdateOrderRequest request) {
-        Orders orders = ordersRepository.findById(request.getOrderId()).orElseThrow();
+    public Orders updateForUser(Long id, UpdateOrderRequest request) {
+        Orders orders =checkOrderOfUser (id,UserCurrent.get());
         if (orders.getStatus().equals(OrderStatus.pending)) {
             if (request.getStatus().equals("canceled")) {
                 orders.setStatus(OrderStatus.canceled);
-            } else {
-                throw new RuntimeException("User can only update order with status canceled");
             }
             return ordersRepository.save(orders);
         }
-        throw new RuntimeException("User cannot update status while status is not pending");
+        throw new DuplicateRecordException("User can not update status while status is not pending");
     }
     @Override
-    public Orders updateForPartner(UpdateOrderRequest request) {
-        Orders orders = ordersRepository.findById(request.getOrderId()).orElseThrow();
-
+    public Orders updateForPartner(Long id, UpdateOrderRequest request) {
+        Orders orders =checkOrderOfPartner (id,partnerService.findPartnerByUser(UserCurrent.get()));
         if (orders.getStatus().equals(OrderStatus.completed)) {
-            throw new RuntimeException("Partner cannot update status while status is completed");
+            throw new DuplicateRecordException("Partner cannot update status while status is completed");
         }
         if (request.getStatus().equals("confirmed")) {
             orders.setStatus(OrderStatus.confirmed);
@@ -119,7 +126,7 @@ public class OrdersServiceImpl implements OrdersService{
         } else if (request.getStatus().equals("canceled")) {
             orders.setStatus(OrderStatus.canceled);
         } else {
-            throw new IllegalArgumentException("Invalid order status: " + request.getStatus());
+            throw new DuplicateRecordException("Invalid order status: " + request.getStatus());
         }
         return ordersRepository.save(orders);
     }
@@ -127,9 +134,9 @@ public class OrdersServiceImpl implements OrdersService{
     public OrderDto getOneOrder(Long id){
         Optional<Orders> orders = ordersRepository.findById(id);
         if(orders.isPresent()){
-            return hotelDetailDto(orders.get());
+			return orderDto(orders.get());
         }
-        throw new RuntimeException("Not found order with Id"+id);
+        throw new NotFoundException("Not found order with Id"+id);
     }
     @Override
     public OrderResponse getAllOrder(Integer pageNumber, Integer pageSize, String sortDir, String sortBy){
@@ -139,12 +146,20 @@ public class OrdersServiceImpl implements OrdersService{
 
         Page<Orders> orders = ordersRepository.findAll(pageable);
 
-        List<Orders> ordersList = orders.getContent();
+		List<OrdersOfUserResponse> ordersOfUserResponseList = new ArrayList<>();
 
-        List<OrderDto> content = ordersList.stream().map(this::hotelDetailDto).toList();
+		orders.getContent().forEach(order -> {
+			HotelDto hotelDto = hotelService.findByPartner(order.getPartner().getPartnerId());
+			OrdersOfUserResponse ordersOfUserResponse = new OrdersOfUserResponse();
+			ordersOfUserResponse.setOrder(orderDto(order));
+			ordersOfUserResponse.setService(order.getPartner().getServices().getService());
+			ordersOfUserResponse.setHotelName(hotelDto.getNameOfHotel());
+			ordersOfUserResponse.setHotelAddress(hotelDto.getAddress());
+			ordersOfUserResponseList.add(ordersOfUserResponse);
+		});
 
         OrderResponse orderResponse = new OrderResponse();
-        orderResponse.setContent(content);
+		orderResponse.setContent(ordersOfUserResponseList);
         orderResponse.setPageNumber(orders.getNumber());
         orderResponse.setPageSize(orders.getSize());
         orderResponse.setTotalElements(orders.getTotalElements());
@@ -153,47 +168,64 @@ public class OrdersServiceImpl implements OrdersService{
         return orderResponse;
     }
     @Override
-    public OrderResponse getOrdersOfUser(String id, Integer pageNumber, Integer pageSize, String sortDir, String sortBy){
-        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
-                : Sort.by(sortBy).descending();
-        Pageable pageable = PageRequest.of(pageNumber, pageSize,sort);
-        Users users = usersRepository.findById(id).orElseThrow();
-        Page<Orders> orders = ordersRepository.getAllByUser(users,pageable);
+	public OrderResponse getOrdersOfUser(Integer pageNumber, Integer pageSize, String sortDir, String sortBy)
+			throws Exception {
+		try {
+			Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+					: Sort.by(sortBy).descending();
+			Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+			Users users = UserCurrent.get();
+			Page<Orders> orders = ordersRepository.getAllByUser(users, pageable);
+			List<OrdersOfUserResponse> ordersOfUserResponseList = new ArrayList<>();
 
-        List<Orders> ordersList = orders.getContent();
-
-
-        List<OrderDto> content = ordersList.stream().map(this::hotelDetailDto).toList();
-
-        OrderResponse orderResponse = new OrderResponse();
-        orderResponse.setContent(content);
-        orderResponse.setPageNumber(orders.getNumber());
-        orderResponse.setPageSize(orders.getSize());
-        orderResponse.setTotalElements(orders.getTotalElements());
-        orderResponse.setTotalPages(orders.getTotalPages());
-        orderResponse.setLastPage(orders.isLast());
-        return orderResponse;
+			orders.getContent().forEach(order -> {
+				HotelDto hotelDto = hotelService.findByPartner(order.getPartner().getPartnerId());
+				OrdersOfUserResponse ordersOfUserResponse = new OrdersOfUserResponse();
+				ordersOfUserResponse.setOrder(orderDto(order));
+				ordersOfUserResponse.setService(order.getPartner().getServices().getService());
+				ordersOfUserResponse.setHotelName(hotelDto.getNameOfHotel());
+				ordersOfUserResponse.setHotelAddress(hotelDto.getAddress());
+				ordersOfUserResponseList.add(ordersOfUserResponse);
+			});
+			OrderResponse orderResponse = new OrderResponse();
+			orderResponse.setContent(ordersOfUserResponseList);
+			orderResponse.setPageNumber(orders.getNumber());
+			orderResponse.setPageSize(orders.getSize());
+			orderResponse.setTotalElements(orders.getTotalElements());
+			orderResponse.setTotalPages(orders.getTotalPages());
+			orderResponse.setLastPage(orders.isLast());
+			return orderResponse;
+		} catch (Exception e) {
+			System.out.println(e.getMessage() + "HELLO");
+			throw new Exception(e.getMessage());
+		}
     }
 
 
 	@Override
-	public OrderResponse getOrdersOfPartner(String id, Integer pageNumber, Integer pageSize, String sortDir,
-			String sortBy) {
+	public OrderResponse getOrdersOfPartner(Integer pageNumber, Integer pageSize, String sortDir,
+                                            String sortBy) {
+        Partners partners =partnerService.findPartnerByUser(UserCurrent.get());
 		Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
 				: Sort.by(sortBy).descending();
 		Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
-		// Users users = usersRepository.findById(id).orElseThrow();
-		Partners partners = partnerRepository.findPartnerByUserID(id).orElseThrow();
 
-		// Page<Orders> orders = ordersRepository.getAllByUser(users,pageable);
 		Page<Orders> orders = ordersRepository.getOrdersByPartner(partners, pageable);
 
-		List<Orders> ordersList = orders.getContent();
+		List<OrdersOfUserResponse> ordersOfUserResponseList = new ArrayList<>();
 
-		List<OrderDto> content = ordersList.stream().map(this::hotelDetailDto).toList();
+		orders.getContent().forEach(order -> {
+			HotelDto hotelDto = hotelService.findByPartner(order.getPartner().getPartnerId());
+			OrdersOfUserResponse ordersOfUserResponse = new OrdersOfUserResponse();
+			ordersOfUserResponse.setOrder(orderDto(order));
+			ordersOfUserResponse.setService(order.getPartner().getServices().getService());
+			ordersOfUserResponse.setHotelName(hotelDto.getNameOfHotel());
+			ordersOfUserResponse.setHotelAddress(hotelDto.getAddress());
+			ordersOfUserResponseList.add(ordersOfUserResponse);
+		});
 
 		OrderResponse orderResponse = new OrderResponse();
-		orderResponse.setContent(content);
+		orderResponse.setContent(ordersOfUserResponseList);
 		orderResponse.setPageNumber(orders.getNumber());
 		orderResponse.setPageSize(orders.getSize());
 		orderResponse.setTotalElements(orders.getTotalElements());
@@ -202,22 +234,64 @@ public class OrdersServiceImpl implements OrdersService{
 		return orderResponse;
 	}
 
+    @Override
+    public OrderResponse getOrdersOfPartnerForAdmin(String id, Integer pageNumber, Integer pageSize, String sortDir,
+                                                    String sortBy) {
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
+                : Sort.by(sortBy).descending();
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+        Partners partners = partnerRepository.findPartnerByUserID(id).orElseThrow(()->new NotFoundException("Not fond partner with userId "+id));
 
-    public OrderDto hotelDetailDto(Orders orders) {
+        Page<Orders> orders = ordersRepository.getOrdersByPartner(partners, pageable);
+
+		List<OrdersOfUserResponse> ordersOfUserResponseList = new ArrayList<>();
+
+		orders.getContent().forEach(order -> {
+			HotelDto hotelDto = hotelService.findByPartner(order.getPartner().getPartnerId());
+			OrdersOfUserResponse ordersOfUserResponse = new OrdersOfUserResponse();
+			ordersOfUserResponse.setOrder(orderDto(order));
+			ordersOfUserResponse.setService(order.getPartner().getServices().getService());
+			ordersOfUserResponse.setHotelName(hotelDto.getNameOfHotel());
+			ordersOfUserResponse.setHotelAddress(hotelDto.getAddress());
+			ordersOfUserResponseList.add(ordersOfUserResponse);
+		});
+
+        OrderResponse orderResponse = new OrderResponse();
+		orderResponse.setContent(ordersOfUserResponseList);
+        orderResponse.setPageNumber(orders.getNumber());
+        orderResponse.setPageSize(orders.getSize());
+        orderResponse.setTotalElements(orders.getTotalElements());
+        orderResponse.setTotalPages(orders.getTotalPages());
+        orderResponse.setLastPage(orders.isLast());
+        return orderResponse;
+    }
+
+	public OrderDto orderDto(Orders orders) {
         OrderDto orderDto = modelMapper.map(orders, OrderDto.class);
         orderDto.setPartnerID(orders.getPartner().getPartnerId());
         orderDto.setUserID(orders.getUser().getUserID());
         List<OrdersOfHotel> ordersOfHotels = ordersOfHotelRepository.findOrdersOfHotelByOrders(orders);
         ordersOfHotels.forEach(orderOfHotel -> {
             if(orderOfHotel.getPromotionPrice()==null){
-                sum+=orderOfHotel.getOriginalPrice()*orderOfHotel.getLengthOfStay();
+                sum+=orderOfHotel.getOriginalPrice()*orderOfHotel.getLengthOfStay()*orderOfHotel.getAmountOfRoom();
             }else {
-                sum+=orderOfHotel.getPromotionPrice()*orderOfHotel.getLengthOfStay();
+                sum+=orderOfHotel.getPromotionPrice()*orderOfHotel.getLengthOfStay()*orderOfHotel.getAmountOfRoom();
             }
         });
         orderDto.setTotalPrice(sum);
         return orderDto;
     }
 
-
+    @Override
+    public Orders findOrdersById(Long id){
+        return ordersRepository.findById(id).orElseThrow(()-> new NotFoundException("Not found order with id "+id));
+    }
+    @Override
+    public Orders checkOrderOfUser(Long id, Users users){
+        return ordersRepository.checkOrderOfUser(id,users).orElseThrow(()-> new NotFoundException("Not found order with id "+id+" of user "+users.getUserID()));
+    }
+    @Override
+    public Orders checkOrderOfPartner(Long id, Partners partners){
+        return ordersRepository.checkOrderOfPartner(id,partners).orElseThrow(()-> new NotFoundException("Not found order with id "+id+" of partner"+partners.getPartnerId()));
+    }
 }

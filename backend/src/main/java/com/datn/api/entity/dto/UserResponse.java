@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserResponse {
-	private List<PartnersDto> data;
+	private List<UsersDto> data;
 	private int pageNumber;
 	private int pageSize;
 	private long totalElements;

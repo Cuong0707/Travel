@@ -19,6 +19,8 @@ import com.datn.api.entity.Users;
 public interface PartnerRepository extends JpaRepository<Partners, String> {
     Optional<Partners> findByEmail(String email);
 
+    Optional<Partners> findByUser(Users user);
+
 	@Query("select p from Partners p where p.user.userID=?1")
 	Optional<Partners> findPartnerByUserID(String userID);
 

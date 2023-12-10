@@ -28,7 +28,6 @@ import axios from 'axios';
 
 const LoadListHotel = async (id) => {
     try {
-        console.log(id);
         const response = await axios.get(`http://localhost:8080/api/v1/hotels/provinces/${id}`);
         return response.data;
     } catch (error) {

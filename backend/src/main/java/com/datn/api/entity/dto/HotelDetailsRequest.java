@@ -1,11 +1,10 @@
 package com.datn.api.entity.dto;
 
+import com.datn.api.enums.HotelDetailStatus;
 import lombok.Data;
 
 @Data
 public class HotelDetailsRequest {
-
-    private Long hotelDetailID;
 
     private Long hotelId;
 
@@ -20,6 +19,8 @@ public class HotelDetailsRequest {
 	private String sizeOfBed;
 
     private String highlights;
+
+    private HotelDetailStatus status;
 
 	private double priceOfRoom;
 

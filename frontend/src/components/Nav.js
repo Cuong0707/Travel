@@ -1,74 +1,57 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link, useNavigate  } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import ScrollToTop from '../Services/ScrollToTop';
 import DarkModeToggle from "../Services/DarkModeToggle";
-import { AuthContext } from '../context/auth-context';
-import { LoadListProvince } from "./LoadData/LoadListProvince";
-import { LoadListHotel } from "./LoadData/LoadListHotel";
+import useAppContext from "../hook/useAppContext";
+import { clearLS } from "../utils/auth.utils";
+import { useQuery } from "react-query";
+import addressApi from "../api/address.api";
+import HeaderListRegion from "./HeaderListRegion";
 const Nav = () => {
-    const { user, logout } = useContext(AuthContext);
-    const token = user ? user.token : null;
-    const [isLoggedIn, setIsLoggedIn] = useState(!!token);
+    const { profile, isAuthenticated, reset } = useAppContext()
     const navigate = useNavigate();
-    const [fullname, setFullname] = useState('');
-
     const [inputValue, setInputValue] = useState('');
-    const [provinceList, setProvinceList] = useState([]);
-    const [selectedProvince, setSelectedProvince] = useState('');
-    useEffect(() => {
-        fetchData();
-    }, []);
 
-    const fetchData = async () => {
-        try {
-            const data = await LoadListProvince();
-            setProvinceList(data || []);
-        }
-        catch (error) {
-            console.error('Error fetching hotel list:', error);
-        }
-    };
-    useEffect(() => {
-        if (user) {
-            setIsLoggedIn(true);
-            // Lấy dữ liệu từ local storage
-            const userInfo = JSON.parse(localStorage.getItem('infoUser'));
-            setFullname(userInfo.fullname);
-        }
-    }, [user]);
+
     const handleInputChange = (event) => {
-        const value = event.target.value;
-        setInputValue(value);
+        // const value = event.target.value;
+        // setInputValue(value);
 
-        const selected = provinceList.find(
-            (province) => province.nameOfProvince === value
-        );
+        // const selected = provinceList.find(
+        //     (province) => province.nameOfProvince === value
+        // );
 
-        if (selected) {
+        // if (selected) {
 
-            setSelectedProvince(selected.provinceID);
-        } else {
-            setSelectedProvince('');
-        }
+        //     setSelectedProvince(selected.provinceID);
+        // } else {
+        //     setSelectedProvince('');
+        // }
     };
     const handleLogout = () => {
-        logout();
-        setIsLoggedIn(false);
-        navigate('/');
+        reset();
+        navigate("/login");
+        clearLS();
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-            try {
-            console.log(selectedProvince);   
-            const datahotel = await LoadListHotel(selectedProvince);
-            console.log(datahotel.data.content);
-            navigate('/search', { state: { searchResults: datahotel.data.content } });
+        try {
+            // const datahotel = await LoadListHotel(selectedProvince);
+            // navigate('/search', { state: { searchResults: datahotel.data.content } });
             // window.location.href = '/';
-          } catch (error) {
+        } catch (error) {
             console.error("fill list hotel fail :" + error);
-          }
-      };
+        }
+    };
+
+    const fetchAllProvice = useQuery({
+        queryKey: ['getALlProvince'],
+        queryFn: () => {
+            return addressApi.getALlProvince();
+        }
+    });
+
     return (
         <div className="fixed-top shadow" style={{ backgroundColor: "var(--green-50)" }}>
             <nav className="navbar navbar-expand-lg">
@@ -87,293 +70,7 @@ const Nav = () => {
                                     data-mdb-toggle="dropdown" aria-expanded="false">
                                     <img src="images/icon-destination.gif" alt="icon-destination"></img> Điểm Đến
                                 </Link>
-                                <ul className="dropdown-menu " aria-labelledby="navbarDropdownMenuLink">
-                                    <li>
-                                        <Link className="dropdown-item h6">
-                                            Miền Bắc &raquo;
-                                        </Link>
-                                        <ul className="dropdown-menu dropdown-submenu">
-                                            <li>
-                                                <Link className="dropdown-item h6">Đồng Bằng Sông Hồng &raquo; </Link>
-                                                <ul className="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Hà Nội <span className="badge rounded-pill bg-danger">Hot</span></Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Bắc Ninh</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Hà Nam</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Hải Dương</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Hưng Yên</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Hải Phòng</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Nam Định</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Ninh Bình</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Thái Bình</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Vĩnh Phúc</Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <Link className="dropdown-item h6">Tây Bắc Bộ &raquo; </Link>
-                                                <ul className="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Lào Cai</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Yên Bái</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Lào Cai</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Điện Biên</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Hòa Bình</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Lai Châu</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Sơn La</Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <Link className="dropdown-item">Đông Bắc Bộ &raquo; </Link>
-                                                <ul className="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Hà Giang</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Cao Bằng</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Bắc Kạn</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Lạng Sơn</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Tuyên Quang</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Thái Nguyên</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Phú Thọ</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Bắc Giang</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Quảng Ninh</Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <Link className="dropdown-item h6">
-                                            Miền Nam &raquo;
-                                        </Link>
-                                        <ul className="dropdown-menu dropdown-submenu">
-                                            <li>
-                                                <Link className="dropdown-item h6">Đông Nam Bộ &raquo; </Link>
-                                                <ul className="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Hồ Chí Minh <span className="badge rounded-pill bg-danger">Hot</span></Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Bình Phước</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Bình Dương</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Đồng Nai</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Tây Ninh</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Bà Rịa-Vũng Tàu</Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <Link className="dropdown-item h6">Tây Nam Bộ &raquo; </Link>
-                                                <ul className="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Cần Thơ</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Long An</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Đồng Tháp</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Tiền Giang</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">An Giang</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Bến Tre</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Vĩnh Long</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Trà Vinh</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Hậu Giang</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Kiên Giang</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Sóc Trăng</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Bạc Liêu</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Cà Mau</Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <Link className="dropdown-item">Đông Bắc Bộ &raquo; </Link>
-                                                <ul className="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Hà Giang</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Cao Bằng</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Bắc Kạn</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Lạng Sơn</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Tuyên Quang</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Thái Nguyên</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Phú Thọ</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Bắc Giang</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Quảng Ninh</Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <Link className="dropdown-item h6">
-                                            Miền Trung &raquo;
-                                        </Link>
-                                        <ul className="dropdown-menu dropdown-submenu">
-                                            <li>
-                                                <Link className="dropdown-item h6">Bắc Trung Bộ &raquo; </Link>
-                                                <ul className="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Thừa Thiên-Huế <span className="badge rounded-pill bg-danger">Hot</span></Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Thanh Hoá</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Nghệ An</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Hà Tĩnh</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Quảng Bình</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Quảng Trị</Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <Link className="dropdown-item h6">Nam Trung Bộ &raquo; </Link>
-                                                <ul className="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Đà Nẵng <span className="badge rounded-pill bg-danger">Hot</span></Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Quảng Nam</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Quảng Ngãi</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Bình Định</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Phú Yên</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Khánh Hoà</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Ninh Thuận</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Bình Thuận</Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <Link className="dropdown-item">Tây Nguyên &raquo; </Link>
-                                                <ul className="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Kon Tum</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Gia Lai</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Đắk Lắk</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Đắc Nông</Link>
-                                                    </li>
-                                                    <li>
-                                                        <Link className="dropdown-item" to="#">Lâm Đồng</Link>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                                <HeaderListRegion />
                             </li>
 
 
@@ -401,28 +98,22 @@ const Nav = () => {
 
                                 <input value={inputValue} onChange={handleInputChange} className="form-control me-2 col-ms-12" list="datalistOptions" id="exampleDataList" placeholder="Chọn Tỉnh, TP Muốn Tìm.." style={{ width: "350px" }} />
                                 <datalist id="datalistOptions">
-                                    {provinceList.map((province, index) => (
-                                        <option key={index} value={province.nameOfProvince}>
-                                        </option>
-                                    ))}
+                                    {fetchAllProvice?.data?.data?.map((province) => {
+                                        return <option key={province.provinceID}>{province.nameOfProvince}</option>
+                                    })}
                                 </datalist>
                                 <ScrollToTop><button className="btn btn-success" type="submit"><i className="bi bi-search"></i></button></ScrollToTop>
                             </form>
                             <li className="nav-item">
                                 <ScrollToTop><Link className="nav-link" to="contact"> <img src="images/icon-contact.gif" alt="icon-contact" /> Liên Hệ</Link></ScrollToTop>
                             </li>
-                            {isLoggedIn ? (
-                                <>
-                                    <li className="nav-item">
-                                        <Link className="nav-link" to="partner">
-                                            <img src="images/icon-partner.gif" alt="icon-partner"></img> Trở Thành Đối Tác
-                                        </Link>
-                                    </li>
-                                </>
-                            ) : (
-                                <>
-                                </>
-                            )}
+                            {isAuthenticated &&
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/partner">
+                                        <img src="images/icon-partner.gif" alt="icon-partner"></img> Trở Thành Đối Tác
+                                    </Link>
+                                </li>
+                            }
                             <li className="nav-item dropdown">
                                 <Link
                                     to="#"
@@ -432,10 +123,10 @@ const Nav = () => {
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
                                 >
-                                    <img src="images/icon-login1.gif" alt="icon-login" /> {isLoggedIn ? <span>{fullname}</span> : 'Đăng Nhập'}
+                                    <img src="images/icon-login1.gif" alt="icon-login" /> {isAuthenticated ? <span>{profile.fullname}</span> : 'Đăng Nhập'}
                                 </Link>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    {isLoggedIn ? (
+                                    {isAuthenticated ? (
                                         <>
                                             <ScrollToTop><li><Link className="dropdown-item" to="/my-account">Thông Tin Cá Nhân</Link></li></ScrollToTop>
                                             <ScrollToTop><li><Link className="dropdown-item" to="/change-password">Đổi Mật Khẩu</Link></li></ScrollToTop>

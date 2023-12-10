@@ -184,25 +184,6 @@ export default function ListUser() {
                       <ModalUser />
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Nguyễn Bạch Hồng Ân</td>
-                    <td>U001.jpg</td>
-                    <td>0433637710</td>
-                    <td>hongan@gmail.com</td>
-                    <td>2001-12-09 00:00:00</td>
-                    <td>Quận Gò Vấp</td>
-                    <td>2023-04-28 00:00:00</td>
-                    <td>2023-11-30 22:36:16</td>
-                    <td>active</td>
-                    <td>user</td>
-                    <td>
-                      <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-                        <i className="bi bi-gear"></i>
-                        <ModalUser />
-                      </button>
-                    </td>
-                  </tr>
                 </tbody>
               </table>
             </div>

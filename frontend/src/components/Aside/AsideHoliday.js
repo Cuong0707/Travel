@@ -37,7 +37,6 @@ const AsideHoliday = () => {
         // imageSrc = "images/blackfriday.png";
         // imageAlt = "Ngày Hội";
         // imageTitle = "Ngày Hội";
-        console.log("Ngày Thường");
     }
 
     return (

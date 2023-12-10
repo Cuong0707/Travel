@@ -1,6 +1,7 @@
 package com.datn.api.entity.dto;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import com.datn.api.enums.Breakfast;
@@ -25,8 +26,8 @@ public class HotelDto {
 	private HotelStatus status;
 	private Breakfast breakfast;
 	private String serviceFee;
-	private LocalDateTime checkIn;
-	private LocalDateTime checkOut;
+	private LocalTime checkIn;
+	private LocalTime checkOut;
 	private String address;
 	private String description;
 	private String childrenPolicies;

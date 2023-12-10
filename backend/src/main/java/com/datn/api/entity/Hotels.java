@@ -1,6 +1,7 @@
 package com.datn.api.entity;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import com.datn.api.enums.Breakfast;
@@ -67,10 +68,10 @@ public class Hotels {
 	private String serviceFee;
 
 	@Column(name = "check_in", nullable = true)
-	private LocalDateTime checkIn;
+	private LocalTime checkIn;
 
 	@Column(name = "check_out", nullable = true)
-	private LocalDateTime checkOut;
+	private LocalTime checkOut;
 
 	@Column(name = "address", nullable = false)
 	private String address;

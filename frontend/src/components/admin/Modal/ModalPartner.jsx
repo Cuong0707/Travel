@@ -1,3 +1,4 @@
+import e from "cors";
 import React, { useState } from "react";
 
 const ModalPartner = () => {
@@ -234,5 +235,4 @@ const ModalPartner = () => {
         </div>
     )
 }
-
 export default ModalPartner;

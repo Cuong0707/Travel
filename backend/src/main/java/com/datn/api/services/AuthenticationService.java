@@ -33,6 +33,7 @@ import com.datn.api.repository.UsersRepository;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.var;
 
 @Service
 @RequiredArgsConstructor
@@ -98,10 +99,10 @@ public class AuthenticationService {
 				return ApiResponse.success(HttpStatus.OK, "Success", null);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
-				return ApiResponse.success(HttpStatus.BAD_REQUEST, "Bad Request", e.getMessage());
+				return ApiResponse.error(HttpStatus.BAD_REQUEST, "Bad Request", e.getMessage());
 			}
 		}
-		return ApiResponse.success(HttpStatus.FAILED_DEPENDENCY, "Email not found", null);
+		return ApiResponse.error(HttpStatus.FAILED_DEPENDENCY, "Email not found", null);
 	}
 
 	public ApiResponse<?> resetPassword(String token, String password) {
@@ -113,24 +114,22 @@ public class AuthenticationService {
 	}
 
 	// request.getEmail()
-	public AuthenticationResponse authenticate(AuthenticationRequest request) {
+	public AuthenticationResponse authenticate(AuthenticationRequest request)  {
 		try {
-			authenticationManager
-					.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-			var users = repository.findByEmailAndPasswordNotNull(request.getEmail())
+			var users = repository.findByEmail(request.getEmail())
 					.orElseThrow(() -> new NotFoundException("Email không tồn tại"));
+			if(!passwordEncoder.matches(request.getPassword(),users.getPassword())){
+				throw new DuplicateRecordException("Sai mật khẩu");
+			}
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 			users.setLastLogin(LocalDateTime.now());
-//			if (users.getStatus().equals(UserStatus.banned)) {
-//				throw new AccessDeniedException("banned account");
-//			}
 			String jwtToken = jwtService.generateToken(users);
 			users.setToken(jwtToken);
 			Users userSaved = repository.save(users);
 			return AuthenticationResponse.builder().infoUser(usersService.usersToDto(users)).token(jwtToken).build();
 		} catch (DuplicateRecordException ex) {
-			throw new DuplicateRecordException("Sai mật khẩu");
+			throw new DuplicateRecordException(ex.getMessage());
 		}
-
 	}
 
 	public AuthenticationResponse loginWithGoogle(ProfileGoogle profileGoogle) {
@@ -154,18 +153,18 @@ public class AuthenticationService {
 
 	public AuthenticationResponse changePassword(ChangePasswordRequest request) {
 		try {
-			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(request.getEmail(), request.getOldPassword()));
-			var users = repository.findByEmailAndPasswordNotNull(request.getEmail())
-					.orElseThrow(() -> new NotFoundException("Email không tồn tại"));
-			users.setPassword(passwordEncoder.encode(request.getNewPassword()));
-			String jwtToken = jwtService.generateToken(users);
-			Users userSaved = repository.save(users);
-			return AuthenticationResponse.builder().infoUser(usersService.usersToDto(users)).token(jwtToken).build();
+			var user = UserCurrent.get();
+			if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+				throw new DuplicateRecordException("Sai mật khẩu");
+			}
+			user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+			var userSaved = usersRepository.save(user);
+			var jwtToken = jwtService.generateToken(userSaved);
+			return AuthenticationResponse.builder().infoUser(usersService.usersToDto(userSaved)).token(jwtToken)
+					.build();
 		} catch (DuplicateRecordException ex) {
 			throw new DuplicateRecordException("Sai mật khẩu");
 		}
-
 	}
 
 

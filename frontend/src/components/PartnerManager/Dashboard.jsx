@@ -21,6 +21,7 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import ContactEmergencyIcon from '@mui/icons-material/ContactEmergency';
 import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
+import KingBedIcon from '@mui/icons-material/KingBed';
 import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 250;
@@ -132,7 +133,7 @@ export default function MyAccount() {
             component="div"
             style={{ padding: "5px" }}
           >
-            Trang Đối Tác
+            Trang đối tác
           </Typography>
         </Toolbar>
       </AppBar>
@@ -173,7 +174,38 @@ export default function MyAccount() {
                 <ContactEmergencyIcon />
               </ListItemIcon>
               <ListItemText
-                primary="Thông Tin Đối Tác"
+                primary="Thông tin đối tác"
+                sx={{ opacity: open ? 1 : 0 }}
+              />
+            </ListItemButton>
+          </ListItem>
+        </List>
+        <List>
+          <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            onClick={() => {
+              navigate("/partner/list-room");
+            }}
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 1,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minwidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+              >
+                <KingBedIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary="Quản lý phòng"
                 sx={{ opacity: open ? 1 : 0 }}
               />
             </ListItemButton>
@@ -204,7 +236,7 @@ export default function MyAccount() {
                 <ListAltIcon />
               </ListItemIcon>
               <ListItemText
-                primary="Đơn Hàng Đợi Duyệt"
+                primary="Đơn chờ duyệt"
                 sx={{ opacity: open ? 1 : 0 }}
               />
             </ListItemButton>
@@ -235,7 +267,7 @@ export default function MyAccount() {
                 <AssignmentTurnedInIcon />
               </ListItemIcon>
               <ListItemText
-                primary="Quản Lý Đơn Hàng"
+                primary="Quản lý đơn hàng"
                 sx={{ opacity: open ? 1 : 0 }}
               />
             </ListItemButton>
@@ -266,7 +298,7 @@ export default function MyAccount() {
                 <SignalCellularAltIcon />
               </ListItemIcon>
               <ListItemText
-                primary="View Page"
+                primary="View page"
                 sx={{ opacity: open ? 1 : 0 }}
               />
             </ListItemButton>
@@ -284,7 +316,7 @@ export default function MyAccount() {
                 minHeight: 48,
                 justifyContent: open ? "initial" : "center",
                 px: 1,
-                mt: 35,
+                mt: 25,
               }}
             >
               <ListItemIcon
@@ -297,7 +329,7 @@ export default function MyAccount() {
                 <InboxIcon />
               </ListItemIcon>
               <ListItemText
-                primary="Đăng Xuất"
+                primary="Đăng xuất"
                 sx={{ opacity: open ? 1 : 0 }}
               />
             </ListItemButton>

@@ -10,12 +10,13 @@ import Member from "./Member";
 import ArticleAds from "./Article/ArticleAds.js";
 import ReactTooltip from "react-tooltip";
 import ArticleMap from "./Article/ArticleMap.js";
+import useAppContext from "../hook/useAppContext.js";
 
 function Home() {
     useEffect(() => {
         Aos.init()
     }, [])
-
+    const { profile } = useAppContext()
     const [content, setContent] = useState("");
     const [name, setName] = useState("");
     return (

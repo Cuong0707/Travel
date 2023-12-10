@@ -56,7 +56,7 @@ export default function ListOrder() {
                     <th scope="col">Tên Khách Hàng</th>
                     <th scope="col">Tên Dịch Vụ</th>
                     <th scope="col">Địa chỉ</th>
-                    <th scope="col">Giá tiền</th>
+                    <th scope="col">Thanh toán</th>
                     <th scope="col">Thời gian</th>
                     <th scope="col">Action</th>
                   </tr>
@@ -68,31 +68,12 @@ export default function ListOrder() {
                     <td></td>
                     <td>Muong Thanh Holiday Muine Hotel</td>
                     <td>54 Huynh Thuc Khang, Mũi Né, Việt Nam</td>
-                    <td>2.100.000 VNĐ</td>
+                    <td>Visa</td>
                     <td>2/9/2023</td>
                     <td>
                       <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
                         <i className="bi bi-gear"></i>
                         <ModalOrderPending />
-                      </button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Khách sạn</td>
-                    <td></td>
-                    <td>Muong Thanh Holiday Muine Hotel</td>
-                    <td>54 Huynh Thuc Khang, Mũi Né, Việt Nam</td>
-                    <td>1.000.000 VNĐ</td>
-                    <td>2/9/2023</td>
-                    <td>
-                      <button
-                        type="button"
-                        className="btn btn-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#myModal"
-                      >
-                        <i className="bi bi-gear"></i>
                       </button>
                     </td>
                   </tr>

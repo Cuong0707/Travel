@@ -47,7 +47,7 @@ public class OrdersOfHotel {
 	@Column(name = "original_price", nullable = false)
 	private Double originalPrice;
 
-	@Column(name = "promotion_price", nullable = false)
+	@Column(name = "promotion_price", nullable = true)
 	private Double promotionPrice;
 
 	@ManyToOne

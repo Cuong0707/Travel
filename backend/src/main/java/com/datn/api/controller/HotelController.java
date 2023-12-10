@@ -18,15 +18,16 @@ import com.datn.api.entity.dto.HotelDto;
 import com.datn.api.entity.dto.HotelRequest;
 import com.datn.api.entity.dto.HotelResponseDto;
 import com.datn.api.exceptions.ApiResponse;
-import com.datn.api.services.HotelServiceImpl;
+import com.datn.api.exceptions.Exception;
+import com.datn.api.services.HotelService;
 
 @RestController
 @RequestMapping("/api/v1/hotels")
 public class HotelController {
 	@Autowired
-	HotelServiceImpl hotelService;
+	HotelService hotelService;
 
-
+	//fixed
 	@GetMapping("")
 	public ApiResponse<HotelResponseDto> getAllHotels(
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
@@ -34,78 +35,61 @@ public class HotelController {
 			@RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
 			@RequestParam(value = "sortBy", defaultValue = "nameOfHotel", required = false) String sortBy
 	){
-
 				return ApiResponse.success(HttpStatus.OK, "success",hotelService.getAllHotels(pageNumber, pageSize,sortDir,sortBy));
 	}
-
-	@GetMapping("/increase-view/{id}")
+	//fixed
+	@PutMapping("/increase-view/{id}")
 	public ApiResponse<?> increaseViews(@PathVariable("id") Long id) {
-		hotelService.autoIncreaseViews(id);
-		return ApiResponse.success(HttpStatus.OK, "View đã tăng", null);
+		return ApiResponse.success(HttpStatus.OK, "View đã tăng", hotelService.updateView(id));
 	}
-
+	//fixed
 	@GetMapping("/{id}")
 	public ApiResponse<HotelDto> getHotel(@PathVariable("id") Long id) {
 		HotelDto hotel = hotelService.findById(id);
 		String successMessage = "Tìm thấy hotel có id " + id;
 		return ApiResponse.success(HttpStatus.OK, successMessage, hotel);
 	}
-	@PostMapping()
+
+	//fixed
+	@PostMapping("")
 	@PreAuthorize("hasAnyAuthority('partner')")
-	public ApiResponse<?> createHotel(@RequestBody HotelRequest hotelRequest ){
-		try {
-			return ApiResponse.success(HttpStatus.OK,"create success hotel",hotelService.create(hotelRequest));
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ApiResponse.error(HttpStatus.BAD_REQUEST,"create error hotel");
-		}
+	public ApiResponse<?> createHotel(@RequestBody HotelRequest hotelRequest ) throws Exception {
+		return ApiResponse.success(HttpStatus.OK,"created success",hotelService.create(hotelRequest));
 	}
-
-
-	@PutMapping("/{hotelID}")
+	//fixed
+	@PutMapping("/{id}")
 	@PreAuthorize("hasAnyAuthority('partner','admin')")
-	public ApiResponse<HotelDto> updateHotel(@RequestBody HotelDto hotelDto, @PathVariable Long hotelID) {
-		HotelDto updateHotel = hotelService.update(hotelDto, hotelID);
-		String successMessage = "updated success";
-		return ApiResponse.success(HttpStatus.OK, successMessage, updateHotel);
+	public ApiResponse<?> updateHotel(@RequestBody HotelRequest hotelRequest, @PathVariable Long id) throws Exception {
+		return ApiResponse.success(HttpStatus.OK, "updated success", hotelService.update(hotelRequest, id));
 	}
-
-	@DeleteMapping("/{hotelID}")
+	//fixed
+	@DeleteMapping("/{id}")
 	@PreAuthorize("hasAnyAuthority('admin')")
-	public ApiResponse<?> deleteHotel(@PathVariable("hotelID") Long hotelID) {
-		String successMessage = "DELETED!";
-		return ApiResponse.success(HttpStatus.OK, successMessage, hotelService.deleteHotel(hotelID));
+	public ApiResponse<?> deleteHotel(@PathVariable("id") Long id) {
+		return ApiResponse.success(HttpStatus.OK, "deleted success", hotelService.deleteHotel(id));
 	}
-
+	//fixed
 	@GetMapping("/search")
 	public ApiResponse<HotelResponseDto> search(
 			@RequestParam(value = "q", defaultValue = "", required = false) String keywords,
 			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
 	) {
-
-
 		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByKeywords(pageNumber, pageSize, keywords));
 	}
+	//fixed
 	@GetMapping("/provinces/{id}")
 	public ApiResponse<HotelResponseDto> getHotelsProvince(
-			@PathVariable String id ,
+			@PathVariable("id") Long id,
 			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
 	) {
-		Long parsedId = null;
-	    try {
-	        parsedId = Long.parseLong(id);
-	    } catch (NumberFormatException e) {
-	        System.out.println("error");
-	    }
-		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByProvinces(parsedId,pageNumber, pageSize));
+		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByProvinces(id,pageNumber, pageSize));
 	}
+	//fixed
 	@GetMapping("/partners/{id}")
-	public ApiResponse<HotelResponseDto> listHostelOfPartner(@PathVariable String id,
-																   @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-																   @RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize){
-		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByPartner(id,pageNumber, pageSize));
+	public ApiResponse<?> listHostelOfPartner(@PathVariable String id) {
+		return ApiResponse.success(HttpStatus.OK, "success", hotelService.findByPartner(id));
 	}
 
 }

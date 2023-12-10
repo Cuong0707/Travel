@@ -17,7 +17,6 @@ function ForgotPass() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            console.log("email :" + email);
             await forgotPassword(email);
             toast.success('Thành Công! Vui lòng kiểm tra email', {
                 position: "top-right",

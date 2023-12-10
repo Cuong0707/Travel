@@ -1,6 +1,5 @@
 package com.datn.api.services;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,11 +25,11 @@ import com.datn.api.entity.dto.HotelResponseDto;
 import com.datn.api.entity.dto.PartnersDto;
 import com.datn.api.entity.dto.PhotosOfHotelsDto;
 import com.datn.api.enums.HotelStatus;
+import com.datn.api.exceptions.DuplicateRecordException;
+import com.datn.api.exceptions.Exception;
 import com.datn.api.exceptions.NotFoundException;
 import com.datn.api.repository.DistrictRepository;
 import com.datn.api.repository.HotelsRepository;
-import com.datn.api.repository.PartnerRepository;
-import com.datn.api.repository.PhotosOfHotelRepository;
 import com.datn.api.repository.ProvincesRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -44,9 +43,6 @@ public class HotelServiceImpl implements HotelService {
 	private ModelMapper modelMapper;
 
 	@Autowired
-	private UsersServiceImpl usersService;
-
-	@Autowired
 	private HttpSession session;
 
 	@Autowired
@@ -56,12 +52,10 @@ public class HotelServiceImpl implements HotelService {
 	private ProvincesRepository provincesRepository;
 
 	@Autowired
-	private PhotosOfHotelRepository photosOfHotelRepository;
+	IStorageService storageService;
 
 	@Autowired
-	IStorageService storageService;
-	@Autowired
-	private PartnerRepository partnerRepository;
+	private PartnerService partnerService;
 
 
 	public HotelDto updateHotelForAdmin(HotelDto hotelDto, Long hotelId) {
@@ -108,24 +102,53 @@ public class HotelServiceImpl implements HotelService {
 		return this.hotelDto(updatedUnavailableHotel);
 	}
 
+	@Override
+	public Hotels create(HotelRequest hotelRequest) throws Exception {
+		try{
+			Hotels hotels = new Hotels();
+			hotels.setDistricts(districtRepository.findById(hotelRequest.getDistrictId()).orElseThrow());
+			hotels.setPartner(partnerService.findPartnerByUser(UserCurrent.get()));
+			hotels.setNameOfHotel(hotelRequest.getNameOfHotel());
+			hotels.setTypeOfHotel(hotelRequest.getTypeOfHotel());
+			hotels.setStandard(hotelRequest.getStandard());
+			hotels.setBreakfast(hotelRequest.getBreakfast());
+			hotels.setServiceFee(hotelRequest.getServiceFee());
+			hotels.setCheckIn(hotelRequest.getCheckIn());
+			hotels.setCheckOut(hotelRequest.getCheckOut());
+			hotels.setStatus(HotelStatus.Unavailable);
+			hotels.setAddress(hotelRequest.getAddress());
+			hotels.setView(0L);
+			hotels.setDescription(hotelRequest.getDescription());
+			hotels.setChildrenPolicies(hotelRequest.getChildrenPolicies());
+			hotels.setTermAndPolicies(hotelRequest.getTermAndPolicies());
+			return  hotelsRepository.save(hotels);
+		}catch (DuplicateRecordException ex){
+			throw new DuplicateRecordException("Creat hotel error");
+		}
+	}
+	@Override
+	public Hotels update(HotelRequest hotelRequest, Long id) throws Exception {
+		try{
 
-	public Hotels create(HotelRequest hotelRequest) throws IOException {
-		Hotels hotels = new Hotels();
-		hotels.setDistricts(districtRepository.findById(hotelRequest.getDistrictId()).orElseThrow());
-		hotels.setPartner(partnerRepository.findById(hotelRequest.getPartner_id()).orElseThrow());
-		hotels.setNameOfHotel(hotelRequest.getNameOfHotel());
-		hotels.setTypeOfHotel(hotelRequest.getTypeOfHotel());
-		hotels.setStandard(hotelRequest.getStandard());
-		hotels.setBreakfast(hotelRequest.getBreakfast());
-		hotels.setServiceFee(hotelRequest.getServiceFee());
-		hotels.setCheckIn(hotelRequest.getCheckIn());
-		hotels.setCheckOut(hotelRequest.getCheckOut());
-		hotels.setStatus(HotelStatus.Available);
-		hotels.setView(0L);
-		hotels.setDescription(hotelRequest.getDescription());
-		hotels.setChildrenPolicies(hotelRequest.getChildrenPolicies());
-		hotels.setTermAndPolicies(hotelRequest.getTermAndPolicies());
-		return  hotelsRepository.save(hotels);
+			Hotels hotels = findHotelById(id);
+			hotels.setDistricts(districtRepository.findById(hotelRequest.getDistrictId()).orElseThrow());
+			hotels.setPartner(partnerService.findPartnerByUser(UserCurrent.get()));
+			hotels.setNameOfHotel(hotelRequest.getNameOfHotel());
+			hotels.setTypeOfHotel(hotelRequest.getTypeOfHotel());
+			hotels.setStandard(hotelRequest.getStandard());
+			hotels.setBreakfast(hotelRequest.getBreakfast());
+			hotels.setServiceFee(hotelRequest.getServiceFee());
+			hotels.setCheckIn(hotelRequest.getCheckIn());
+			hotels.setCheckOut(hotelRequest.getCheckOut());
+			hotels.setStatus(hotelRequest.getStatus());
+			hotels.setAddress(hotelRequest.getAddress());
+			hotels.setDescription(hotelRequest.getDescription());
+			hotels.setChildrenPolicies(hotelRequest.getChildrenPolicies());
+			hotels.setTermAndPolicies(hotelRequest.getTermAndPolicies());
+			return  hotelsRepository.save(hotels);
+		}catch (DuplicateRecordException ex){
+			throw new DuplicateRecordException("Update hotel error");
+		}
 	}
 	@Override
 	public HotelDto save(HotelDto hotelDto) {
@@ -165,10 +188,9 @@ public class HotelServiceImpl implements HotelService {
 
 		Page<Hotels> hotels = hotelsRepository.findHotelByKeyword(keywords, pageable);
 
-		// get content for page object
 		List<Hotels> listOfHotels = hotels.getContent();
 
-		List<HotelDto> content = listOfHotels.stream().map(hotel -> this.hotelDto(hotel)).collect(Collectors.toList());
+		List<HotelDto> content = listOfHotels.stream().map(this::hotelDto).collect(Collectors.toList());
 		HotelResponseDto hotelResponse = new HotelResponseDto();
 		hotelResponse.setContent(content);
 		hotelResponse.setPageNumber(hotels.getNumber());
@@ -183,13 +205,13 @@ public class HotelServiceImpl implements HotelService {
 	public HotelResponseDto findByProvinces(Long id,Integer pageNumber, Integer pageSize) {
 
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
-		Provinces provinces = provincesRepository.findById(id).orElseThrow();
+		Provinces provinces = provincesRepository.findById(id).orElseThrow(()->new NotFoundException("Not found provinces with id"+id));
 		Page<Hotels> hotels = hotelsRepository.findByProvinces(provinces, pageable);
 
 		// get content for page object
 		List<Hotels> listOfHotels = hotels.getContent();
 
-		List<HotelDto> content = listOfHotels.stream().map(hotel -> this.hotelDto(hotel)).collect(Collectors.toList());
+		List<HotelDto> content = listOfHotels.stream().map(this::hotelDto).collect(Collectors.toList());
 		HotelResponseDto hotelResponse = new HotelResponseDto();
 		hotelResponse.setContent(content);
 		hotelResponse.setPageNumber(hotels.getNumber());
@@ -211,7 +233,7 @@ public class HotelServiceImpl implements HotelService {
 				longList.add((Long) list.getContent().get(i)[3]);
 			}
 			List<HotelDto> hotelDtoList = hotelsRepository.findAllById(longList).stream()
-					.map(hotel -> this.hotelDto(hotel)).collect(Collectors.toList());
+					.map(this::hotelDto).collect(Collectors.toList());
 			HotelResponseDto hotelResponse = new HotelResponseDto();
 			hotelResponse.setContent(hotelDtoList);
 			hotelResponse.setPageNumber(list.getNumber());
@@ -221,7 +243,6 @@ public class HotelServiceImpl implements HotelService {
 			hotelResponse.setLastPage(list.isLast());
 			return hotelResponse;
 		} else {
-
 			throw new NotFoundException("Không tìm thấy Hotels theo Type");
 		}
 	}
@@ -272,21 +293,11 @@ public class HotelServiceImpl implements HotelService {
 		}
 	}
 	@Override
-	public HotelResponseDto findByPartner(String id, Integer pageNumber, Integer pageSize){
-		Pageable pageable = PageRequest.of(pageNumber, pageSize);
-		Partners partners = partnerRepository.findById(id).orElseThrow();
-		Page<Hotels> hotels = hotelsRepository.findByPartner(partners, pageable);
-		// get content for page object
-		List<Hotels> listOfHotels = hotels.getContent();
-		List<HotelDto> content = listOfHotels.stream().map(hotel -> this.hotelDto(hotel)).collect(Collectors.toList());
-		HotelResponseDto hotelResponse = new HotelResponseDto();
-		hotelResponse.setContent(content);
-		hotelResponse.setPageNumber(hotels.getNumber());
-		hotelResponse.setPageSize(hotels.getSize());
-		hotelResponse.setTotalElements(hotels.getTotalElements());
-		hotelResponse.setTotalPages(hotels.getTotalPages());
-		hotelResponse.setLastPage(hotels.isLast());
-		return hotelResponse;
+	public HotelDto findByPartner(String id) {
+		Partners partners = partnerService.findPartnerById(id);
+		Hotels hotels = hotelsRepository.findByPartner(partners)
+				.orElseThrow(() -> new NotFoundException("not found hotel with partner id" + id));
+		return hotelDto(hotels);
 	}
 	@Override
 	public HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize,String sortDir,String sortBy) {
@@ -331,10 +342,29 @@ public class HotelServiceImpl implements HotelService {
 
 	@Override
 	public boolean deleteHotel(Long id) {
-		Hotels hotels = hotelsRepository.findById(id).orElseThrow(() -> new NotFoundException("not found hotel"));
-		hotels.setDelete(true);
-		hotelsRepository.save(hotels);
-		return true;
+		try{
+			Hotels hotels = findHotelById(id);
+			hotels.setStatus(HotelStatus.Unavailable);
+			hotels.setDelete(true);
+			hotelsRepository.save(hotels);
+			return true;
+		}catch (Exception ex){
+			throw new Exception("Delete error");
+		}
+	}
+	@Override
+	public HotelDto updateView(Long id){
+		try{
+			Hotels hotel = findHotelById(id);
+			hotel.setView(hotel.getView()+1);
+			return hotelDto(hotelsRepository.save(hotel));
+		}catch (Exception ex){
+			throw new Exception("Update view error");
+		}
+	}
+	@Override
+	public Hotels findHotelById(Long id){
+		return hotelsRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found hotel"));
 	}
 
 }

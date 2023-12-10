@@ -1,11 +1,11 @@
 package com.datn.api.entity.dto;
 
-import lombok.Data;
-
 import java.util.List;
+
+import lombok.Data;
 @Data
 public class OrderResponse {
-    private List<OrderDto> content;
+	private List<OrdersOfUserResponse> content;
     private int pageNumber;
     private int pageSize;
     private long totalElements;

@@ -7,15 +7,13 @@ import { AuthContext } from '../../context/auth-context'
 import { stat } from "fs";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useAppContext from "../../hook/useAppContext";
 
 const drawerWidth = 240;
 
 export default function Information() {
-    
-    const authContext =  useContext(AuthContext);
-    const userString = localStorage.getItem('infoUser');
-    const userObject = JSON.parse(userString);
-    const user = userObject;
+    const authContext = useContext(AuthContext);
+    const {profile} = useAppContext()
     const [formData, setFormData] = useState({
         fullname: '',
         email: '',
@@ -39,7 +37,7 @@ export default function Information() {
         event.preventDefault();
         try {
             const updatedInfo = {
-                'userID':user.userID,
+                'userID':profile.userID,
                 'fullname':formData.fullname,
                 'email': formData.email,
                 'address': formData.address,
@@ -73,18 +71,15 @@ export default function Information() {
     };
 
     useEffect(() => {
-        const userData = localStorage.getItem('infoUser');
-        if (userData) {
-            const parsedUserData = JSON.parse(userData);
+        if (profile) {
             setFormData({
-                fullname: parsedUserData.fullname,
-                email: parsedUserData.email,
-                address: parsedUserData.address,
-                phone_number: parsedUserData.phone_number,
-                gender: parsedUserData.gender,
-                role: parsedUserData.role,
-                birthday: parsedUserData.birthday,
-                registrationDate: parsedUserData.registrationDate
+                fullname: profile.fullname,
+                email: profile.email,
+                address: profile.address,
+                phone_number: profile.phone_number,
+                role: profile.role,
+                birthday: profile.birthday,
+                registrationDate: profile.registrationDate
             });
             // You might need to handle the 'birthday' value separately based on the date format in the localStorage
             // Example: setBirthday(parsedUserData.birthday);

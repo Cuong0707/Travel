@@ -30,7 +30,7 @@ import lombok.Setter;
 @Table(name = "partners")
 public class Partners {
 	@Id
-	@Column(name = "partner_id", nullable = false, length = 10)
+	@Column(name = "partner_id", nullable = false, length = 60)
 	private String partnerId;
 
 	@Column(name = "name_of_company", nullable = false, length = 255)

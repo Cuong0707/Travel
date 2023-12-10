@@ -2,19 +2,27 @@ import React, { useState } from 'react';
 import '../../style/Login.scss'
 import { Link } from "react-router-dom";
 import axios from 'axios';
-
-
+import { useMutation, useQuery } from 'react-query';
+import authApi from '../../api/auth.api';
+import useHttpErrorHandler from '../../hook/useHttpErrorHandler';
+import addressApi from '../../api/address.api';
+import useAppContext from '../../hook/useAppContext';
+import { setAccessTokenToLS, setProfileToLS } from '../../utils/auth.utils';
 
 function SignUp() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordMatch, setPasswordMatch] = useState(true); // State để lưu trạng thái xác nhận mật khẩu
+    const [districtId, setDistrictId] = useState('')
+    const [provinceId, setProvinceId] = useState("")
     const [formData, setFormData] = useState({
         fullname: '',
         password: '',
         email: '',
         districtId: '',
     });
+    const { handleError } = useHttpErrorHandler();
+    const { setProfile, setIsAuthenticated } = useAppContext()
     // const handlePasswordChange = (event) => {
     //     setPassword(event.target.value);
     // };
@@ -25,17 +33,58 @@ function SignUp() {
     };
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-        console.log(formData.districtId);
     };
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:8080/api/v1/auth/register', formData);
-            console.log(response.data);
-        } catch (error) {
-            console.error(error);
+    //Fetching province
+    const fetchProvince = useQuery({
+        queryKey: ['fetchALlProvince'],
+        queryFn: () => {
+            return addressApi.getALlProvince()
+        },
+        onSuccess: (res) => {
+            const lsProvince = res.data
+            if (lsProvince?.length > 0) {
+                setProvinceId(lsProvince[0].provinceID)
+            }
         }
-    };
+    })
+    //Fetching district
+    const fetchDistrict = useQuery({
+        queryKey: ['fetchAllDistrict', provinceId],
+        queryFn: () => {
+            if (provinceId) {
+                return addressApi.getDistrictByProvince(provinceId)
+            } else {
+                return Promise.resolve([])
+            }
+        },
+        onSuccess: () => {
+            setDistrictId("")
+        }
+    })
+    // Handle Submit form
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        handleSubmitMutation.mutate(formData);
+    }
+    const handleSubmitMutation = useMutation({
+        mutationFn: (formData) => {
+            return authApi.register({ ...formData, districtId })
+        },
+        onSuccess: (data) => {
+            const { infoUser, token } = data
+            setProfile(infoUser)
+            setIsAuthenticated(true);
+            setAccessTokenToLS(token);
+            setProfileToLS(infoUser)
+        },
+        onError: (error) => {
+            const resError = handleError(error)
+            if (resError?.data?.message) {
+                alert(resError.data.message)
+            }
+        }
+    })
+
     return (
         <form onSubmit={handleSubmit}>
             <div className='container-login'>
@@ -63,17 +112,35 @@ function SignUp() {
                                         <div className="mb-3 row">
                                             <div className="col">
                                                 <label htmlFor="province" className="form-label">Tỉnh</label>
-                                                <select name="districtId" className="form-select" defaultValue='Choose...' value={formData.districtId} onChange={handleChange}>
-                                                    <option>Choose...</option>
-                                                    <option value="123">123</option>
-                                                    <option value="1">1</option>
+                                                <select
+                                                    value={provinceId}
+                                                    onChange={(e) => {
+                                                        setProvinceId(e.target.value)
+                                                    }}
+                                                    name="districtId" className="form-select" defaultValue='Choose...'>
+                                                    {fetchProvince?.data?.data?.map(province => {
+                                                        const { provinceID, nameOfProvince } = province
+                                                        return <option key={provinceID} value={provinceID}>{nameOfProvince}</option>
+                                                    })}
                                                 </select>
                                             </div>
                                             <div className="col">
                                                 <label htmlFor="district" className="form-label">Quận/Huyện</label>
-                                                <select id="district" className="form-select" defaultValue="Choose...">
-                                                    <option>Choose...</option>
-                                                    <option>...</option>
+                                                <select
+                                                    value={districtId}
+                                                    onChange={(e) => {
+                                                        console.log(e.target.value)
+                                                        setDistrictId(e.target.value)
+                                                    }}
+                                                    id="district"
+                                                    className="form-select"
+                                                    defaultValue=""
+                                                >
+                                                    <option value="">Choose...</option>
+                                                    {fetchDistrict?.data?.data?.map(district => {
+                                                        const { districtID, nameOfDistrict } = district
+                                                        return <option key={districtID} value={districtID}>{nameOfDistrict}</option>
+                                                    })}
                                                 </select>
                                             </div>
                                         </div>

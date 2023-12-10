@@ -40,7 +40,7 @@ const ContactUs = () => {
                             <input type="number" placeholder="Nhập Số Điện Thoại" />
                         </div>
                         <div className="input-box">
-                            <textarea type="text" placeholder="Câu Hỏi Của Bạn" alt='Nhập Câu Hỏi Của Bạn' />
+                            <textarea type="text" placeholder="Câu Hỏi Của Bạn" alt='Nhập Câu Hỏi Của Bạn'/>
                         </div>
                         {/* <div className="input-box message-box"></div> */}
                         <div className="button d-flex justify-content-md-end">

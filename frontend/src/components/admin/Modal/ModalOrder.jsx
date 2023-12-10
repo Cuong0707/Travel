@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-const ModalOrder = () => {
 
+const ModalOrder = () => {
     //Chosse Avatar
     const [avatar, setAvatar] = useState(
         "https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
@@ -98,5 +98,4 @@ const ModalOrder = () => {
             </div>
         </div>)
 }
-
 export default ModalOrder;

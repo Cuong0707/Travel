@@ -1,3 +1,4 @@
+import e from "cors";
 import React, { useState } from "react";
 
 const ModalOrder = () => {
@@ -97,5 +98,4 @@ const ModalOrder = () => {
             </div>
         </div>)
 }
-
 export default ModalOrder;

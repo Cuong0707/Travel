@@ -98,5 +98,4 @@ const ModalOrder = () => {
             </div>
         </div>)
 }
-
 export default ModalOrder;
