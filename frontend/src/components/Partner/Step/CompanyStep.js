@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import ActionButtons from '../ActionButtons'
 import AddressForm from '../../Address/AddressForm'
+import { getCheckInCheckOutTime } from '../../../utils/utils'
 
-const CompanyStep = ({ handleChange = () => {}, onNextStep = () => {} }) => {
+const CompanyStep = ({ handleChange = () => {} }) => {
     const [formState, setFormState] = useState({
         districtId: '',
         nameOfHotel: '',
@@ -37,8 +38,10 @@ const CompanyStep = ({ handleChange = () => {}, onNextStep = () => {} }) => {
 
     const handleNextStep = () => {
         if (validateForm()) {
-            handleChange('company', formState)
-            onNextStep()
+            const newFormState = { ...formState }
+            newFormState.checkIn = getCheckInCheckOutTime(newFormState.checkIn)
+            newFormState.checkOut = getCheckInCheckOutTime(newFormState.checkOut)
+            handleChange('company', newFormState, 2)
         }
     }
 
@@ -140,12 +143,12 @@ const CompanyStep = ({ handleChange = () => {}, onNextStep = () => {} }) => {
                     <option value={''} defaultValue>
                         Chọn...
                     </option>
-                    <option value={'bowl'}>Tô ly</option>
-                    <option value={'buffet'}>Buffet</option>
-                    <option value={'excluded'}>Không</option>
+                    <option value={'Bowl'}>Tô ly</option>
+                    <option value={'Buffet'}>Buffet</option>
+                    <option value={'Excluded'}>Không</option>
                 </select>
             </div>
-            <AddressForm className='col-md-12 mb-4' />
+            <AddressForm onChange={handleFormChange('districtId')}  className='col-md-12 mb-4' />
             <div className='col-md-6 mb-3'>
                 <label htmlFor='validationCustom07' className='form-label'>
                     Phí dịch vụ
@@ -173,7 +176,6 @@ const CompanyStep = ({ handleChange = () => {}, onNextStep = () => {} }) => {
                     value={formState.childrenPolicies}
                     onChange={handleFormChange('childrenPolicies')}
                     id='validationCustom01'
-                    required
                 />
             </div>
             <div className='mb-3 col-md-6'>

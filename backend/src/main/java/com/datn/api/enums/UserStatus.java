@@ -1,5 +1,5 @@
 package com.datn.api.enums;
 
 public enum UserStatus {
-	active, banned
+	active, banned, pending
 }

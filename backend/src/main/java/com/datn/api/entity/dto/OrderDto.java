@@ -11,7 +11,7 @@ public class OrderDto {
     private Long orderID;
     private String partnerID;
     private String userID;
-    @DateTimeFormat(pattern = "hh:mma dd/MM/yyyy")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime orderDate;
     private String paymentMethod;
     private String status;

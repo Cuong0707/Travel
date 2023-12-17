@@ -20,6 +20,7 @@ import com.datn.api.entity.Provinces;
 import com.datn.api.entity.dto.DistrictDto;
 import com.datn.api.entity.dto.HotelDetailDto;
 import com.datn.api.entity.dto.HotelDto;
+import com.datn.api.entity.dto.HotelQueryParam;
 import com.datn.api.entity.dto.HotelRequest;
 import com.datn.api.entity.dto.HotelResponseDto;
 import com.datn.api.entity.dto.PartnersDto;
@@ -300,14 +301,20 @@ public class HotelServiceImpl implements HotelService {
 		return hotelDto(hotels);
 	}
 	@Override
-	public HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize,String sortDir,String sortBy) {
+	public HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize, String sortDir, String sortBy, Long id) {
 		Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
 				: Sort.by(sortBy).descending();
 
 		// create Pageable instance
 		Pageable pageable = PageRequest.of(pageNumber, pageSize,sort);
-
-		Page<Hotels> hotels = hotelsRepository.findAll(pageable);
+		Page<Hotels> hotels;
+		if (id != null) {
+			Provinces provinces = provincesRepository.findById(id)
+					.orElseThrow(() -> new NotFoundException("Not found provinces with id" + id));
+			hotels = hotelsRepository.findByProvinces(provinces, pageable);
+		} else {
+			hotels = hotelsRepository.findAll(pageable);
+		}
 
 		// get content for page object
 		List<Hotels> listOfHotels = hotels.getContent();
@@ -366,5 +373,33 @@ public class HotelServiceImpl implements HotelService {
 	public Hotels findHotelById(Long id){
 		return hotelsRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found hotel"));
 	}
-
+	@Override
+	public HotelResponseDto filterHotel(HotelQueryParam hotelQueryParam){
+		if(hotelQueryParam.getSortFiled()==null|| hotelQueryParam.getSortFiled().isEmpty()){
+			hotelQueryParam.setSortFiled("nameOfHotel");
+		}
+		System.out.println(hotelQueryParam.getSortFiled());
+		Sort sort = hotelQueryParam.getOrderBy().equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(hotelQueryParam.getSortFiled()).ascending()
+				: Sort.by(hotelQueryParam.getSortFiled()).descending();
+		Pageable pageable = PageRequest.of(hotelQueryParam.getPage(), hotelQueryParam.getPageSize(),sort);
+		Page<Hotels> hotelsPage = hotelsRepository.filterHotel(
+				hotelQueryParam.getStandard(),
+				hotelQueryParam.getProvinceId(),
+				hotelQueryParam.getKeyword(),
+				pageable
+		);
+		System.out.println(hotelQueryParam.getStandard() + "" + hotelQueryParam.getProvinceId() + ""
+				+ hotelQueryParam.getKeyword());
+		List<Hotels> hotelsList =hotelsPage.getContent();
+		System.out.println(hotelsList.size());
+		List<HotelDto> content = hotelsList.stream().map(this::hotelDto).collect(Collectors.toList());
+		HotelResponseDto hotelResponse = new HotelResponseDto();
+		hotelResponse.setContent(content);
+		hotelResponse.setPageNumber(hotelsPage.getNumber());
+		hotelResponse.setPageSize(hotelsPage.getSize());
+		hotelResponse.setTotalElements(hotelsPage.getTotalElements());
+		hotelResponse.setTotalPages(hotelsPage.getTotalPages());
+		hotelResponse.setLastPage(hotelsPage.isLast());
+		return hotelResponse;
+	}
 }

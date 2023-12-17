@@ -45,7 +45,6 @@ function AddressForm({ className = '', onChange = () => {}, initialValue = -1 })
                     onChange={(e) => {
                         setProvinceId(e.target.value)
                     }}
-                    name='districtId'
                     className='form-select'
                     defaultValue='Choose...'
                 >
@@ -67,7 +66,8 @@ function AddressForm({ className = '', onChange = () => {}, initialValue = -1 })
                     value={districtId}
                     onChange={(e) => {
                         setDistrictId(e.target.value)
-                        onChange(e.target.value)
+                        onChange(e)
+                         console.log(e.target.value)
                     }}
                     id='district'
                     className='form-select'

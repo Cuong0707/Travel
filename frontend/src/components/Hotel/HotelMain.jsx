@@ -1,24 +1,29 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../../style/Hotel/MainHotel.scss'
 import { GeoAltFill } from 'react-bootstrap-icons'
 import { EyeFill } from 'react-bootstrap-icons'
-import { Link } from 'react-router-dom'
+import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import useQueryConfig from '../../hook/useQueryConfig'
 import { useQuery } from 'react-query'
 import hotelApi from '../../api/hotel.api'
 import useHttpErrorHandler from '../../hook/useHttpErrorHandler'
 import { formatCurrency, generateImageFromFileName } from '../../utils/utils'
 import { max, min } from 'lodash'
+import { Pagination } from '@mui/material'
 
 const MainHotel = () => {
     const queryConfig = useQueryConfig()
     const { handleError } = useHttpErrorHandler()
+    const navigate = useNavigate()
+
     const { data, isLoading } = useQuery({
-        queryKey: ['filterHotel'],
+        queryKey: ['filterHotel', queryConfig],
         queryFn: () => {
             return hotelApi.filterHotel(queryConfig)
         },
-        onSuccess: (res) => {},
+        onSuccess: (res) => {
+            console.log(res)
+        },
         onError: (error) => {
             const errorRes = handleError(error)
         }
@@ -81,6 +86,16 @@ const MainHotel = () => {
                     </div>
                 )
             })}
+            <Pagination
+                onChange={(_, page) => {
+                    navigate({
+                        pathname: '/HotelList',
+                        search: createSearchParams({ ...queryConfig, pageNumber: page.toString() }).toString()
+                    })
+                }}
+                count={data?.data?.totalPages || 1}
+                color='primary'
+            />
         </main>
     )
 }

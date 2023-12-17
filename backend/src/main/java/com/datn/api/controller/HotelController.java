@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.datn.api.entity.dto.HotelDto;
+import com.datn.api.entity.dto.HotelQueryParam;
 import com.datn.api.entity.dto.HotelRequest;
 import com.datn.api.entity.dto.HotelResponseDto;
 import com.datn.api.exceptions.ApiResponse;
@@ -33,9 +34,15 @@ public class HotelController {
             @RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
             @RequestParam(value = "pageSize", defaultValue = "8", required = false) Integer pageSize,
 			@RequestParam(value = "sortDir", defaultValue = "asc", required = false) String sortDir,
-			@RequestParam(value = "sortBy", defaultValue = "nameOfHotel", required = false) String sortBy
+			@RequestParam(value = "sortBy", defaultValue = "nameOfHotel", required = false) String sortBy,
+			@RequestParam(value = "id", defaultValue = "", required = false) Long id
 	){
-				return ApiResponse.success(HttpStatus.OK, "success",hotelService.getAllHotels(pageNumber, pageSize,sortDir,sortBy));
+		return ApiResponse.success(HttpStatus.OK, "success",
+				hotelService.getAllHotels(pageNumber, pageSize, sortDir, sortBy, id));
+	}
+	@GetMapping("/filter/all")
+	public ApiResponse<HotelResponseDto> filterHotel(HotelQueryParam hotelQueryParam){
+		return ApiResponse.success(HttpStatus.OK, "success",hotelService.filterHotel(hotelQueryParam));
 	}
 	//fixed
 	@PutMapping("/increase-view/{id}")
@@ -78,14 +85,14 @@ public class HotelController {
 		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByKeywords(pageNumber, pageSize, keywords));
 	}
 	//fixed
-	@GetMapping("/provinces/{id}")
-	public ApiResponse<HotelResponseDto> getHotelsProvince(
-			@PathVariable("id") Long id,
-			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
-	) {
-		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByProvinces(id,pageNumber, pageSize));
-	}
+//	@GetMapping("/provinces/{id}")
+//	public ApiResponse<HotelResponseDto> getHotelsProvince(
+//			@PathVariable("id") Long id,
+//			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
+//			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize
+//	) {
+//		return ApiResponse.success(HttpStatus.OK, "success",hotelService.findByProvinces(id,pageNumber, pageSize));
+//	}
 	//fixed
 	@GetMapping("/partners/{id}")
 	public ApiResponse<?> listHostelOfPartner(@PathVariable String id) {

@@ -51,6 +51,9 @@ public class Partners {
 	@Column(name = "website", nullable = true, length = -1)
 	private String website;
 
+	@Column(name="is_Delete",nullable = false)
+	private boolean isDelete;
+
 	@Column(name = "status", nullable = true)
 	@Enumerated(EnumType.STRING)
 	private PartnerStatus status;

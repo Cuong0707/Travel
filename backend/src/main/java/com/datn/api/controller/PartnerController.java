@@ -1,5 +1,6 @@
 package com.datn.api.controller;
 
+import com.datn.api.entity.dto.PartnerV2Request;
 import com.datn.api.services.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,8 +36,16 @@ public class PartnerController {
     }
 
     @PostMapping(path = "", consumes = {"multipart/form-data"})
-
-    public ApiResponse<?> create(@RequestPart(name = "partner") PartnerRequest partnerRequest, @RequestPart(name = "image") MultipartFile image, @RequestPart(name="license") MultipartFile license) {
+    public ApiResponse<?> create(@RequestPart(name = "partner") PartnerRequest partnerRequest, @RequestPart(name = "image") MultipartFile image, @RequestPart(name = "license") MultipartFile license) {
         return ApiResponse.success(HttpStatus.OK, "create success partner pending", partnerService.create(partnerRequest, image, license));
+    }
+
+    @PostMapping(path = "/all", consumes = {"multipart/form-data"})
+    public ApiResponse<?> createPartnerV2(@RequestPart(name = "partner") PartnerV2Request partnerV2Request,
+                                          @RequestPart(name = "image") MultipartFile image,
+                                          @RequestPart(name = "license") MultipartFile license,
+                                          @RequestPart(name = "hotelDetailImages") MultipartFile[] lsHotelDetailImages
+    ) {
+        return ApiResponse.success(HttpStatus.OK, "create success partner pending", partnerService.createV2(partnerV2Request, image, license, lsHotelDetailImages));
     }
 }

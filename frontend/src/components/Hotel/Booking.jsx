@@ -1,16 +1,23 @@
 import React, { useState, useEffect, useMemo } from 'react'
 
 import '../../style/Hotel/Booking.scss'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import ScrollToTop from '../../Services/ScrollToTop'
 import useAppContext from '../../hook/useAppContext'
-import { formatCurrency, formatDate, generateImageFromFileName } from '../../utils/utils'
+import {
+    formatCurrency,
+    formatDate,
+    generateImageFromFileName,
+    showErrorMessage,
+    showSuccessMessage
+} from '../../utils/utils'
 import { Fragment } from 'react'
 import { useMutation } from 'react-query'
 import orderApi from '../../api/order.api'
 const Booking = () => {
     const { profile } = useAppContext()
     const { hotel, hotelDetail } = useLocation().state
+    const navigate = useNavigate()
     const lsImages = useMemo(() => {
         return hotel?.photosOfHotels?.map((item) => {
             return generateImageFromFileName(item.image)
@@ -59,14 +66,15 @@ const Booking = () => {
     }
     const { mutate, isLoading } = useMutation({
         mutationFn: () => {
-            console.log(getFormData())
             return orderApi.checkOut(getFormData())
         },
-        onSuccess: (data) => {
-            console.log(data)
+        onSuccess: (res) => {
+            navigate('/pay/' + res.data.orderID)
+            showSuccessMessage('Đặt phòng thành công')
         },
         onError: (error) => {
             console.log(error)
+            showErrorMessage('Some thing went wrong')
         }
     })
 
@@ -343,9 +351,7 @@ const Booking = () => {
                                 </div>
                                 <div className='col-md-6'>
                                     <label htmlFor='lengthOfStay' className='tpi-form__label'>
-                                        <span className='tpi-form__label-text'>
-                                            Ngày check 
-                                        </span>
+                                        <span className='tpi-form__label-text'>Ngày check</span>
                                         <abbr className='mandatory-asterisk' title='Required'>
                                             *
                                         </abbr>

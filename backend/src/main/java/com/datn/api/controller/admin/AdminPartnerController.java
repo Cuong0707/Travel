@@ -1,5 +1,6 @@
 package com.datn.api.controller.admin;
 
+import com.datn.api.entity.dto.PartnerQueryParam;
 import com.datn.api.entity.dto.UpdatePartnerAdminRequest;
 import com.datn.api.exceptions.ApiResponse;
 import com.datn.api.services.PartnerService;
@@ -22,6 +23,12 @@ public class AdminPartnerController {
             @RequestParam(value = "sortBy", defaultValue = "taxCode", required = false) String sortBy)
     {
         return ApiResponse.success(HttpStatus.OK,"success",partnerService.getAllPartners(pageNumber,pageSize,sortBy,sortDir));
+    }
+    @GetMapping("/filter/all")
+    public ApiResponse<?> getPartners(
+            PartnerQueryParam partnerQueryParam)
+    {
+        return ApiResponse.success(HttpStatus.OK,"success",partnerService.filterPartner(partnerQueryParam));
     }
     @GetMapping("/{id}")
     public ApiResponse<?> getPartner(@PathVariable String id){

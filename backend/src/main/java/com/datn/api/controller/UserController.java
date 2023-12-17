@@ -5,6 +5,7 @@ import com.datn.api.services.ImageStorageService;
 import com.datn.api.services.UserCurrent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.lang.Nullable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,28 +17,29 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
-	@Autowired
-	UsersServiceImpl usersService;
-	@Autowired
-	ImageStorageService storageService;
+    @Autowired
+    UsersServiceImpl usersService;
+    @Autowired
+    ImageStorageService storageService;
 
-	@GetMapping("")
-	public ApiResponse<?>getUser(){
-		return ApiResponse.success(HttpStatus.OK,"success",usersService.usersToDto(UserCurrent.get()));
-	}
+    @GetMapping("")
+    public ApiResponse<?> getUser() {
+        return ApiResponse.success(HttpStatus.OK, "success", usersService.usersToDto(UserCurrent.get()));
+    }
 
-	@PutMapping("")
-	public ApiResponse<?> update(@RequestBody UpdateUserInfoRequest updateUserInfoRequest) {
-		try {
-			UsersDto user = usersService.updateForUser(updateUserInfoRequest);
-			return ApiResponse.success(HttpStatus.OK, "Update success", user);
-		} catch (Exception e) {
-			return ApiResponse.error(HttpStatus.BAD_REQUEST, e.getMessage());
-		}
-	}
+    @PutMapping(path = "", consumes = {"multipart/form-data"})
 
-	@PutMapping("/avatar")
-	public ApiResponse<?> updateAvatar(@RequestParam MultipartFile file){
-		return ApiResponse.success(HttpStatus.OK, "Update success", usersService.updateAvatarForUser(file));
-	}
+    public ApiResponse<?> update(@RequestPart("information") UpdateUserInfoRequest updateUserInfoRequest, @Nullable @RequestParam(name = "image") MultipartFile file) {
+        try {
+            UsersDto user = usersService.updateForUser(updateUserInfoRequest, file);
+            return ApiResponse.success(HttpStatus.OK, "Update success", user);
+        } catch (Exception e) {
+            return ApiResponse.error(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+    }
+
+    @PutMapping("/avatar")
+    public ApiResponse<?> updateAvatar(@RequestParam(name = "image") MultipartFile file) {
+        return ApiResponse.success(HttpStatus.OK, "Update success", usersService.updateAvatarForUser(file));
+    }
 }

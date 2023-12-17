@@ -4,13 +4,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.datn.api.entity.Users;
-import com.datn.api.entity.dto.PartnersDto;
+import com.datn.api.entity.dto.*;
 import com.datn.api.enums.UserStatus;
 import org.springframework.stereotype.Component;
 
-import com.datn.api.entity.dto.NumberRegister;
-import com.datn.api.entity.dto.UserResponse;
-import com.datn.api.entity.dto.UsersDto;
 import org.springframework.web.multipart.MultipartFile;
 
 @Component
@@ -19,7 +16,7 @@ public interface UsersService extends IService<UsersDto, String> {
 
 	UsersDto updateForAdmin(String id, UsersDto usersDto);
 
-	UsersDto getUserWithToken(String token);
+	UsersDto getUserWithToken(String token) throws Exception;
 
     List<PartnersDto> findByKeywords(String keywords);
 
@@ -43,6 +40,8 @@ public interface UsersService extends IService<UsersDto, String> {
 	Users updateAvatarForUser(MultipartFile file);
 
 	Users updateAvatarForAdmin(String id, MultipartFile file);
+
+	UserResponse filterUser(UserQueryParam userQueryParam);
 
 //	List<HotelsDto> getTopViewHotel();
 

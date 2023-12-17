@@ -28,7 +28,7 @@ function HotelDetailForm({ hotel, onChange = () => {}, index }) {
                     className='form-select'
                     name='roomType'
                 >
-                    <option value='' defaultValue disabled>
+                    <option defaultValue disabled>
                         Chọn loại phòng
                     </option>
                     <option value='phongDon'>Phòng đơn</option>

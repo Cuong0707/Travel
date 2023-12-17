@@ -1,5 +1,7 @@
 package com.datn.api.controller.admin;
 
+import com.datn.api.entity.dto.OrderQueryParam;
+import com.datn.api.entity.dto.PartnerQueryParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,6 +29,12 @@ public class AdminOrderController {
     {
 
         return ApiResponse.success(HttpStatus.OK,"success",ordersService.getAllOrder(pageNumber,pageSize,sortDir,sortBy));
+    }
+    @GetMapping("/filter/all")
+    public ApiResponse<?> filterOrder(
+            OrderQueryParam orderQueryParam)
+    {
+        return ApiResponse.success(HttpStatus.OK,"success",ordersService.filterOrder(orderQueryParam));
     }
     @GetMapping("/users/{id}")
     public ApiResponse<?> getOrderOfUser(

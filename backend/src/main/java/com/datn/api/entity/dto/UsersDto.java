@@ -29,4 +29,5 @@ public class UsersDto {
 	@JsonFormat(pattern = "dd/MM/yyyy hh:mm:ss")
 	private LocalDateTime registrationDate;
 	private Role role;
+	private PartnersDto partnersDto;
 }

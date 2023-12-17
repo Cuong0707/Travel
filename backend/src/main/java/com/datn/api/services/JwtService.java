@@ -6,7 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import com.datn.api.exceptions.ApiResponse;
+import com.datn.api.exceptions.BadCredentialsException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +27,8 @@ public class JwtService {
 	@Value("${datn.expiration_time}")
 	private long EXPIRATION_TIME;
 
-	public String extractUsername(String token) {
-		return extractClaim(token, Claims::getSubject);
+	public String extractUsername(String token)  {
+			return extractClaim(token, Claims::getSubject);
 	}
 
 	public String generateToken(UserDetails userDetails) {
@@ -43,7 +46,6 @@ public class JwtService {
 		final String username = extractUsername(token);
 		return (username.equals(userDetails.getUsername()) && !isToKenExpired(token));
 	}
-
 	private boolean isToKenExpired(String token) {
 		return extractExpiration(token).before(new Date());
 	}
@@ -53,12 +55,12 @@ public class JwtService {
 	}
 
 	public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-		final Claims claims = extractAllClaims(token);
-		return claimsResolver.apply(claims);
+			final Claims claims = extractAllClaims(token);
+			return claimsResolver.apply(claims);
 	}
 
 	private Claims extractAllClaims(String token) {
-		return Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(token).getBody();
+			return Jwts.parserBuilder().setSigningKey(getSignInKey()).build().parseClaimsJws(token).getBody();
 	}
 
 	private Key getSignInKey() {

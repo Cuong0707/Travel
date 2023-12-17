@@ -7,7 +7,6 @@ import MainHotel from './HotelMain'
 const HotelList = () => {
     return (
         <div className='container-hotel'>
-            <NavHotel />
             <div className='container'>
                 <div className='row mt-5'>
                     <AsideHotel />
