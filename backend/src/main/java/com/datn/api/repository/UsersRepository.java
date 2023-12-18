@@ -16,7 +16,7 @@ public interface UsersRepository extends JpaRepository<Users, String> {
 
 	Optional<Users> findByEmailAndPasswordNull(String username);
 
-	Optional<Users> findByEmail(String username);
+	Optional<Users> findByEmail(String email);
 
 	@Query("select o  from Users o where  o.fullname like %?1% or o.email like %?1% ")
 	List<Users> findByKeywords(String keywords);
