@@ -1,18 +1,22 @@
 package com.datn.api.controller.admin;
 
-import com.datn.api.entity.dto.HotelResponseDto;
-import com.datn.api.entity.dto.UpdateStatusUserForAdminRequest;
-import com.datn.api.entity.dto.UsersDto;
-import com.datn.api.enums.UserStatus;
-import com.datn.api.exceptions.ApiResponse;
-import com.datn.api.services.OrdersService;
-import com.datn.api.services.UsersService;
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.datn.api.entity.dto.NumberRegister;
+import com.datn.api.entity.dto.UserQueryParam;
+import com.datn.api.exceptions.ApiResponse;
+import com.datn.api.services.OrdersService;
+import com.datn.api.services.UsersService;
 
 @RestController
 @RequestMapping("/api/v1/admins/users")
@@ -31,6 +35,12 @@ public class AdminUserController {
     ){
         return ApiResponse.success(HttpStatus.OK, "success",usersService.getAllUsers(pageNumber, pageSize,sortDir,sortBy));
     }
+    @GetMapping("/filter/all")
+    public ApiResponse<?> filterUser(
+            UserQueryParam userQueryParam
+    ){
+        return ApiResponse.success(HttpStatus.OK, "success",usersService.filterUser(userQueryParam));
+    }
     @GetMapping("/{id}")
     public ApiResponse<?> getUser(@PathVariable("id")String id){
         return ApiResponse.success(HttpStatus.OK, "success",usersService.usersToDto(usersService.findByIdUser(id)));
@@ -40,4 +50,11 @@ public class AdminUserController {
     public ApiResponse<?> updateStatusUser(@PathVariable String id){
         return ApiResponse.success(HttpStatus.OK,"Update success",usersService.updateStatusForAdmin(id));
     }
+
+	@GetMapping("/report/users-new")
+	public ApiResponse<NumberRegister> reportNumberNewUsers(
+			@RequestParam(value = "startDate", required = false) LocalDate startDate,
+			@RequestParam(value = "endDate", required = false) LocalDate endDate) {
+		return ApiResponse.success(HttpStatus.OK, "success", usersService.numberRegister(startDate, endDate));
+	}
 }

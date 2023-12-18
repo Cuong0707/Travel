@@ -10,7 +10,7 @@ function ChangePass() {
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const { changePassword, user } = useContext(AuthContext);
+  const { changePassword } = useContext(AuthContext);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 

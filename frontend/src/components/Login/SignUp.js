@@ -20,6 +20,7 @@ function SignUp() {
         password: '',
         email: '',
         districtId: '',
+        confirmPassword: ''
     });
     const { handleError } = useHttpErrorHandler();
     const { setProfile, setIsAuthenticated } = useAppContext()
@@ -152,10 +153,10 @@ function SignUp() {
                                         </div>
                                         <div className="mb-3">
                                             <label htmlFor="confirmPassword" className="form-label">Xác Nhận Mật Khẩu</label>
-                                            <input type="password" name="password"
+                                            <input type="password" name="confirmPassword"
                                                 id="confirmPassword"
-                                                value={formData.password} onChange={handleChange} className="form-control" />
-                                            {!passwordMatch && <p style={{ color: 'red' }}>Mật Khẩu Không Trùng Kìa Ba</p>} {/* Hiển thị thông báo nếu mật khẩu không khớp */}
+                                                value={formData.confirmPassword} onChange={handleConfirmPasswordChange} className="form-control" />
+                                            {!passwordMatch && <p style={{ color: 'red' }}>Mật Khẩu Không Trùng Khớp</p>} {/* Hiển thị thông báo nếu mật khẩu không khớp */}
                                         </div>
 
                                         <div className='row'>

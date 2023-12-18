@@ -11,34 +11,34 @@ function HeaderListRegion() {
                     <Link className="dropdown-item h6">Đồng Bằng Sông Hồng &raquo; </Link>
                     <ul className="dropdown-menu dropdown-submenu">
                         <li>
-                            <Link className="dropdown-item" to="#">Hà Nội <span className="badge rounded-pill bg-danger">Hot</span></Link>
+                            <Link className="dropdown-item" to="#" value="24">Hà Nội <span className="badge rounded-pill bg-danger">Hot</span></Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Bắc Ninh</Link>
+                            <Link className="dropdown-item" to="#" value="222">Bắc Ninh</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Hà Nam</Link>
+                            <Link className="dropdown-item" to="#" value="226">Hà Nam</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Hải Dương</Link>
+                            <Link className="dropdown-item" to="#" value="220">Hải Dương</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Hưng Yên</Link>
+                            <Link className="dropdown-item" to="#" value="221">Hưng Yên</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Hải Phòng</Link>
+                            <Link className="dropdown-item" to="#" value="225">Hải Phòng</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Nam Định</Link>
+                            <Link className="dropdown-item" to="#" value="228">Nam Định</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Ninh Bình</Link>
+                            <Link className="dropdown-item" to="#" value="229">Ninh Bình</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Thái Bình</Link>
+                            <Link className="dropdown-item" to="#" value="227">Thái Bình</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Vĩnh Phúc</Link>
+                            <Link className="dropdown-item" to="#" value="211">Vĩnh Phúc</Link>
                         </li>
                     </ul>
                 </li>
@@ -46,13 +46,10 @@ function HeaderListRegion() {
                     <Link className="dropdown-item h6">Tây Bắc Bộ &raquo; </Link>
                     <ul className="dropdown-menu dropdown-submenu">
                         <li>
-                            <Link className="dropdown-item" to="#">Lào Cai</Link>
+                            <Link className="dropdown-item" to="#" value="214">Lào Cai</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Yên Bái</Link>
-                        </li>
-                        <li>
-                            <Link className="dropdown-item" to="#">Lào Cai</Link>
+                            <Link className="dropdown-item" to="#" value="216">Yên Bái</Link>
                         </li>
                         <li>
                             <Link className="dropdown-item" to="#">Điện Biên</Link>
@@ -61,10 +58,10 @@ function HeaderListRegion() {
                             <Link className="dropdown-item" to="#">Hòa Bình</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Lai Châu</Link>
+                            <Link className="dropdown-item" to="#" value="213">Lai Châu</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Sơn La</Link>
+                            <Link className="dropdown-item" to="#" value="212">Sơn La</Link>
                         </li>
                     </ul>
                 </li>
@@ -72,31 +69,31 @@ function HeaderListRegion() {
                     <Link className="dropdown-item">Đông Bắc Bộ &raquo; </Link>
                     <ul className="dropdown-menu dropdown-submenu">
                         <li>
-                            <Link className="dropdown-item" to="#">Hà Giang</Link>
+                            <Link className="dropdown-item" to="#" value="219">Hà Giang</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Cao Bằng</Link>
+                            <Link className="dropdown-item" to="#" value="206">Cao Bằng</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Bắc Kạn</Link>
+                            <Link className="dropdown-item" to="#" value="209">Bắc Kạn</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Lạng Sơn</Link>
+                            <Link className="dropdown-item" to="#" value="205">Lạng Sơn</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Tuyên Quang</Link>
+                            <Link className="dropdown-item" to="#" value="207">Tuyên Quang</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Thái Nguyên</Link>
+                            <Link className="dropdown-item" to="#" value="208">Thái Nguyên</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Phú Thọ</Link>
+                            <Link className="dropdown-item" to="#" value="210">Phú Thọ</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Bắc Giang</Link>
+                            <Link className="dropdown-item" to="#" value="204">Bắc Giang</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Quảng Ninh</Link>
+                            <Link className="dropdown-item" to="#" value="203">Quảng Ninh</Link>
                         </li>
                     </ul>
                 </li>
@@ -111,22 +108,22 @@ function HeaderListRegion() {
                     <Link className="dropdown-item h6">Đông Nam Bộ &raquo; </Link>
                     <ul className="dropdown-menu dropdown-submenu">
                         <li>
-                            <Link className="dropdown-item" to="#">Hồ Chí Minh <span className="badge rounded-pill bg-danger">Hot</span></Link>
+                            <Link className="dropdown-item" to="#" value="28">Hồ Chí Minh <span className="badge rounded-pill bg-danger">Hot</span></Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Bình Phước</Link>
+                            <Link className="dropdown-item" to="#" value="271">Bình Phước</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Bình Dương</Link>
+                            <Link className="dropdown-item" to="#" value="274">Bình Dương</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Đồng Nai</Link>
+                            <Link className="dropdown-item" to="#" value="251">Đồng Nai</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Tây Ninh</Link>
+                            <Link className="dropdown-item" to="#" value="276">Tây Ninh</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Bà Rịa-Vũng Tàu</Link>
+                            <Link className="dropdown-item" to="#" value="254">Bà Rịa-Vũng Tàu</Link>
                         </li>
                     </ul>
                 </li>
@@ -134,43 +131,43 @@ function HeaderListRegion() {
                     <Link className="dropdown-item h6">Tây Nam Bộ &raquo; </Link>
                     <ul className="dropdown-menu dropdown-submenu">
                         <li>
-                            <Link className="dropdown-item" to="#">Cần Thơ</Link>
+                            <Link className="dropdown-item" to="#" value="292">Cần Thơ</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Long An</Link>
+                            <Link className="dropdown-item" to="#" value="272">Long An</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Đồng Tháp</Link>
+                            <Link className="dropdown-item" to="#" value="277">Đồng Tháp</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Tiền Giang</Link>
+                            <Link className="dropdown-item" to="#" value="273">Tiền Giang</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">An Giang</Link>
+                            <Link className="dropdown-item" to="#" value="296">An Giang</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Bến Tre</Link>
+                            <Link className="dropdown-item" to="#" value="275">Bến Tre</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Vĩnh Long</Link>
+                            <Link className="dropdown-item" to="#" value="270">Vĩnh Long</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Trà Vinh</Link>
+                            <Link className="dropdown-item" to="#" value="294">Trà Vinh</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Hậu Giang</Link>
+                            <Link className="dropdown-item" to="#" value="293">Hậu Giang</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Kiên Giang</Link>
+                            <Link className="dropdown-item" to="#" value="297">Kiên Giang</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Sóc Trăng</Link>
+                            <Link className="dropdown-item" to="#" value="299">Sóc Trăng</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Bạc Liêu</Link>
+                            <Link className="dropdown-item" to="#" value="291">Bạc Liêu</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Cà Mau</Link>
+                            <Link className="dropdown-item" to="#" value="290">Cà Mau</Link>
                         </li>
                     </ul>
                 </li>
@@ -178,31 +175,31 @@ function HeaderListRegion() {
                     <Link className="dropdown-item">Đông Bắc Bộ &raquo; </Link>
                     <ul className="dropdown-menu dropdown-submenu">
                         <li>
-                            <Link className="dropdown-item" to="#">Hà Giang</Link>
+                            <Link className="dropdown-item" to="#" value="219">Hà Giang</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Cao Bằng</Link>
+                            <Link className="dropdown-item" to="#" value="206">Cao Bằng</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Bắc Kạn</Link>
+                            <Link className="dropdown-item" to="#" value="209">Bắc Kạn</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Lạng Sơn</Link>
+                            <Link className="dropdown-item" to="#" value="205">Lạng Sơn</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Tuyên Quang</Link>
+                            <Link className="dropdown-item" to="#" value="207">Tuyên Quang</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Thái Nguyên</Link>
+                            <Link className="dropdown-item" to="#" value="208">Thái Nguyên</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Phú Thọ</Link>
+                            <Link className="dropdown-item" to="#" value="210">Phú Thọ</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Bắc Giang</Link>
+                            <Link className="dropdown-item" to="#" value="204">Bắc Giang</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Quảng Ninh</Link>
+                            <Link className="dropdown-item" to="#" value="232">Quảng Ninh</Link>
                         </li>
                     </ul>
                 </li>
@@ -217,22 +214,22 @@ function HeaderListRegion() {
                     <Link className="dropdown-item h6">Bắc Trung Bộ &raquo; </Link>
                     <ul className="dropdown-menu dropdown-submenu">
                         <li>
-                            <Link className="dropdown-item" to="#">Thừa Thiên-Huế <span className="badge rounded-pill bg-danger">Hot</span></Link>
+                            <Link className="dropdown-item" to="#" value="234">Thừa Thiên-Huế <span className="badge rounded-pill bg-danger">Hot</span></Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Thanh Hoá</Link>
+                            <Link className="dropdown-item" to="#" value="237">Thanh Hoá</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Nghệ An</Link>
+                            <Link className="dropdown-item" to="#" value="238">Nghệ An</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Hà Tĩnh</Link>
+                            <Link className="dropdown-item" to="#" value="239">Hà Tĩnh</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Quảng Bình</Link>
+                            <Link className="dropdown-item" to="#" value="232">Quảng Bình</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Quảng Trị</Link>
+                            <Link className="dropdown-item" to="#" value="233">Quảng Trị</Link>
                         </li>
                     </ul>
                 </li>
@@ -240,28 +237,28 @@ function HeaderListRegion() {
                     <Link className="dropdown-item h6">Nam Trung Bộ &raquo; </Link>
                     <ul className="dropdown-menu dropdown-submenu">
                         <li>
-                            <Link className="dropdown-item" to="#">Đà Nẵng <span className="badge rounded-pill bg-danger">Hot</span></Link>
+                            <Link className="dropdown-item" to="#" value="236">Đà Nẵng <span className="badge rounded-pill bg-danger">Hot</span></Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Quảng Nam</Link>
+                            <Link className="dropdown-item" to="#" value="235">Quảng Nam</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Quảng Ngãi</Link>
+                            <Link className="dropdown-item" to="#" value="255">Quảng Ngãi</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Bình Định</Link>
+                            <Link className="dropdown-item" to="#" value="256">Bình Định</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Phú Yên</Link>
+                            <Link className="dropdown-item" to="#" value="257">Phú Yên</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Khánh Hoà</Link>
+                            <Link className="dropdown-item" to="#" value="258">Khánh Hoà</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Ninh Thuận</Link>
+                            <Link className="dropdown-item" to="#" value="259">Ninh Thuận</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Bình Thuận</Link>
+                            <Link className="dropdown-item" to="#" value="252">Bình Thuận</Link>
                         </li>
                     </ul>
                 </li>
@@ -269,19 +266,19 @@ function HeaderListRegion() {
                     <Link className="dropdown-item">Tây Nguyên &raquo; </Link>
                     <ul className="dropdown-menu dropdown-submenu">
                         <li>
-                            <Link className="dropdown-item" to="#">Kon Tum</Link>
+                            <Link className="dropdown-item" to="#" value="260">Kon Tum</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Gia Lai</Link>
+                            <Link className="dropdown-item" to="#" value="269">Gia Lai</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Đắk Lắk</Link>
+                            <Link className="dropdown-item" to="#" value="262">Đắk Lắk</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Đắc Nông</Link>
+                            <Link className="dropdown-item" to="#" value="261">Đắc Nông</Link>
                         </li>
                         <li>
-                            <Link className="dropdown-item" to="#">Lâm Đồng</Link>
+                            <Link className="dropdown-item" to="#" value="263">Lâm Đồng</Link>
                         </li>
                     </ul>
                 </li>

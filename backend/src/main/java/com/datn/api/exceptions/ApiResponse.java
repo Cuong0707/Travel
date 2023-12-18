@@ -17,7 +17,7 @@ public class ApiResponse<T> {
 	private int status;
 	private HttpStatus error;
 	private String message;
-	@JsonFormat(pattern = "hh:mma dd/MM/yyyy")
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private LocalDateTime time = LocalDateTime.now();
 	private T data;
 

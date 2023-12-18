@@ -2,7 +2,7 @@ import { useState } from 'react'
 import ActionButtons from '../ActionButtons'
 import HotelDetailForm from './HotelDetailForm'
 
-const ServiceStep = ({ handleChange = () => {}, onSubmit = () => {} }) => {
+const ServiceStep = ({ handleChange = () => {} }) => {
     const [hotelDetails, setHotelDetails] = useState([
         {
             typeOfRoom: '',
@@ -29,8 +29,7 @@ const ServiceStep = ({ handleChange = () => {}, onSubmit = () => {} }) => {
 
     const handleNextStep = () => {
         if (validateForm()) {
-            handleChange('service', hotelDetails)
-            onSubmit()
+            handleChange('service', hotelDetails, 3)
         }
     }
 

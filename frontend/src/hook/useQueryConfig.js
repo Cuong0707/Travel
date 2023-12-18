@@ -9,7 +9,7 @@ export default function useQueryConfig() {
             pageNumber: queryParams.pageNumber || 0,
             pageSize: queryParams.pageSize || 8,
             sortDir: queryParams.sortDir || 'asc',
-            sortBy: queryParams.sortBy || 'nameOfHotel'
+            id: queryParams?.id
         },
         isUndefined
     )

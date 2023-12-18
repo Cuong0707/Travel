@@ -10,10 +10,6 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import com.datn.api.entity.dto.*;
-import com.datn.api.enums.UserStatus;
-import com.datn.api.exceptions.DuplicateRecordException;
-import com.datn.api.exceptions.Exception;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,12 +20,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.datn.api.entity.Users;
+import com.datn.api.entity.dto.CountNewUser;
+import com.datn.api.entity.dto.NumberRegister;
+import com.datn.api.entity.dto.PartnersDto;
+import com.datn.api.entity.dto.UpdateUserInfoRequest;
+import com.datn.api.entity.dto.UserQueryParam;
+import com.datn.api.entity.dto.UserResponse;
+import com.datn.api.entity.dto.UsersDto;
+import com.datn.api.enums.UserStatus;
 import com.datn.api.exceptions.ApiResponse;
+import com.datn.api.exceptions.DuplicateRecordException;
+import com.datn.api.exceptions.Exception;
 import com.datn.api.exceptions.NotFoundException;
 import com.datn.api.repository.UsersRepository;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UsersServiceImpl implements UsersService {
@@ -174,7 +180,7 @@ public class UsersServiceImpl implements UsersService {
 	}
 
 	@Override
-	public UsersDto getUserWithToken(String token) {
+	public UsersDto getUserWithToken(String token) throws java.lang.Exception {
 		String username = jwtService.extractUsername(token);
 		Optional<Users> optional = usersRepository.findByEmail(username);
 		Users user = optional.orElseThrow(() -> new NotFoundException("Không tìm thấy"));
@@ -204,7 +210,7 @@ public class UsersServiceImpl implements UsersService {
 		return usersToDto(user);
 	}
 
-	public Optional<Users> findUerByEmail(String email) {
+	public Optional<Users> findUserByEmail(String email) {
 		Optional<Users> user = usersRepository.findByEmail(email);
 		return user;
 	}
@@ -214,7 +220,14 @@ public class UsersServiceImpl implements UsersService {
 	}
 	@Override
 	public UsersDto usersToDto(Users users) {
-		return this.modelMapper.map(users, UsersDto.class);
+		PartnersDto partnersDto = new PartnersDto();
+		if (users.getPartners() != null) {
+			partnersDto = modelMapper.map(users.getPartners(), PartnersDto.class);
+			UsersDto usersDto = modelMapper.map(users, UsersDto.class);
+			usersDto.setPartnersDto(partnersDto);
+			return usersDto;
+		}
+		return modelMapper.map(users, UsersDto.class);
 	}
 
 	public PartnersDto usersToPartnersDto(Users user) {
@@ -246,14 +259,18 @@ public class UsersServiceImpl implements UsersService {
 		return usersRepository.countUsersForDate(startDate.atStartOfDay(), startDate.atTime(23, 59, 59));
 	}
 
-	public UsersDto updateForUser(UpdateUserInfoRequest updateUserInfoRequest) {
-		Users user = UserCurrent.get();
-		user.setAvatar(updateUserInfoRequest.getAvatar());
+	public UsersDto updateForUser(UpdateUserInfoRequest updateUserInfoRequest, MultipartFile file) {
+		Users user = usersRepository.findById(UserCurrent.get().getUserID()).orElseThrow(() -> {
+			throw new NotFoundException("Cannot find user");
+		});
+
+		if(file != null && !file.isEmpty()){
+			user.setAvatar(storageService.storeFile(file));
+		}
 		user.setBirthday(updateUserInfoRequest.getBirthday());
 		user.setFullname(updateUserInfoRequest.getFullname());
 		user.setAddress(updateUserInfoRequest.getAddress());
 		user.setPhone_number(updateUserInfoRequest.getPhone_number());
-		user.setDistricts(districtService.findDistrictById(updateUserInfoRequest.getDistrict()));
 		Users updateUser = usersRepository.save(user);
 		return this.modelMapper.map(updateUser, UsersDto.class);
 	}
@@ -299,5 +316,28 @@ public class UsersServiceImpl implements UsersService {
 			throw new DuplicateRecordException("Update error");
 		}
 
+	}
+	@Override
+	public UserResponse filterUser(UserQueryParam userQueryParam){
+		if(userQueryParam.getSortFiled()==null|| userQueryParam.getSortFiled().isEmpty()){
+			userQueryParam.setSortFiled("fullname");
+		}
+		Sort sort = userQueryParam.getOrderBy().equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(userQueryParam.getSortFiled()).ascending()
+				: Sort.by(userQueryParam.getSortFiled()).descending();
+		Pageable pageable = PageRequest.of(userQueryParam.getPage(), userQueryParam.getPageSize(),sort);
+		Page<Users> usersPage = usersRepository.filterUser(
+				userQueryParam.getStatus(),
+				pageable
+		);
+		List<Users> usersList =usersPage.getContent();
+		List<UsersDto> content = usersList.stream().map(this::usersToDto).collect(Collectors.toList());
+		UserResponse userResponse = new UserResponse();
+		userResponse.setData(content);
+		userResponse.setPageNumber(usersPage.getNumber());
+		userResponse.setPageSize(usersPage.getSize());
+		userResponse.setTotalElements(usersPage.getTotalElements());
+		userResponse.setTotalPages(usersPage.getTotalPages());
+		userResponse.setLastPage(usersPage.isLast());
+		return userResponse;
 	}
 }

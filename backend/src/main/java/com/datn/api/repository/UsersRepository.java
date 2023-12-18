@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import com.datn.api.entity.Hotels;
+import com.datn.api.enums.UserStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -27,4 +31,7 @@ public interface UsersRepository extends JpaRepository<Users, String> {
 
 	@Query("SELECT u FROM Users u WHERE u.token=?1")
 	Optional<Users> getUsersByToken(String token);
+
+	@Query ("select o from Users o where o.status=?1 and o.isDelete=false ")
+	Page<Users> filterUser(UserStatus userStatus, Pageable pageable);
 }

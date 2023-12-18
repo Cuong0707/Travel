@@ -53,12 +53,12 @@ public class MailerServiceImpl implements MailerService {
 
 	@Override
 	public void send(String to, String subject, String body) throws MessagingException {
-		MimeMessage message = sender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-		helper.setTo(to);
-		helper.setSubject(subject);
-		helper.setText(body, true);
-		sender.send(message);
+			MimeMessage message = sender.createMimeMessage();
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+			helper.setTo(to);
+			helper.setSubject(subject);
+			helper.setText(body, true);
+			sender.send(message);
 	}
 
 	@Override

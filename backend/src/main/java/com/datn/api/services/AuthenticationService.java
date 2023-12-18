@@ -33,7 +33,6 @@ import com.datn.api.repository.UsersRepository;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.var;
 
 @Service
 @RequiredArgsConstructor
@@ -81,7 +80,7 @@ public class AuthenticationService {
 	}
 
 	public ApiResponse<?> forgotPassword(String email) {
-		Users userEntity = usersService.findUerByEmail(email)
+		Users userEntity = usersService.findUserByEmail(email)
 				.orElseThrow(() -> new NotFoundException("Không tìm thấy email"));
 		if (userEntity != null) {
 			String token = UUID.randomUUID().toString();
@@ -91,11 +90,9 @@ public class AuthenticationService {
 				Map<String, Object> model = new HashMap<>();
 				model.put("display", userEntity.getFullname());
 				model.put("link_reset_password", domain + "reset-password?t=" + token);
-
 				Template t = configFreemarker.getTemplate("email-template.ftl");
 				String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
 				mailerService.send(email, "Lấy lại mật khẩu", html);
-
 				return ApiResponse.success(HttpStatus.OK, "Success", null);
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
@@ -166,6 +163,4 @@ public class AuthenticationService {
 			throw new DuplicateRecordException("Sai mật khẩu");
 		}
 	}
-
-
 }

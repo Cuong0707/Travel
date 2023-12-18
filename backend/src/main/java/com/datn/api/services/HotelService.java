@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.datn.api.entity.Hotels;
 import com.datn.api.entity.dto.HotelDto;
+import com.datn.api.entity.dto.HotelQueryParam;
 import com.datn.api.entity.dto.HotelRequest;
 import com.datn.api.entity.dto.HotelResponseDto;
 import com.datn.api.exceptions.Exception;
@@ -18,7 +19,7 @@ public interface HotelService extends IService<HotelDto, Long> {
 
 	HotelDto findByPartner(String id);
 
-    HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize, String sortDir, String sortBy);
+	HotelResponseDto getAllHotels(Integer pageNumber, Integer pageSize, String sortDir, String sortBy, Long id);
 
     List<HotelDto> findAllHotelsByProvince(String provinceID);
 
@@ -39,4 +40,5 @@ public interface HotelService extends IService<HotelDto, Long> {
 
     Hotels findHotelById(Long id);
 
+    HotelResponseDto filterHotel(HotelQueryParam hotelQueryParam);
 }

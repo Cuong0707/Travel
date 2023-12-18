@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import lombok.*;
+import lombok.Data;
 
 @Data
 public class OrdersOfHotelDto {
@@ -12,11 +12,12 @@ public class OrdersOfHotelDto {
 	private int amountOfRoom;
 	private int numberOfPeople;
 	private int numberOfChildren;
+	private String typeOfRoom;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "MM/dd/yyyy HH:mm:ss")
 	private LocalDateTime checkInDate;
 	private int lengthOfStay;
 	private double originalPrice;
 	private double promotionPrice;
-	private Long orderId;
+	private Long orderID;
 	private Long hotelDetailId;
 }

@@ -49,5 +49,6 @@ public interface HotelsRepository extends JpaRepository<Hotels, Long> {
 
 	@Query("select o from Hotels o where  o.isDelete=false and o.hotel_ID=?1 and o.partner=?2")
 	Hotels checkHotelOfPartner(Long id,Partners partners);
-
+	@Query ("select o from Hotels o where o.standard=?1 and o.districts.districtID=?2 and o.nameOfHotel like %?3% and o.isDelete=false and o.status = 'Available'")
+	Page<Hotels> filterHotel(String standard,Long districtId,String keyword,Pageable pageable);
 }

@@ -17,7 +17,7 @@ import java.util.Arrays;
 import java.util.UUID;
 import java.util.stream.Stream;
 
-@Service
+@Service("ImageStorageService")
 public class ImageStorageService implements IStorageService{
     private final Path storageFolder = Paths.get("uploads/images");
 
