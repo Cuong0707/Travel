@@ -37,11 +37,11 @@ function Home() {
                     <AsideFilter />
                     <AsideHoLiday />
                     <ArticleMap setTooltipContent={setContent} setName={setName} />
-                    <ReactTooltip className="tooltip"  >
+                    <ReactTooltip className="tooltip" place="right"  >
                         {content && content !== "" ? (
                             <div style={{ textAlign: 'center' }}>
                                 <h2 style={{ margin: '0 auto' }}>{name}</h2>
-                                <img src={content} width="400px" height="300px" alt="" />
+                                <img src={content} width="300px" height="200px" alt="" />
                             </div>
                         ) : null}
                         {/* {filteredImages.map((image, index) => (

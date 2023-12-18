@@ -1,9 +1,10 @@
 
 import React, { useState, memo } from "react";
 // import '../style/style.scss'
+import { Link, createSearchParams, useNavigate } from 'react-router-dom'
 import vnTopo from '../../geo_data/map.geojson'
 //import images from '../assets/images/FeaturedImage/';
-
+//import addressApi from '../api/address.api'
 import {
     ComposableMap,
     Geographies,
@@ -15,14 +16,28 @@ import {
 const ArticleMap = ({ setTooltipContent, setName }) => {
     //const [content, setContent] = useState("");
     const [position, setPosition] = useState({ coordinates: [104, 16], zoom: 1 });
-
+    const navigate = useNavigate()
+    // const handleSearch = (event) => {
+    //     event.preventDefault()
+    //     navigate({
+    //         pathname: '/HotelList',
+    //         search: createSearchParams({ id: existed.provinceID.toString() }).toString()
+    //     })
+    // }
+    const handleZoomEnd = () => {
+        // Không cho phép zoom bằng cách đặt lại giá trị zoom
+        setPosition((prevPosition) => ({
+          ...prevPosition,
+          zoom: 1,
+        }));
+      };
     return (
         <article className="col-6">
             <div className="map">
                 <ComposableMap data-tip=""
                     projection="geoMercator"
                     projectionConfig={{
-                        scale: 2200,
+                        scale: 2000,
                         center: [109, 12] // coordinate of VietNam [long, lat]
                     }}
                     style={{
@@ -32,7 +47,7 @@ const ArticleMap = ({ setTooltipContent, setName }) => {
                 >
                     {/* center={[104, 17]} */}
 
-                    <ZoomableGroup center={position.coordinates} maxZoom={10} zoom={position.zoom} >
+                    <ZoomableGroup center={position.coordinates} maxZoom={1} zoom={position.zoom} onZoomEnd={handleZoomEnd} >
                         {/* {vietnam.map((geoUrl) => (  */}
                         <Geographies /*key={geoUrl} */ geography={vnTopo}>
                             {({ geographies }) =>
@@ -47,6 +62,12 @@ const ArticleMap = ({ setTooltipContent, setName }) => {
                                         }}
                                         onMouseLeave={() => {
                                             setTooltipContent("");
+                                        }}
+                                        onClick={()=>{
+                                            navigate({
+                                                pathname: '/HotelList',
+                                                search: createSearchParams({ id: geo.properties.ProvinceID.toString() }).toString()
+                                            })
                                         }}
                                         style={{
                                             default: {
